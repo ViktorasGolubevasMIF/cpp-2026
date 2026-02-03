@@ -29,7 +29,7 @@ void swap_val(int x, int y) { // Gauna KOPIJAS (x=1, y=2)
 } // Čia kopijos sunaikinamos. Originalai a ir b nepakito.
 ```
 
-[👉 Python Tutor](https://pythontutor.com/render.html#code=%23include%20%3Ciostream%3E%0Avoid%20swap_val%28int%20x,%20int%20y%29%20%7B%20//%20Gauna%20KOPIJAS%20%28x%3D1,%20y%3D2%29%0A%20%20%20%20int%20temp%20%3D%20x%3B%0A%20%20%20%20x%20%3D%20y%3B%0A%20%20%20%20y%20%3D%20temp%3B%0A%7D%0Aint%20main%28%29%20%7B%0A%20%20int%20a%3D1,%20b%3D2%3B%0A%20%20swap_val%28a,b%29%3B%0A%20%20/*%20a%3D1,b%3D2%20*/%0A%7D&cumulative=false&curInstr=9&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=cpp_g%2B%2B9.3.0&rawInputLstJSON=%5B%5D&textReferences=false)
+[👉 Python Tutor](https://pythontutor.com/visualize.html#code=%23include%20%3Cstdio.h%3E%0Avoid%20swap_val%28int%20x,%20int%20y%29%20%7B%20//%20Gauna%20KOPIJAS%20%28x%3D1,%20y%3D2%29%0A%20%20%20%20int%20temp%20%3D%20x%3B%0A%20%20%20%20x%20%3D%20y%3B%0A%20%20%20%20y%20%3D%20temp%3B%0A%7D%0Aint%20main%28%29%20%7B%0A%20%20int%20a%3D1,%20b%3D2%3B%0A%20%20swap_val%28a,b%29%3B%0A%20%20/*%20a%3D1,b%3D2%20*/%0A%7D&cumulative=false&curInstr=9&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=c_gcc9.3.0&rawInputLstJSON=%5B%5D&textReferences=false)
 
 ---
 
@@ -53,7 +53,7 @@ void swap_ptr(int* x, int* y) { // Gauna ADRESUS
 // Kvietimas: swap_ptr(&a, &b);
 ```
 
-[👉 Vizualizuoti atmintį (Python Tutor)](https://pythontutor.com/render.html#code=%23include%20%3Ciostream%3E%0Avoid%20swap_blogas%28int%20x,%20int%20y%29%20%7B%20//%20Gauna%20KOPIJAS%20%28x%3D1,%20y%3D2%29%0A%20%20%20%20int%20temp%20%3D%20x%3B%0A%20%20%20%20x%20%3D%20y%3B%0A%20%20%20%20y%20%3D%20temp%3B%0A%7D%0Aint%20main%28%29%20%7B%0A%20%20int%20a%3D1,%20b%3D2%3B%0A%20%20swap_blogas%28a,b%29%3B%0A%20%20/*%20a%3D1,b%3D2%20*/%0A%7D&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=cpp_g%2B%2B9.3.0&rawInputLstJSON=%5B%5D&textReferences=false)
+[👉 Python Tutor](https://pythontutor.com/visualize.html#code=%23include%20%3Cstdio.h%3E%0Avoid%20swap_ptr%28int*%20x,%20int*%20y%29%20%7B%20//%20Gauna%20ADRESUS%0A%20%20%20%20int%20temp%20%3D%20*x%3B%20//%20Paimk%20reik%C5%A1m%C4%99%20i%C5%A1%20adreso%20x%0A%20%20%20%20*x%20%3D%20*y%3B%20%20%20%20%20%20%20//%20%C4%AEra%C5%A1yk%20y%20reik%C5%A1m%C4%99%20%C4%AF%20x%20adres%C4%85%0A%20%20%20%20*y%20%3D%20temp%3B%20%20%20%20%20//%20%C4%AEra%C5%A1yk%20temp%20%C4%AF%20y%20adres%C4%85%0A%7D%0A%0Aint%20main%28%29%20%7B%0A%20%20int%20a%3D1,%20b%3D2%3B%0A%20%20swap_ptr%28%26a,%20%26b%29%3B%0A%20%20/*%20a%3D2,b%3D1%20*/%0A%7D&cumulative=false&curInstr=9&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=c_gcc9.3.0&rawInputLstJSON=%5B%5D&textReferences=false)
 
 ---
 
@@ -76,8 +76,7 @@ void swap_cpp(int& x, int& y) { // x yra 'a' pseudonimas
 
 // Kvietimas: swap_cpp(a, b);  <- Atrodo paprastai!
 ```
-
-[👉 Išbandyti kode (Godbolt)](https://godbolt.org/z/K1Tcs6r3h)
+[👉 Python Tutor](https://pythontutor.com/visualize.html#code=void%20swap_cpp%28int%26%20x,%20int%26%20y%29%20%7B%20//%20x%20yra%20'a'%20pseudonimas%20%0Aint%20temp%20%3D%20x%3B%20%0A%20%20%20%20x%20%3D%20y%3B%20%20//%20Kei%C4%8Dia%20pat%C4%AF%20original%C4%85%20%0A%20%20%20%20y%20%3D%20temp%3B%20%0A%7D%20%0A%0Aint%20main%28%29%20%7B%0A%20%20int%20a%3D1,%20b%3D2%3B%0A%20%20swap_cpp%28a,%20b%29%3B%20%20//%20Atrodo%20paprastai!%0A%20%20/*%20a%3D1,b%3D2%20*/%0A%7D&cumulative=false&curInstr=10&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=cpp_g%2B%2B9.3.0&rawInputLstJSON=%5B%5D&textReferences=false)
 
 ---
 
