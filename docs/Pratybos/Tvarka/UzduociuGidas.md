@@ -8,14 +8,14 @@
 
 ## 📋 Turinys
 
-1. [GitLab projekto sukūrimas](#gitlab-projekto-sukūrimas)
-2. [Projekto struktūra](#projekto-struktūra)
-3. [Užduoties atlikimo workflow](#užduoties-atlikimo-workflow)
-4. [Git commit'ų gairės](#git-commitų-gairės)
-5. [README.md reikalavimai](#readmemd-reikalavimai)
-6. [Pateikimas Moodle](#pateikimas-moodle)
-7. [Vertinimas](#vertinimas)
-8. [DUK](#duk)
+1. [GitLab projekto sukūrimas](#-gitlab-projekto-sukūrimas)
+2. [Projekto struktūra](#-projekto-struktūra)
+3. [Užduoties atlikimo workflow](#-užduoties-atlikimo-workflow)
+4. [Git commit'ų gairės](#-git-commitų-gairės)
+5. [README.md reikalavimai](#-readmemd-reikalavimai)
+6. [Pateikimas Moodle](#-pateikimas-moodle)
+7. [Vertinimas](#-vertinimas)
+8. [DUK](#-duk)
 
 ---
 
@@ -24,30 +24,32 @@
 ### **1 žingsnis: Sukurti repo GitLab'e**
 
 1. Eikite į fakulteto GitLab: `https://git.mif.vu.lt`
-2. Prisijunkite su VU kredencialais
+2. Prisijunkite su MIF (!) kredencialais
 3. Sukurkite **naują projektą**:
    - **Project name**: `cpp-2026`
-   - **Visibility**: `Private`
+   - **Visibility**: `Private` (svarbu!)
    - **Initialize with README**: ✅ (pažymėti)
 
 ### **2 žingsnis: Suteikti prieigą dėstytojui**
 
-1. **Manage** → **Members**
-2. **Add member**: `Viktoras Golubevas`
+1. **Settings** → **Members**
+2. **Add member**: `[dėstytojo username]`
 3. **Role**: `Maintainer`
 
 ### **3 žingsnis: Clone repo į savo kompiuterį**
 
 ```bash
-git clone https://git.mif.vu.lt/[jūsų-username]/cpp-2026.git
+git clone https://gitlab.mif.vu.lt/[jūsų-username]/cpp-2026.git
 cd cpp-2026
 ```
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## 📁 Projekto struktūra
 
-### **Pavyzdinė struktūra:**
+### **Pilna struktūra:**
 
 ```
 cpp-2026/                    ← GitLab repo
@@ -67,7 +69,7 @@ cpp-2026/                    ← GitLab repo
 │   │   ├── rusiavimas.cpp
 │   │   └── Makefile
 │   ├── 04/                  ← 4 žingsnis
-│   └── 05/                  ← 5 žingsnis
+│   └── 05/                  ← 5 žingsnis (FINAL)
 │
 ├── U2/                      ← Užduotis 2
 │   ├── README.md
@@ -90,6 +92,8 @@ cpp-2026/                    ← GitLab repo
 | **Žingsnis** | `/U1/01/README.md` | *Nebūtina* | ❌ NE |
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## 🔄 Užduoties atlikimo workflow
 
@@ -117,6 +121,8 @@ cpp-2026/                    ← GitLab repo
 10. Pateikti Moodle
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### **Detalus pavyzdys (U1):**
 
 #### **Žingsnis 1: Sukurti direktorijas**
@@ -126,7 +132,7 @@ cd cpp-2026
 mkdir -p U1/01 U1/02 U1/03 U1/04 U1/05
 ```
 
-#### **Žingsnis 2: Atlikti 1 užduoties žingsnį**
+#### **Žingsnis 2: Atlikti užduoties U1 1 žingsnį**
 
 ```bash
 cd U1/01
@@ -144,7 +150,7 @@ git commit -m "U1: 1 žingsnis - Hello World ir masyvų įvestis"
 git push
 ```
 
-#### **Žingsnis 4: Atlikti 2 užduoties žingsnį**
+#### **Žingsnis 4: Atlikti užduoties U1 2 žingsnį**
 
 ```bash
 cd ../02
@@ -157,17 +163,19 @@ git commit -m "U1: 2 žingsnis - Bubble sort funkcija"
 git push
 ```
 
-#### **Žingsnis 5: Po visų žingsnių - README**
+#### **Žingsnis 5: Po visų žingsnių - užduoties README**
 
 ```bash
 cd U1
-# Sukurti README.md (žr. šabloną žemiau)
+# Sukurti README.md (žr. šabloną ...)
 git add README.md
 git commit -m "U1: Užduoties README"
 git push
 ```
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## 📝 Git commit'ų gairės
 
@@ -218,6 +226,8 @@ Pavyzdžiai:
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## 📄 README.md reikalavimai
 
 ### **1. Projekto README (`/README.md`)** - PRIVALOMAS
@@ -260,17 +270,11 @@ Kiekviena užduotis turi savo Makefile:
 cd U1/05/
 make
 ./programa
-```bash
-
----
-
-## 📝 Pastabos
-
-- Commit'ai buvo daromi po kiekvieno žingsnio
-
 ```
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ### **2. Užduoties README (`/U1/README.md`)** - PRIVALOMAS
 
@@ -280,7 +284,7 @@ make
 # U1: C++ Primityvai ir Funkcijų Moduliai
 
 **Būsena**: ✅ Atlikta  
-**Pateikta**: 2026-02-10
+**Pateikta**: 2026-XX-XX
 
 ---
 
@@ -299,31 +303,32 @@ make
 ## 🧪 Testavimas
 
 **Testas 1 (skaičiai)**:
-```txt
+```bash
 Input: 42 17 99 5 0
 Output: 5 17 42 99
+```bash
 ✅ VEIKIA
-```txt
+
 
 **Testas 2 (žodžiai)**:
-```txt
+```bash
 Input: obuolys bananas citrina -
 Output: bananas citrina obuolys
+```bash
 ✅ VEIKIA
-```txt
+
 
 ---
 
-## 💭 Pagrindinės įžvalgos (jei turite)
+## 💭 Pagrindinės įžvalgos
 
-1. Vector daug lankstesnis už masyvą (dinaminis dydis)
-2. Tas pats algoritmas veikia su int ir string!
+1. Modulinė struktūra - `.h`/.`cpp` separacija patogu
+2. Vector daug lankstesnis už masyvą (dinaminis dydis)
+3. Tas pats algoritmas veikia su int ir string!
 
 ---
 
 ## ⚠️ Problemos (jei buvo)
-
-*(Neprivaloma, bet naudinga)*
 
 **Problema 1**: Makefile TAB vs spaces  
 **Sprendimas**: Pakeisti spaces į TAB simbolius
@@ -336,15 +341,24 @@ Output: bananas citrina obuolys
 cd 05/
 make
 ./programa
-```bash
 ```
+
+---
 
 **Minimumas** (jei tingite):
 - ✅ Žingsnių lentelė
-- ✅ Bent 1 testas
+- ✅ Bent 1-2 testai
 - ✅ Kompiliavimo instrukcijos
 
 ---
+
+### **3. Žingsnio README (`/U1/01/README.md`)** - NEPRIVALOMAS
+
+Jei norite, galite pridėti trumpas pastabas kiekviename žingsnyje!
+
+---
+
+<div style="page-break-after: always;"></div>
 
 ## 📦 Pateikimas Moodle
 
@@ -388,11 +402,13 @@ zip -r U1_VardasPavarde.zip U1/ README.md .gitignore
 
 ### **Archyvo vardas:**
 
+```
 U[numeris]_VardasPavarde.zip
 
 Pavyzdžiai:
 - U1_JonasJonaitis.zip
 - U2_PetrasPetraitis.zip
+```
 
 ---
 
@@ -417,9 +433,8 @@ Pavyzdžiai:
 2. **Eiti į Moodle** → C++ kursas → Užduotis U1
 3. **Upload failą**: `U1_VardasPavarde.zip`
 4. **Pridėti GitLab URL** (comment/text field):
-   
    ```
-   GitLab repo: https://git.mif.vu.lt/[username]/cpp-2026
+   GitLab repo: https://gitlab.mif.vu.lt/[username]/cpp-2026
    Commit hash: abc123def456
    ```
 5. **Submit**
@@ -427,6 +442,8 @@ Pavyzdžiai:
 **Terminas**: Žiūrėkite užduoties aprašyme (pvz., U1.md)
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## ❓ DUK
 
@@ -449,7 +466,7 @@ git checkout main
 git merge u1-step5
 ```
 
-**Bet** subdirektorijos (`01/`, `02/`, ...) **paprastesnės** ir **labiau atitinka paskaitų medžiagą** (Dėstytojo "Stack Evolution" stilius mokomojoje repo).
+**Bet** subdirektorijos (`01/`, `02/`, ...) **paprastesnės** ir **labiau atitinka paskaitų medžiagą** (Stack Evolution stilius).
 
 ---
 
@@ -551,7 +568,7 @@ git clone https://gitlab.mif.vu.lt/[username]/cpp-2026.git
 
 Bet galite:
 - ✅ Diskutuoti idėjas
-- ✅ Padėti debug'inti (ne duoti kodo!)
+- ✅ Padėti debug'inti (neduoti kodo!)
 - ❌ Kopijuoti kodą (plagiatas!)
 
 ---
@@ -565,24 +582,26 @@ Bet galite:
 - **U4-U7**: 5-8 valandos
 - **U8-U9**: 8-12 valandų (projektas)
 
-**Patariu**: Pradėti **anksčiau**, ne laukti paskutinės dienos! 😊
+**Patariu**: Pradėti **anksčiau**, nelaukti paskutinės dienos! 😊
 
 ---
 
-### **K: Kam kreiptis pagalbos?**
+### **K: Į ką kreiptis pagalbos?**
 
 **A:**
 1. **Pirmiausia**: Perskaityti užduoties aprašymą (U1.md, U2.md, ...)
 2. **Antra**: Pažiūrėti Stack Overflow, cppreference.com
-3. **Trečia**: Klausti dėstytojo (Moodle arba email)
-4. **Paskutinis būdas**: Klausti kolegos (bet **ne kopijuoti** kodą!)
+3. **Trečia**: Klausti dėstytojo (auditorijoje, Teams arba email)
+4. **Paskutinis būdas**: Klausti kolegos (bet **ne kopijuoti** kodo!)
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## 🔗 Naudingos nuorodos
 
 - **GitLab dokumentacija**: https://docs.gitlab.com/
 - **Git tutorial**: https://git-scm.com/book/en/v2
 - **Markdown sintaksė**: https://www.markdownguide.org/
-- **C++ reference**: https://en.cppreference.com/
 - **Makefile tutorial**: https://makefiletutorial.com/
+
