@@ -683,7 +683,7 @@
 
 ---
 
-### 4 sprendimas: Ataka pavyksta
+### 4 sprendimas: "Atakos" bandymas
 
 > [`03_Discovering_C_MODULE/05_OK_Attack`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/03_Discovering_C_MODULE/05_OK_Attack/)
 
@@ -720,7 +720,7 @@
     gcc -c stack.c -o stack.o
     gcc -c user_attack.c -o user_attack.o
     gcc stack.o user_attack.o -o app
-    ./app  # ✅ bet rezultatas BLOGAS!
+    ./app  # ✅
     ```
 
 === "⌨️➔🖥️"
@@ -732,7 +732,7 @@
 
 ---
 
-#### ✅ Veikia, bet BLOGAI!
+#### ✅ "Ataka" pavyko!
 
 ??? danger "Globalūs kintamieji viešai prieinami"
     ```c
@@ -760,10 +760,9 @@
 > [`04_Protecting_IMPLEMENTATION`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/04_Protecting_IMPLEMENTATION/)
 
 !!! note "🎯 Tikslas"
-    Išmokti **information hiding** techniką naudojant `static` linkage - paslėpti vidinę implementaciją nuo išorinio pasaulio.
+    Išmokti **information hiding** techniką naudojant `static` arba internal linkage - paslėpti vidinę implementaciją nuo išorės.
 
 !!! info "🔍 Ką darysime"
-    - Bandysime atakuoti modulį pridėdami `extern` su `static`
     - Suprasime kaip `static` saugo duomenis
     - Pamatysime likusią problemą - **tik vienas stekas**
 
@@ -774,7 +773,7 @@
 > [`04_Protecting_IMPLEMENTATION/01_NL_Attack`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/04_Protecting_IMPLEMENTATION/01_NL_Attack/)
 
 !!! quote "sumanymas/ketinimas"
-    Pabandysiu atakuoti modulį - pridėsiu `static` prie kintamųjų `stack.c`, bet palikusiu `extern` deklaracijas `stack.h`.
+    Pabandysiu apsaugoti modulį - pridėsiu `static` prie kintamųjų `stack.c`.
 
 === "stack.h"
 
@@ -828,11 +827,11 @@
         user_attack.c:(.text+0x7): undefined reference to `top'
         clang: error: linker command failed with exit code 1
         ```
-        ❌ undefined reference to ...
+        ❌ `undefined reference to ...`
 
 ---
 
-#### ❌ Nesilinkina
+#### ❌ Nesilinkina - Ataka nepavyko!
 
 ??? bug "🔍 Diagnozė: Konfliktas tarp extern ir static"
     **Problema:** Header'yje deklaruojame `extern int top;`, bet `stack.c` apibrėžia `static int top = 0;`
@@ -841,8 +840,6 @@
     - `extern` sako "ieškoti išorėje, matomas kitose kompiliavimo vieneto"
     - `static` sako "matomas **tik** šiame faile"
     - Linkeris negali rasti `top`, nes jis **internal linkage**!
-    
-    **Sprendimas:** Pašalinti `extern` iš header'o - palikti tik funkcijų prototipus.
 
 ---
 
