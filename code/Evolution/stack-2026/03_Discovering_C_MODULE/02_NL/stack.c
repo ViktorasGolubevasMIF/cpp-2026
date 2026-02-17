@@ -1,9 +1,8 @@
 #include <stdio.h>
-// #include "stack.h"
-#define SIZE 100
+#include "stack.h"
 
-char stack[SIZE];
-int top;
+// char stack[SIZE];
+// int top;
 
 void init(void) {
     top = 0;

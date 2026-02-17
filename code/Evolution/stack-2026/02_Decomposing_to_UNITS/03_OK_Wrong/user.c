@@ -14,11 +14,3 @@ int main(void) {
     putchar('\n');
     return 0;
 }
-
-/*
-C:\Repos\Github\ViktorasGolubevas\cpp2026-test\code\evolution\stack-2026\02_separating_Files\03_OK_Wrong>gcc user.c -o app
-
-C:\Repos\Github\ViktorasGolubevas\cpp2026-test\code\evolution\stack-2026\02_separating_Files\03_OK_Wrong>app.exe
-123
-321
-*/

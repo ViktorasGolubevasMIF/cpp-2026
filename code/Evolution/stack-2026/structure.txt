@@ -1,0 +1,169 @@
+Folder PATH listing for volume Windows-SSD
+Volume serial number is 60A3-0CD0
+C:.
+|   README.md
+|   README_Level1_Root.md
+|   structure.txt
+|   
++---01_Running_PROGRAM
+|   |   README.md
+|   |   README_L2_01_Running_PROGRAM.md
+|   |   _README.md
+|   |   
+|   \---01_OK_Naive
+|           usestack.c
+|           
++---02_Decomposing_to_UNITS
+|   |   README.md
+|   |   README_L2_02_Decomposing_to_UNITS.md
+|   |   
+|   +---01_NC
+|   |       app.exe
+|   |       stack.c
+|   |       user.c
+|   |       
+|   +---02_NL
+|   |       README.md
+|   |       README_L3_02_NL.md
+|   |       stack.c
+|   |       user.c
+|   |       
+|   \---03_OK_Wrong
+|           app.exe
+|           README.md
+|           README_L3_03_OK_Wrong.md
+|           stack.c
+|           user.c
+|           
++---03_Discovering_C_MODULE
+|   |   README.md
+|   |   README_Level2_03_MODULE.md
+|   |   _README.md
+|   |   
+|   +---01_NC
+|   |       stack.h
+|   |       
+|   +---02_NL
+|   |       stack.c
+|   |       stack.h
+|   |       user.c
+|   |       
+|   +---03_NL
+|   |       stack.c
+|   |       stack.h
+|   |       user.c
+|   |       
+|   +---04_OK
+|   |       README.md
+|   |       README_Level3_04_OK.md
+|   |       stack.c
+|   |       stack.h
+|   |       user.c
+|   |       use_stack.exe
+|   |       
+|   \---05_OK_Attack
+|           README.md
+|           README_Level3_05_OK_Attack.md
+|           stack.c
+|           stack.h
+|           user_attack.c
+|           
++---04_Protecting_IMPLEMENTATION
+|   |   README.md
+|   |   README_L2_04_Protecting_IMPLEMENTATION.md
+|   |   
+|   +---01_NL_Attack
+|   |       README.md
+|   |       README_L3_04_01_NL_Attack.md
+|   |       stack.c
+|   |       stack.h
+|   |       user_attack.c
+|   |       
+|   \---02_OK
+|           README.md
+|           README_L3_04_02_OK.md
+|           stack.c
+|           stack.h
+|           user.c
+|           
++---05_Defining_USER_TYPE
+|   |   README.md
+|   |   README_L2_05_Defining_USER_TYPE.md
+|   |   
+|   +---01_NC
+|   |       usestack.c
+|   |       
+|   +---02_RT
+|   |       usestack.c
+|   |       
+|   \---03_OK
+|           usestack.c
+|           
++---06_ENCAPSULATING_UDT_in_Module
+|   |   README.md
+|   |   README_L2_06_ENCAPSULATING_UDT_in_Module.md
+|   |   
+|   +---01_OK
+|   |       app.exe
+|   |       stack.c
+|   |       stack.h
+|   |       user.c
+|   |       
+|   \---02_OK_Attack
+|           app.exe
+|           stack.c
+|           stack.h
+|           user_attack.c
+|           
++---07_HIDING_UDT_Information
+|   |   README.md
+|   |   README_L2_07_HIDING_UDT_Information.md
+|   |   _README.md
+|   |   
+|   +---01_NC
+|   |       README.md
+|   |       README_L3_07_01_NC.md
+|   |       stack.c
+|   |       stack.h
+|   |       user_attack.c
+|   |       _user.c
+|   |       
+|   +---02_NC
+|   |       stack.c
+|   |       stack.h
+|   |       user_attack.c
+|   |       
+|   \---03_RT
+|           app.exe
+|           stack.c
+|           stack.h
+|           user.c
+|           
++---08_Acquiring_RESOURCES
+|   |   README.md
+|   |   README_L2_08_Acquiring_RESOURCES.md
+|   |   
+|   +---01_NC
+|   |       stack.c
+|   |       stack.h
+|   |       user.c
+|   |       
+|   \---02_OK
+|           app.exe
+|           stack.c
+|           stack.h
+|           user.c
+|           
++---09_Completing_LIFECYCLE
+|   |   README.md
+|   |   README_L2_09_Completing_LIFECYCLE.md
+|   |   
+|   \---01_OK
+|           app.exe
+|           stack.c
+|           stack.h
+|           user.c
+|           
+\---10_Advanced_C_Techniques
+        Stack_Advanced_Techniques_10A-10D.md
+        

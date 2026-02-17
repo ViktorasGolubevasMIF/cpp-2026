@@ -1,5 +1,27 @@
 #include <stdio.h>
 
+// === Čia naudojame tą steką ===
+
+int main(void) {
+    char c;
+
+    init();
+
+    /* Skaitome simbolius iki '\n' */
+    while ((c = getchar()) != '\n') {
+        push(c);
+    }
+
+    /* Kol stekas netuščias, spausdiname išimdami po simbolį (elementą) */
+    while (!isEmpty()) {
+        putchar(pop());
+    }
+
+    putchar('\n');
+    return 0;
+}
+
+
 // === Sugalvojome tokią realizaciją (implementaciją) ===
 #define SIZE 5
 
@@ -36,26 +58,6 @@ char pop(void) {
     return '\0';
 }
 
-// === Čia naudojame tą steką ===
-
-int main(void) {
-    char c;
-
-    init();
-
-    /* Skaitome simbolius iki '\n' */
-    while ((c = getchar()) != '\n') {
-        push(c);
-    }
-
-    /* Kol stekas netuščias, spausdiname išimdami po simbolį (elementą) */
-    while (!isEmpty()) {
-        putchar(pop());
-    }
-
-    putchar('\n');
-    return 0;
-}
 
 /*
 >gcc usestack.c -o app

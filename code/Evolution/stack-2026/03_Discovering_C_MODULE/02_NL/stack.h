@@ -1,7 +1,7 @@
 #define SIZE 100
 
 char stack[SIZE];
-int top;
+int top=0;
 
 void init(void);
 int isEmpty(void);

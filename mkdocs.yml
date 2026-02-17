@@ -1,0 +1,88 @@
+site_name: Objektinis programavimas C++. INF-1K
+site_url: https://viktorasgolubevasmif.github.io/cpp-2026/
+repo_url: https://github.com/ViktorasGolubevasMIF/cpp-2026
+repo_name: GitHub cpp-2026
+
+# Temos nustatymai
+theme:
+  name: material
+  language: lt           # Lietuvių kalba (paieškai ir mygtukams)
+  
+  # Spalvų paletė (Dark/Light mode mygtukas viršuje)
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Perjungti į tamsų režimą
+    - scheme: slate      # Tamsi tema
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Perjungti į šviesų režimą
+
+  features:
+    - navigation.expand       # Išskleidžia meniu
+    - navigation.top          # "Back to top" mygtukas
+    - navigation.tabs         # Meniu perkelia į viršų (kaip naršyklės tab'ai) - gražiau
+    - navigation.instant        # ← SPA-like navigation
+    - navigation.tracking       # ← URL tracking
+    - content.code.copy       # "Copy" mygtukas prie kodo
+    - content.code.annotate   # ← NAUJAS: leidžia kodo anotacijas (1)
+
+# Markdown plėtiniai (Čia prasideda magija)
+markdown_extensions:
+  # Leidžia naudoti !!! note "Pastaba" blokus
+  - admonition
+  
+  # Leidžia sutraukti blokus (pvz. ilgiems sprendimams)
+  - pymdownx.details
+  
+  # Kodo spalvinimas
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  
+  # Reikalinga, kad veiktų Mermaid diagramos ir kodų blokai
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  # SKIRTUKAI (Tabs) - jūsų C vs C++ palyginimams
+  - pymdownx.tabbed:
+      alternate_style: true 
+  
+  # Matematinės formulės (jei reikės Big-O notacijai)
+  - pymdownx.arithmatex:
+      generic: true
+  
+  # ═══════════════════════════════════════════════════════════
+  # 🎯 NAUJAS: Kodo įterpimas iš failų!
+  # ═══════════════════════════════════════════════════════════
+  - pymdownx.snippets:
+      base_path: 
+        - 'docs'           # ieško docs/ kataloge
+        - 'docs/Paskaitos' 
+        - '.'              # ieško repo root'e (pvz. code/)
+      check_paths: true    # patikrina, ar failai egzistuoja
+      dedent_subsections: true  # automatinis indentation fix
+      restrict_base_path: false  # leidžia pasiekti visą repo
+
+# Jūsų meniu struktūra
+nav:
+  - 'Pradžia': index.md
+  - 'Temos':
+    - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
+  - 'Paskaitos':
+    - '01 Paskaita': Paskaitos/01_Paskaita_TIKRAI_FINAL.md
+
+# ═══════════════════════════════════════════════════════════
+# 🎯 NAUJAS: Extra JavaScript (jei reikės Mermaid ar MathJax)
+# ═══════════════════════════════════════════════════════════
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js
