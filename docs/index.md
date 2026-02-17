@@ -1,48 +1,24 @@
-!!! quote "Naujienos (Atnaujinta: 2026-02-04)"
-    * Įkelta **x-ios paskaitos** medžiaga apie Rodykles.
-    * Pratybų užduotis Nr. 1 jau pasiekiama Moodle.
+!!! quote "Naujienos (Atnaujinta: 2026-02-17)"
+    * Įkelta **1-os paskaitos** medžiaga.
 
-# Programavimas C++ (1 kursas)
-
-Sveiki atvykę į objektinio programavimo C++ kalba kursą. Šioje svetainėje rasite visą paskaitų konspektą, kodo pavyzdžius ir pratybų užduotis.
-
-!!! info "Organizacinė informacija"
-    * **Paskaitos:** Pirmadieniais 10:00 (101 aud.)
-    * **Pratybos:** Trečiadieniais 14:00 (202 aud. / Teams)
-    * **Egzaminas:** 2026-01-XX
-    * **Moodle:** [Nuoroda į kursą](https://moodle.jusu-universitetas.lt)
-
----
+    * Pratybų užduotis U1 jau pasiekiama Moodle.
 
 ## 🛠️ Naudingi įrankiai
 
 Šiuos įrankius naudosime viso kurso metu. Rekomenduoju išsisaugoti.
 
-[Compiler Explorer (Godbolt)](https://godbolt.org/){ .md-button .md-button--primary }
-[C++ Reference](https://en.cppreference.com/w/){ .md-button }
-[C++ Insights](https://cppinsights.io/){ .md-button }
-[Python Tutor (Vizualizacija)](https://pythontutor.com/cpp.html){ .md-button }
+[Compiler Explorer (Godbolt)](https://godbolt.org/)
+[C++ Reference](https://en.cppreference.com/w/)
+[C++ Insights](https://cppinsights.io/)
+[Python Tutor (Vizualizacija)](https://pythontutor.com/cpp.html)
 
 ---
-
-## 📊 Vertinimo sistema
-
-Galutinis pažymys susideda iš kaupiamojo balo:
-
-| Dalis | Svoris | Aprašymas |
-| :--- | :--- | :--- |
-| **Laboratoriniai darbai** | 40% | 3 gynimai semestro metu |
-| **Kontrolinis (Kolokviumas)** | 20% | Teorija ir praktinės užduotys (C dalis) |
-| **Egzaminas** | 40% | Objektinis programavimas ir STL |
-
-!!! warning "Svarbu"
-    Norint būti prileistam prie egzamino, privaloma atsiskaityti visus laboratorinius darbus.
 
 ---
 
 ## 🗺️ Kurso struktūra
 
-Kursas suskirstytas į tris loginius etapus. Detalų turinį matote kairėje meniu juostoje.
+Kursas suskirstytas į tris loginius etapus (juodraštis):
 
 ### 1. Nuo C link C++ (Procedūrinis pagrindas)
 Prisiminsime C kalbą, rodykles (pointers), atminties valdymą ir pereisime prie C++ sintaksės pagerinimų (references, overload, namespace).
