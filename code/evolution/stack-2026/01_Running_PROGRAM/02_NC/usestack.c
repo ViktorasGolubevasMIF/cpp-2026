@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-// === Čia naudojame tą steką ===
+// === Steko realizacija apibrėžta vėliau ===
 
 int main(void) {
     char c;

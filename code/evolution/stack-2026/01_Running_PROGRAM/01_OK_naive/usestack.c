@@ -4,7 +4,7 @@
 #define SIZE 5
 
 char stack[SIZE];
-int top = 0;
+int top;
 
 /* Inicializavimas/nustatymas - reset() */
 void init(void) {

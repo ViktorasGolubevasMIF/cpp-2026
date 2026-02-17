@@ -1,4 +1,4 @@
-#define SIZE 100 // ?
+#define SIZE 100
 
 extern char stack[SIZE];
 extern int top;

@@ -1,26 +1,31 @@
 # Stack ADT Evoliucija C kalboje
-## I-oji dalis: Nuo Monolito iki Pilno ADT C kalboje
+## I dalis: Nuo "naivaus" Monolito iki "profesionalaus" ADT C kalboje
 
 ---
 
-### 🎯 Kodėl Stack? Kodėl evoliucija?
+### 🎯 Kodėl `Stack`? Kodėl evoliucija?
 
 !!! abstract "ADT vs Primityvūs Tipai"
     **Abstraktus Duomenų Tipas (ADT)** fundamentaliai skiriasi nuo "mokyklinių" primityvių tipų (`int`, `char`, `float`).
     
-    **Primityvūs tipai** - suvokiame per **reikšmių aibę**:
+    **Primityvūs tipai** - juos visų pirma suvokiame per **reikšmių aibę** ir taikytinas operacijas:
+
     - `int` → ..., -2, -1, 0, 1, 2, 3, ...
+    
     - `char` → 'a', 'b', 'c', ..., 'z', ...
+    
     - `float` → 3.14, -2.71, ...
     
-    **ADT** - suvokiame per **operacijas**, o ne per reikšmes:
+    **ADT** - juos suvokiame tik per **operacijas**, o ne per reikšmes:
+    
     - `Stack` → `push()`, `pop()`, `isEmpty()`, `isFull()`
+    
     - Mums **nerūpi** kaip stekas atmintyje atrodo
-    - Mums **svarbu** tik ką galime su juo daryti!
-
+    
+    - Mums **svarbu** tik ką galime su juo daryti, t.y. žinoti jo elgseną.
 !!! question "Kodėl pasirinktas Stack?"
     **Stack (Stekas)** - idealus ADT mokymosi pavyzdys:
-    
+
     ✅ **Paprasta semantika:** LIFO (Last In, First Out) - "paskutinis įėjo, pirmas išėjo"
     
     ✅ **Minimalios operacijos:** Tik 2 pagrindinės - `push()` ir `pop()`
@@ -39,28 +44,28 @@
     - **Runtime klaidos** → išmokstame pass-by-pointer
     - **Saugumo problemos** → atrandame information hiding
     
-    >**Kompiliavimo ir linkavimo klaidos ir perspėjimai yra mokymosi įrankis, o ne kliūtis!**
+    >**Kompiliavimo ir linkavimo klaidos bei perspėjimai yra mokymosi įrankis, o ne kliūtis!**
 
 ---
 
-## 9 Etapų Kelionė: Nuo Monolito iki Pilno ADT
+## 9-ių Etapų Evoliucija
 
-!!! abstract "Kelionės žemėlapis"
+!!! abstract ""
     **01-03:** Modulio gimimas (C modulis su header failais)
     
-    **04:** Information hiding (`static` linkage)
+    **04:** Information hiding (`static`, internal linkage)
     
-    **05-06:** User-Defined Type (struct + modulis)
+    **05-06:** User-Defined Type (`struct` + modulis)
     
     **07:** Opaque pointer (forward declaration)
     
-    **08-09:** Pilnas ADT (factory pattern, lifecycle)
+    **08-09:** Pilnavertis ADT (factory pattern, lifecycle)
 
 ---
 
-## 1️⃣Etapas: "Stekas-Programa"
+## 1️⃣Etapas: "Stekas Programoje"
 
-> [`01_Running_PROGRAM`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/01_Running_PROGRAM/)
+> [`01_Running_PROGRAM`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/01_Running_PROGRAM/)
 
 !!! note "🎯 Tikslas"
     Sukurti **paprasčiausią veikiančią** steko realizaciją - pradėti nuo monolitinės programos.
@@ -69,13 +74,12 @@
     - Parašysime **visą kodą viename faile** - monolitas
     - Naudosime **globalius kintamuosius** steko duomenims
     - Suprasime **monolito privalumus** ir **ribotumus**
-    - Pamatysime kodėl reikia evoliucijos
 
 ---
 
 ### 1 sprendimas: "Naivus"
 
-> [`01_Running_PROGRAM/01_OK_Naive`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/01_Running_PROGRAM/01_OK_Naive/)
+> [`01_Running_PROGRAM/01_OK_Naive`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/01_Running_PROGRAM/01_OK_naive/)
 
 !!! quote "sumanymas/ketinimas"
     Paprasčiausia įmanoma realizacija - viskas viename faile: duomenys, funkcijos, `main()`. Greitas prototipavimas!
@@ -112,7 +116,6 @@
 #### ✅ Veikia! Bet...
 
 ??? success "Privalumai"
-    - **Funkcijų eiliškumas nesvarbus:** `main()` gali būti viršuje
     - **Kompiliatorius mato viską:** Vienas kompiliavimo vienetas - viską "mato"
     - **Paprastas build:** Viena komanda `gcc usestack.c -o app`
     - **Greitas prototipavimas:** Įdarbinimo pokalbio "quick solution"
@@ -135,56 +138,32 @@
 
 ---
 
-## 2️⃣Etapas: "Stekas-Failas"
+## 2️⃣Etapas: "Stekas Faile"
 
-> [`02_Decomposing_to_UNITS`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/02_Decomposing_to_UNITS/)
+> [`02_Decomposing_to_UNITS`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/02_Decomposing_to_UNITS/)
 
 !!! note "🎯 Tikslas"
     Išmokti **fizinio padalijimo** į failus - atskirti **paslaugą** (`stack.c`) nuo **vartotojo** (`user.c`).
 
 !!! info "🔍 Ką darysime"
-    - Padalinsime kodą į **du failus** - stack.c ir user.c
-    - Susidursime su **kompiliavimo klaidomis** - trūkstamos deklaracijos
-    - Susidursime su **linkavimo klaidomis** - multiple definition
-    - Išmoksime kad `#include "file.c"` yra antipattern
-    - **Pamatysime skirtumus** tarp gcc ir clang elgesio!
-
----
-
-!!! info "📚 Terminologija: Aprašas vs Apibrėžimas"
-    **C kalboje kritiškai svarbu skirti du dalykus:**
-    
-    **Aprašas (Declaration)** - "sakome kompiliatoriui" kad kažkas egzistuoja:
-    
-    - `int add(int a, int b);` ← **funkcijos prototipas** (tai ir yra aprašas!)
-    - `extern int counter;` ← kintamojo aprašas
-    - Kompiliatorius žino **vardą ir tipą**, bet **ne kaip veikia** ar **kur saugoma**
-    - **Gali būti daug** aprašų (įvairiuose failuose)
-    
-    **Apibrėžimas (Definition)** - "pasakome kompiliatoriui" KĄ daryti ir KUR saugoti:
-    
-    - `int add(int a, int b) { return a + b; }` ← funkcijos apibrėžimas
-    - `int counter = 0;` ← kintamojo apibrėžimas  
-    - Kompiliatorius žino **viską** - sugeneruoja kodą/alokuoja atmintį
-    - **Gali būti tik VIENAS** apibrėžimas (vienoje vietoje)
-    
-    **Aukso taisyklė:** 
-    
-    - Aprašų (declarations) → **daug** ✅
-    - Apibrėžimų (definitions) → **tik vienas** ✅
+    - Padalinsime kodą į **du failus** - `stack.c` ir `user.c`
+    - Susidursime su **kompiliavimo klaidomis** - trūksta aprašų
+    - Susidursime su **linkinimo klaidomis** - per daug apibrėžimų
+    - Isitikinsime, kad `#include "file.c"` yra antipattern
+    - **Pamatysime skirtumus** tarp `gcc` ir `clang` kompiliatorių elgesio (tiesa - skirtumas kontroliuojamas)
 
 ---
 
 ### 1 sprendimas: Kodo padalijimas
 
-> [`02_Decomposing_to_UNITS/01_NC`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/02_Decomposing_to_UNITS/01_NC/)
+> [`02_Decomposing_to_UNITS/01_NC`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/02_Decomposing_to_UNITS/01_NC/)
 
 !!! quote "sumanymas/ketinimas"
     Tiesiog padalinsiu kodą į du failus ir kompiliuoju atskirai, kaip manęs ir reikalauja "proper" C.
 
 === "stack.c"
 
-    ??? "📄 02_Decomposing_to_UNITS/01_NC/stack.c"
+    ???+ "📄 02_Decomposing_to_UNITS/01_NC/stack.c"
 
         ```c linenums="1" 
         --8<-- "code/evolution/stack-2026/02_Decomposing_to_UNITS/01_NC/stack.c"
@@ -194,7 +173,7 @@
 
     ???+ "📄 02_Decomposing_to_UNITS/01_NC/user.c"
 
-        ```c linenums="1" hl_lines="5-8"
+        ```c linenums="1" hl_lines="6-9"
         --8<-- "code/evolution/stack-2026/02_Decomposing_to_UNITS/01_NC/user.c"
         ```
 
@@ -222,7 +201,7 @@
             |                                ^~~
             |                                popen
         ```
-        ⚠️ gcc leidžia su perspėjimais (implicit declaration)
+        ⚠️ gcc leidžia su perspėjimais - netiesioginis (sistemos parūpintas) funkcijos aprašas (`implicit declaration`)
     
     === "⚙️clang → ❌error"
     
@@ -249,13 +228,13 @@
             |                                ^
         4 errors generated.
         ```
-        ❌ clang griežtesnis - iškart klaidos!
+        ❌ clang griežtesnis - iškart klaidos! - `call to undeclared function` ir dar primena, kad C99+ nepalaiko `implicit declaration`
 
 ---
 
 #### ❌ Nesikompiliuoja (clang) / ⚠️ Perspėjimai (gcc)
 
-??? bug "🔍 Diagnozė: Trūkstamos funkcijų deklaracijos (aprašai)"
+??? bug "🔍 Diagnozė: Trūksta funkcijų aprašų (deklaracijų)"
     **Problema:** Kreipiamės į **neaprašytą** funkciją - kompiliatorius "nežino" kas tai per vardas, kokį veiksmą jis atstovauja.
     
     **Kodėl:**
@@ -270,30 +249,15 @@
     - **gcc (traditional):** Leidžia su **warning** - "spėja" `int funkcija()` (implicit declaration)
     - **clang (strict):** Iškart **error** - ISO C99+ draudžia implicit declarations
     - Gali veikti su gcc, bet **dangerous** - spėjimas gali būti neteisingas!
-    
-    **Monolitas vs atskiri failai:**
-    
-    - **Monolite:** Kompiliatorius mato visą failą - funkcijų **apibrėžimai** ten pat
-    - **Failuose:** Kiekvienas `.c` atskiras kompiliavimo vienetas - reikia funkcijų **aprašų** (prototipų/deklaracijų)
-    
-    **Sprendimas:** Pridėti funkcijų **prototipus** (aprašus) `user.c` pradžioje arba...
 
 ---
 
-### 2 sprendimas: `.c` failo `#include`
+### 2 sprendimas: `#include` `.c` failą
 
-> [`02_Decomposing_to_UNITS/02_NL`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/02_Decomposing_to_UNITS/02_NL/)
+> [`02_Decomposing_to_UNITS/02_NL`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/02_Decomposing_to_UNITS/02_NL/)
 
 !!! quote "sumanymas/ketinimas"
     Jei nemato vardų, o yra `#include`, tai jį ir panaudosiu - tada matys (kitur veikia pvz. `import`).
-
-=== "stack.c"
-
-    ??? "📄 02_Decomposing_to_UNITS/02_NL/stack.c"
-
-        ```c linenums="1"
-        --8<-- "code/evolution/stack-2026/02_Decomposing_to_UNITS/02_NL/stack.c"
-        ```
 
 === "user.c"
 
@@ -301,6 +265,14 @@
 
         ```c linenums="1" hl_lines="2"
         --8<-- "code/evolution/stack-2026/02_Decomposing_to_UNITS/02_NL/user.c"
+        ```
+
+=== "stack.c"
+
+    ??? "📄 02_Decomposing_to_UNITS/02_NL/stack.c"
+
+        ```c linenums="1"
+        --8<-- "code/evolution/stack-2026/02_Decomposing_to_UNITS/02_NL/stack.c"
         ```
 
 === "🔨 = ⚙️➔🔗➔❌"
@@ -322,7 +294,7 @@
         C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: user.o:user.c:(.bss+0x8): multiple definition of `top'; stack.o:stack.c:(.bss+0x8): first defined here
         collect2.exe: error: ld returned 1 exit status
         ```
-        ❌ multiple definition of ...
+        ❌ `multiple definition of ...`
     
     === "⚙️clang → 🔗clang → ❌error"
     
@@ -378,9 +350,9 @@
 
 ---
 
-### 3 sprendimas: `.c` failo `#include` be "galvos skausmo"
+### 3 sprendimas: `#include` tą `.c` failą 2
 
-> [`02_Decomposing_to_UNITS/03_OK_Wrong`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/02_Decomposing_to_UNITS/03_OK_Wrong/)
+> [`02_Decomposing_to_UNITS/03_OK_Wrong`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/02_Decomposing_to_UNITS/03_OK_Wrong/)
 
 !!! quote "sumanymas/ketinimas"
     Jei nesilinkina dėl pasikartojaničių apibrėžimų, tai paliksiu `#include "stack.c"` bet nebelinkinsiu su `stack.o`.
@@ -434,7 +406,7 @@
 
 ### 💡 Pamokos
 
-!!! tip "Aprašai vs Apibrėžimai - Kodėl svarbu?"
+!!! tip "Aprašai vs Apibrėžimai - labai svarbu!"
     **Ką išmokome:**
     
     - **Aprašai (declarations):** Funkcijų prototipai - "sakome kad egzistuoja"
@@ -453,18 +425,52 @@
     - **clang:** Griežtesnis - error pagal ISO C99+
     
     **Sprendimas → Etapas 03:** Tikras C modulis su `.h` failais (aprašais)!
-## 3️⃣Etapas: "Stekas-Modulis"
 
-> [`03_Discovering_C_MODULE`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/03_Discovering_C_MODULE/)
+---
 
-!!! note "Kontekstas"
-    Tikras C modulis su header failu.
+??? info "📚 Dar kartą terminologija: Aprašas vs Apibrėžimas"
+    **C kalboje kritiškai svarbu skirti du dalykus:**
+    
+    **Aprašas (Declaration)** - "sakome kompiliatoriui" kad kažkas egzistuoja:
+    
+    - `int add(int a, int b);` ← **funkcijos prototipas** (tai ir yra aprašas!)
+    - `extern int counter;` ← kintamojo aprašas
+    - Kompiliatorius žino **vardą ir tipą**, bet **ne kaip veikia** ar **kur saugoma**
+    - **Gali būti daug** aprašų (įvairiuose failuose)
+    
+    **Apibrėžimas (Definition)** - "pasakome kompiliatoriui" KĄ daryti ir KUR saugoti:
+    
+    - `int add(int a, int b) { return a + b; }` ← funkcijos apibrėžimas
+    - `int counter = 0;` ← kintamojo apibrėžimas  
+    - Kompiliatorius žino **viską** - sugeneruoja kodą / paskiria (alokuoja) atmintį
+    - **Gali būti tik VIENAS** apibrėžimas (vienoje vietoje)
+    
+    **Aukso taisyklė:** 
+    
+    - Aprašų (declarations) → **daug** ✅
+    - Apibrėžimų (definitions) → **tik vienas** ✅
 
-**Modulis** = Interfeisas + Realizacija = Antraštė (antraštės failas) + Kodas (išeities failas)
+## 3️⃣Etapas: "Stekas Modulyje"
 
-**Modulis** = `.h` + `.c`
+> [`03_Discovering_C_MODULE`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/03_Discovering_C_MODULE/)
 
-**4 sprendimai** (prasideda nuo 02_NL).
+!!! note "🎯 Tikslas"
+    Sukurti **tikrą C modulį** su header failu (`.h`) - atskirti **interfeisą** (ką modulis siūlo) nuo **implementacijos** (kaip veikia). Išmokti **aprašų** (declarations) ir **apibrėžimų** (definitions) skirtumo praktiką.
+
+!!! info "🔍 Ką darysime"
+    - Sukursime **header failą** (`.h`) su funkcijų prototipais/aprašais ir kintamųjų aprašais
+    - Suprasime **`extern`** raktažodžio vaidmenį
+    - Pamatysime kad net ir "teisingas" modulis gali būti **nesaugus** - globalūs kintamieji prieinami
+    - Pademonstruosime **ataką** su `extern` - tiesioginis duomenų manipuliavimas
+
+!!! warning "Dar kartą!"
+    **Aprašas (declaration)** ≠ **Apibrėžimas (definition)**
+    
+    - **Aprašas:** "Sakome kad egzistuoja" - `extern int top;` arba `void push(char c);`
+    - **Apibrėžimas:** "Pasakome kaip veikia" - `int top = 0;` arba `void push(char c) { ... }`
+    - **Taisyklė:** Aprašų daug ✅, apibrėžimas vienas ✅
+
+**4 sprendimai** - per kompiliavimo ir linkavimo klaidas į tikrą modulį (_prasideda nuo 02_NL_).
 
 ---
 
@@ -479,13 +485,13 @@
 
     ???+ "📄 03_Discovering_C_MODULE/02_NL/stack.h"
     
-        ```c linenums="1" hl_lines="6-7"
+        ```c linenums="1" hl_lines="3-4"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/02_NL/stack.h"
         ```
 
 === "stack.c"
 
-    ??? "📄 03_Discovering_C_MODULE/02_NL/stack.c"
+    ???+ "📄 03_Discovering_C_MODULE/02_NL/stack.c"
     
         ```c linenums="1" hl_lines="2"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/02_NL/stack.c"
@@ -493,7 +499,7 @@
 
 === "user.c"
 
-    ??? "📄 03_Discovering_C_MODULE/02_NL/user.c"
+    ???+ "📄 03_Discovering_C_MODULE/02_NL/user.c"
     
         ```c linenums="1" hl_lines="2"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/02_NL/user.c"
@@ -555,7 +561,7 @@
 
 === "stack.c"
 
-    ??? "📄 03_Discovering_C_MODULE/03_NL/stack.c"
+    ???+ "📄 03_Discovering_C_MODULE/03_NL/stack.c"
     
         ```c linenums="1" hl_lines="2"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/03_NL/stack.c"
@@ -563,7 +569,7 @@
 
 === "user.c"
 
-    ??? "📄 03_Discovering_C_MODULE/03_NL/user.c"
+    ???+ "📄 03_Discovering_C_MODULE/03_NL/user.c"
     
         ```c linenums="1" hl_lines="2"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/03_NL/user.c"
@@ -619,21 +625,21 @@
 
     ???+ "📄 03_Discovering_C_MODULE/04_OK/stack.h"
     
-        ```c linenums="1" hl_lines="6-7"
+        ```c linenums="1"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/04_OK/stack.h"
         ```
 
 === "stack.c"
 
-    ??? "📄 03_Discovering_C_MODULE/04_OK/stack.c"
+    ???+ "📄 03_Discovering_C_MODULE/04_OK/stack.c"
     
-        ```c linenums="1" hl_lines="2 5-6"
+        ```c linenums="1" hl_lines="5-6"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/04_OK/stack.c"
         ```
 
 === "user.c"
 
-    ??? "📄 03_Discovering_C_MODULE/04_OK/user.c"
+    ???+ "📄 03_Discovering_C_MODULE/04_OK/user.c"
     
         ```c linenums="1" hl_lines="2"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/04_OK/user.c"
@@ -688,7 +694,7 @@
 
     ??? "📄 03_Discovering_C_MODULE/05_OK_Attack/stack.h"
     
-        ```c linenums="1" hl_lines="6-7"
+        ```c linenums="1"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/05_OK_Attack/stack.h"
         ```
 
@@ -696,7 +702,7 @@
 
     ??? "📄 03_Discovering_C_MODULE/05_OK_Attack/stack.c"
     
-        ```c linenums="1" hl_lines="2 5-6"
+        ```c linenums="1" hl_lines="5-6"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/05_OK_Attack/stack.c"
         ```
 
@@ -704,7 +710,7 @@
 
     ???+ "📄 03_Discovering_C_MODULE/05_OK_Attack/user_attack.c"
     
-        ```c linenums="1" hl_lines="3-4 10"
+        ```c linenums="1" hl_lines="4-5 13"
         --8<-- "code/evolution/stack-2026/03_Discovering_C_MODULE/05_OK_Attack/user_attack.c"
         ```
 
@@ -716,19 +722,12 @@
     gcc stack.o user_attack.o -o app
     ./app  # ✅ bet rezultatas BLOGAS!
     ```
-    arba (win)
-    ```bash
-    gcc -c stack.c -o stack.o
-    gcc -c user_attack.c -o user_attack.o
-    gcc stack.o user_attack.o -o app
-    app
-    ```
 
 === "⌨️➔🖥️"
 
     ```
-    HACKED: -1
-    321
+    123456
+    !54321
     ```
 
 ---
@@ -749,14 +748,16 @@
 ### 💡 Pamokos
 
 !!! tip "C Modulio Anatomija"
+    - **Modulis** = Interfeisas/Sąsaja + Realizacija/Implementacija = Header (antraštės failas) + Source (išeities failas)
+    - **Modulis** = `.h` + `.c`
     - **Header (`.h`)**: `extern` deklaracijos globalių kintamųjų + funkcijų prototipai
     - **Source (`.c`)**: Kintamųjų apibrėžimai (be `extern`) + funkcijų realizacijos
-    - **Problem**: Globalūs kintamieji su `extern` yra prieinami bet kam!
+    - **Problema**: Globalūs kintamieji su `extern` yra prieinami bet kam!
 
 ---
-## 4️⃣Etapas: "Apsaugota Implementacija"
+## 4️⃣Etapas: "Apsaugotas Stekas Modulyje"
 
-> [`04_Protecting_IMPLEMENTATION`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/04_Protecting_IMPLEMENTATION/)
+> [`04_Protecting_IMPLEMENTATION`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/04_Protecting_IMPLEMENTATION/)
 
 !!! note "🎯 Tikslas"
     Išmokti **information hiding** techniką naudojant `static` linkage - paslėpti vidinę implementaciją nuo išorinio pasaulio.
@@ -927,7 +928,7 @@
 
 ---
 
-## 5️⃣Etapas: "Stekas-Tipas"
+## 5️⃣Etapas: "Tipizuotas Stekas"
 
 > [`05_Defining_USER_TYPE`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/05_Defining_USER_TYPE/)
 
@@ -1114,7 +1115,7 @@
 
 ---
 
-## 6️⃣Etapas: "Stekas-Kapsulė"
+## 6️⃣Etapas: "Tipizuotas Stekas Modulyje"
 
 > [`06_ENCAPSULATING_UDT_in_Module`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/06_ENCAPSULATING_UDT_in_Module/)
 
@@ -1271,7 +1272,7 @@
 
 ---
 
-## 7️⃣Etapas: "Stekas-Paslaptis"
+## 7️⃣Etapas: "Paslėptas Stekas"
 
 > [`07_HIDING_UDT_Information`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/07_HIDING_UDT_Information/)
 
@@ -1499,7 +1500,7 @@
 
 ---
 
-## 8️⃣Etapas: "Stekas-Fabrikas"
+## 8️⃣Etapas: "Stekas su Dinaminiu Valdymu"
 
 > [`08_Acquiring_RESOURCES`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/08_Acquiring_RESOURCES/)
 
@@ -1603,7 +1604,7 @@
 
 ---
 
-## 9️⃣Etapas: "Pilnas ADT"
+## 9️⃣Etapas: "Stekas su Gyvavimo Ciklu"
 
 > [`09_Completing_LIFECYCLE`](https://github.com/ViktorasGolubevas/cpp2026-test/tree/main/code/evolution/stack-2026/09_Completing_LIFECYCLE/)
 

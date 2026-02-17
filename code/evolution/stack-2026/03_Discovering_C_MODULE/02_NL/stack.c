@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include "stack.h"
 
-// char stack[SIZE];
-// int top;
-
 void init(void) {
     top = 0;
 }

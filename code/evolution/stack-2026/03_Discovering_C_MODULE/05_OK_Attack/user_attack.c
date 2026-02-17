@@ -10,7 +10,7 @@ int main(void) {
     init();
     while ( (!isFull()) && ('\n' != (c = getchar())) ) push(c);
 
-    stack[top++] = '!'; // attack non-hiiden data
+    stack[top++] = '!'; // attack 
 
     while (!isEmpty()) putchar(pop());
     putchar('\n');
