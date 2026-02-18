@@ -9,9 +9,12 @@
 
 [Compiler Explorer (Godbolt)](https://godbolt.org/)
 
+
 [C++ Reference](https://en.cppreference.com/w/)
 
+
 [C++ Insights](https://cppinsights.io/)
+
 
 [Python Tutor (Vizualizacija)](https://pythontutor.com/cpp.html)
 
