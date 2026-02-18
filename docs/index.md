@@ -1,15 +1,18 @@
 !!! quote "Naujienos (Atnaujinta: 2026-02-17)"
     * Įkelta **1-os paskaitos** medžiaga.
 
-    * Pratybų užduotis U1 jau pasiekiama Moodle.
+    * Pratybų užduotys U1, U2 jau Moodle.
 
 ## 🛠️ Naudingi įrankiai
 
 Šiuos įrankius naudosime viso kurso metu. Rekomenduoju išsisaugoti.
 
 [Compiler Explorer (Godbolt)](https://godbolt.org/)
+
 [C++ Reference](https://en.cppreference.com/w/)
+
 [C++ Insights](https://cppinsights.io/)
+
 [Python Tutor (Vizualizacija)](https://pythontutor.com/cpp.html)
 
 ---
@@ -30,7 +33,3 @@ Pagrindinė kurso dalis. Klasės, inkapsuliacija, `Stack` evoliucija, konstrukto
 Susipažinsime su standartine biblioteka (`std::vector`, `std::map`), algoritmais ir išmaniosiomis rodyklėmis (`smart pointers`).
 
 ---
-
-!!! tip "Kaip naudotis šia medžiaga"
-    *   Kodo pavyzdžiuose naudokite viršuje esančius **Skirtukus (Tabs)**, kad palygintumėte sprendimus.
-    *   Matydami ikoną 🚀, spauskite ją, kad atidarytumėte kodą naršyklėje.
