@@ -79,7 +79,12 @@ nav:
   - 'Temos':
     - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
   - 'Paskaitos':
-    - '01 Paskaita': Paskaitos/01_Paskaita_TIKRAI_FINAL.md
+    - '01 Paskaita': 
+      - 'Parametrų perdavimas (su Tutor)': Paskaitos/01_3/Parameters_Passing.md
+      - 'C/C++ sistema (pdf)': Paskaitos/01_3/C_System.pdf
+      - 'Parametrų perdavimas (pdf)': Paskaitos/01_3/Parameters_Passing.pdf
+    - '02 Paskaita': 
+      - 'Stack ADT Evoliucija C kalboje': Paskaitos/02_/02_Paskaita_TIKRAI_FINAL.md
 
 # ═══════════════════════════════════════════════════════════
 # 🎯 NAUJAS: Extra JavaScript (jei reikės Mermaid ar MathJax)
