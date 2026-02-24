@@ -55,7 +55,7 @@ char c = s.pop();
 | Nr | Etapas | Žingsniai | Esmė |
 |----|--------|-----------|------|
 | **11** | [Discovering_CPP_Struct](#11) | `00` → `01_NC_Naive` | NC: `main()` nebemato funkcijų globaliai |
-| **12** | [Anatomy_of_CPP_Struct](#12) | `01_OK` → `02_OK_Attack` | `this` gimimas; `struct` dar atviras |
+| **12** | [ENCAPSULATING_in_CPP_Struct](#12) | `01_OK` → `02_OK_Attack` | `this` gimimas; `struct` dar atviras |
 | **13** | [HIDING_in_CLASS](#13) | `01_NC_Naive` → `02_OK` → `03_NC_Attack` | Paradigminis switch: kompiliatorius saugo! |
 
 ---
@@ -70,9 +70,9 @@ char c = s.pop();
 
 ---
 
-### 0 žingsnis: Referentinis taškas → `00`
+### 0 žingsnis: Referentinis taškas → [`00`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/00/)
 
-> Failas: `11_Discovering_CPP_Struct/00/usestack.cpp`
+> Failas: [`11_Discovering_CPP_Struct/00/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/00/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     Pradedame nuo **to paties kodo** kaip `05/03_OK/usestack.c` – tik plėtinys `.cpp`.  
@@ -126,9 +126,9 @@ char c = s.pop();
 
 ---
 
-### 1 žingsnis: Funkcijos **į** `struct` vidų, `main()` nepakeistas → `01_NC_Naive`
+### 1 žingsnis: Funkcijos **į** `struct` vidų, `main()` nepakeistas → [`01_NC_Naive`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/01_NC_Naive/)
 
-> Failas: `11_Discovering_CPP_Struct/01_NC_Naive/usestack.cpp`
+> Failas: [`11_Discovering_CPP_Struct/01_NC_Naive/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/01_NC_Naive/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „Perkeliu funkcijų apibrėžimus į `struct Stack {}` vidų. `main()` lieka nepakeistas – turėtų vis tiek veikti, ne?"
@@ -205,9 +205,9 @@ char c = s.pop();
 
 ---
 
-### 2 žingsnis: `main()` pakeičiamas į objekto sintaksę → `02_OK`
+### 2 žingsnis: `main()` pakeičiamas į objekto sintaksę → [`02_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/02_OK/)
 
-> Failas: `11_Discovering_CPP_Struct/02_OK/usestack.cpp`
+> Failas: [`11_Discovering_CPP_Struct/02_OK/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/02_OK/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „Jei funkcijos priklauso `Stack` – kviesiu jas per objektą: `st1.init(...)`."
@@ -280,7 +280,9 @@ char c = s.pop();
 
 ---
 
-### 1 žingsnis: Išmetame `pst` parametrą → `01_OK`
+### 1 žingsnis: Išmetame `pst` parametrą → [`01_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/12_ENCAPSULATING_in_CPP_Struct/01_OK/)
+
+> Failas: [`12_ENCAPSULATING_in_CPP_Struct/01_OK/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/12_ENCAPSULATING_in_CPP_Struct/01_OK/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     "`st1.init(&st1)` – absurdas. Objektas jau žino, kas jis yra – išmeskime `&st1` kaip parametrą!"
@@ -293,9 +295,10 @@ char c = s.pop();
         char stack[SIZE];
         int top;
 
-        void init()       { top = 0; }            // ← pst išmestas, top tiesiogiai
-        int isEmpty()     { return 0 == top; }
-        int isFull()      { return SIZE == top; }
+        void reset()       { this->top = 0; }     // `this` – rodyklė į "save"
+        void init()        { top = 0; }            // ← pst išmestas, top tiesiogiai
+        int isEmpty()      { return 0 == top; }
+        int isFull()       { return SIZE == top; }
         void push(char c) {
             if (!isFull()) stack[top++] = c;
         }
@@ -347,7 +350,7 @@ char c = s.pop();
     void init() { top = 0; }
     st1.init();        // ← švaru
     ```
-    Kompiliatorius *automatiškai* perduoda nuorodą į kviečiantį objektą. Tas paslėptas parametras vadinamas **`this`**.
+    Kompiliatorius *automatiškai* perduoda rodyklę į kviečiantį objektą. Ta paslėpta rodyklė vadinamas **`this`**.
 
 ??? info "Kas yra `this`?"
     ```cpp
@@ -358,11 +361,13 @@ char c = s.pop();
     void init(Stack* const this) { this->top = 0; }
     ```
     Kai rašome `st1.init()` – kompiliatorius išverčia į `Stack::init(&st1)`.  
-    `this` visada rodo į **tą objektą**, kuris kvietė metodą.
+    `this` visada **rodo** į tą objektą, kuris kvietė metodą.
 
 ---
 
-### 2 žingsnis: Ataka vis dar pavyksta → `02_OK_Attack`
+### 2 žingsnis: Ataka vis dar pavyksta → [`02_OK_Attack`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/12_ENCAPSULATING_in_CPP_Struct/02_OK_Attack/)
+
+> Failas: [`12_ENCAPSULATING_in_CPP_Struct/02_OK_Attack/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/12_ENCAPSULATING_in_CPP_Struct/02_OK_Attack/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „Turime `struct` su metodais – ar duomenys dabar saugūs?"
@@ -403,7 +408,7 @@ char c = s.pop();
 
 ---
 
-## 📌 Terminų kampas: Encapsulation vs Information Hiding
+## 📌 Terminų "painiava": Encapsulation vs Information Hiding
 
 !!! abstract "Dvi skirtingos sąvokos – dažnai supainiojamos"
 
@@ -453,9 +458,9 @@ char c = s.pop();
 
 ---
 
-### 1 žingsnis: Plikas `class` be specifikatorių → `01_NC_Naive`
+### 1 žingsnis: Plikas `class` be specifikatorių → [`01_NC_Naive`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/13_HIDING_in_CLASS/01_NC_Naive/)
 
-> Failas: `13_HIDING_in_CLASS/01_NC_Naive/usestack.cpp`
+> Failas: [`13_HIDING_in_CLASS/01_NC_Naive/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/13_HIDING_in_CLASS/01_NC_Naive/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „C++ turi specialų raktažodį objektams – `class`. Pakeičiu `struct` į `class` ir viskas turėtų veikti kaip anksčiau."
@@ -544,9 +549,9 @@ char c = s.pop();
 
 ---
 
-### 2 žingsnis: Pridedame `public:` → `02_OK`
+### 2 žingsnis: Pridedame `public:` → [`02_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/13_HIDING_in_CLASS/02_OK/)
 
-> Failas: `13_HIDING_in_CLASS/02_OK/usestack.cpp`
+> Failas: [`13_HIDING_in_CLASS/02_OK/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/13_HIDING_in_CLASS/02_OK/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „Metodai turi būti pasiekiami iš išorės – dedu `public:`. Duomenys tegul lieka `private:`."
@@ -601,9 +606,9 @@ char c = s.pop();
 
 ---
 
-### 3 žingsnis: Ataka → `03_NC_Attack`
+### 3 žingsnis: Ataka → [`03_NC_Attack`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/13_HIDING_in_CLASS/03_NC_Attack/)
 
-> Failas: `13_HIDING_in_CLASS/03_NC_Attack/usestack.cpp`
+> Failas: [`13_HIDING_in_CLASS/03_NC_Attack/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/13_HIDING_in_CLASS/03_NC_Attack/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „I dalyje su C `struct` ataka **pavyko** (06 etapas). Patikriname ar čia tas pats..."
