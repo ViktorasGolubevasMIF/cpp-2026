@@ -6,6 +6,7 @@
         int top;
 
         void init()       { top = 0; }            // ← pst - išmestas, top - tiesiogiai
+        void reset()       { this->top = 0; }     // `this` - rodo į "save"
         int isEmpty()     { return 0 == top; }
         int isFull()      { return SIZE == top; }
         void push(char c) {
@@ -20,7 +21,7 @@
     int main(void) {
         char c;
         struct Stack st1;
-        Stack st2;	// "nebetampome" etikėtės 'struct'
+        Stack st2;	// "nebetampome" etikėtės `struct`
         st1.init();	// ← nebėra (&st) !
         while ((!st1.isFull()) && ('\n' != (c = getchar()))) st1.push(c);
         while (!st1.isEmpty()) putchar(st1.pop());
