@@ -57,6 +57,9 @@ char c = s.pop();
 | **11** | [Discovering_CPP_Struct](#11) | `00` → `01_NC_Naive` | NC: `main()` nebemato funkcijų globaliai |
 | **12** | [ENCAPSULATING_in_CPP_Struct](#12) | `01_OK` → `02_OK_Attack` | `this` gimimas; `struct` dar atviras |
 | **13** | [HIDING_in_CLASS](#13) | `01_NC_Naive` → `02_OK` → `03_NC_Attack` | Paradigminis switch: kompiliatorius saugo! |
+| **14** | [CONSTRUCTORS_and_DESTRUCTORS](#14) | `00` → `01_OK` | Kūrimas = inicializavimas; naikinimas = automatinis |
+| **15** | [OVERLOADING_CONSTRUCTORS](#15) | `00` → `01_OK` | Overloading: tas pats vardas, skirtingi parametrai |
+| **16** | [Defining_METHODS_OUTSIDE](#16) | `00` → `01_NC_Naive` → `02_OK` → `03_OK` | `Stack::` + `.h`/`.cpp` moduliavimas |
 
 ---
 
@@ -80,40 +83,7 @@ char c = s.pop();
 
 ???+ "📄 `usestack.cpp` – C stilius, funkcijos išorėje"
     ```cpp
-    #include <stdio.h>
-    // ===> stack dalis
-    #define SIZE 5
-    struct Stack {
-        char stack[SIZE];
-        int top;
-    };
-
-    static void reset(struct Stack *pst) { pst->top = 0; }
-    void init(struct Stack *pst)         { pst->top = 0; }
-    int isEmpty(struct Stack *pst)       { return 0 == pst->top; }
-    int isFull(struct Stack *pst)        { return SIZE == pst->top; }
-    void push(struct Stack *pst, char c) {
-        if (!isFull(pst)) pst->stack[pst->top++] = c;
-    }
-    char pop(struct Stack *pst) {
-        if (!isEmpty(pst)) return pst->stack[--pst->top];
-        return '\0';
-    }
-
-    // ===> user dalis
-    int main(void) {
-        char c;
-        struct Stack st1, st2;
-        init(&st1);
-        while ((!isFull(&st1)) && ('\n' != (c = getchar()))) push(&st1, c);
-        while (!isEmpty(&st1)) putchar(pop(&st1));
-        putchar('\n');
-        init(&st2);
-        while ((!isFull(&st2)) && ('\n' != (c = getchar()))) push(&st2, c);
-        while (!isEmpty(&st2)) putchar(pop(&st2));
-        putchar('\n');
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/11_Discovering_CPP_Struct/00/usestack.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
@@ -135,38 +105,7 @@ char c = s.pop();
 
 ???+ "📄 `usestack.cpp` – funkcijos viduje, `main()` C stiliumi"
     ```cpp
-    #include <stdio.h>
-    // ===> stack dalis
-    #define SIZE 5
-    struct Stack {
-        char stack[SIZE];
-        int top;
-        static void reset(struct Stack *pst) { pst->top = 0; }  // ← viduje!
-        void init(struct Stack *pst)         { pst->top = 0; }
-        int isEmpty(struct Stack *pst)       { return 0 == pst->top; }
-        int isFull(struct Stack *pst)        { return SIZE == pst->top; }
-        void push(struct Stack *pst, char c) {
-            if (!isFull(pst)) pst->stack[pst->top++] = c;
-        }
-        char pop(struct Stack *pst) {
-            if (!isEmpty(pst)) return pst->stack[--pst->top];
-            return '\0';
-        }
-    };
-    // ===> user dalis
-    int main(void) {
-        char c;
-        struct Stack st1, st2;
-        init(&st1);                // ← C stilius – globaliai ieško 'init'
-        while ((!isFull(&st1)) && ('\n' != (c = getchar()))) push(&st1, c);
-        while (!isEmpty(&st1)) putchar(pop(&st1));
-        putchar('\n');
-        init(&st2);
-        while ((!isFull(&st2)) && ('\n' != (c = getchar()))) push(&st2, c);
-        while (!isEmpty(&st2)) putchar(pop(&st2));
-        putchar('\n');
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/11_Discovering_CPP_Struct/01_NC_Naive/usestack.cpp"
     ```
 
 === "🔨 Kompiliavimas"
@@ -205,45 +144,16 @@ char c = s.pop();
 
 ---
 
-### 2 žingsnis: `main()` pakeičiamas į objekto sintaksę → [`02_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/02_OK/)
+### 2 žingsnis: `main()` pakeičiamas į objekto sintaksę → [`02_OK_Wrong`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/02_OK_Wrong/)
 
-> Failas: [`11_Discovering_CPP_Struct/02_OK/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/02_OK/usestack.cpp)
+> Failas: [`11_Discovering_CPP_Struct/02_OK_Wrong/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/02_OK/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „Jei funkcijos priklauso `Stack` – kviesiu jas per objektą: `st1.init(...)`."
 
 ???+ "📄 `usestack.cpp` – tik `main()` pakeistas"
     ```cpp
-    #include <stdio.h>
-    #define SIZE 5
-    struct Stack {
-        char stack[SIZE];
-        int top;
-        static void reset(struct Stack *pst) { pst->top = 0; }
-        void init(struct Stack *pst)         { pst->top = 0; }
-        int isEmpty(struct Stack *pst)       { return 0 == pst->top; }
-        int isFull(struct Stack *pst)        { return SIZE == pst->top; }
-        void push(struct Stack *pst, char c) {
-            if (!isFull(pst)) pst->stack[pst->top++] = c;
-        }
-        char pop(struct Stack *pst) {
-            if (!isEmpty(pst)) return pst->stack[--pst->top];
-            return '\0';
-        }
-    };
-    int main(void) {
-        char c;
-        struct Stack st1, st2;
-        st1.init(&st1);                                          // ← objekto sintaksė
-        while ((!st1.isFull(&st1)) && ('\n' != (c = getchar()))) st1.push(&st1, c);
-        while (!st1.isEmpty(&st1)) putchar(st1.pop(&st1));
-        putchar('\n');
-        st2.init(&st2);
-        while ((!st2.isFull(&st2)) && ('\n' != (c = getchar()))) st2.push(&st2, c);
-        while (!st2.isEmpty(&st2)) putchar(st2.pop(&st2));
-        putchar('\n');
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/11_Discovering_CPP_Struct/02_OK_Wrong/usestack.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
@@ -289,38 +199,7 @@ char c = s.pop();
 
 ???+ "📄 `usestack.cpp`"
     ```cpp
-    #include <stdio.h>
-    #define SIZE 5
-    struct Stack {
-        char stack[SIZE];
-        int top;
-
-        void reset()       { this->top = 0; }     // `this` – rodyklė į "save"
-        void init()        { top = 0; }            // ← pst išmestas, top tiesiogiai
-        int isEmpty()      { return 0 == top; }
-        int isFull()       { return SIZE == top; }
-        void push(char c) {
-            if (!isFull()) stack[top++] = c;
-        }
-        char pop() {
-            if (!isEmpty()) return stack[--top];
-            return '\0';
-        }
-    };
-    int main(void) {
-        char c;
-        struct Stack st1;
-        Stack st2;              // ← C++ leidžia be "struct"!
-        st1.init();
-        while ((!st1.isFull()) && ('\n' != (c = getchar()))) st1.push(c);
-        while (!st1.isEmpty()) putchar(st1.pop());
-        putchar('\n');
-        st2.init();
-        while ((!st2.isFull()) && ('\n' != (c = getchar()))) st2.push(c);
-        while (!st2.isEmpty()) putchar(st2.pop());
-        putchar('\n');
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/12_ENCAPSULATING_in_CPP_Struct/01_OK/usestack.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
@@ -374,18 +253,7 @@ char c = s.pop();
 
 ???+ "📄 Atakos kodas `main()` dalyje"
     ```cpp
-    // ... (tas pats struct Stack su metodais)
-    int main(void) {
-        // ... įprastas naudojimas su st1 ...
-        st2.init();
-        while ((!st2.isFull()) && ('\n' != (c = getchar()))) st2.push(c);
-    //// ATTACK!
-    st2.stack[st2.top++] = '!';
-    ////
-        while (!st2.isEmpty()) putchar(st2.pop());
-        putchar('\n');
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/12_ENCAPSULATING_in_CPP_Struct/02_OK_Attack/usestack.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
@@ -467,33 +335,7 @@ char c = s.pop();
 
 ???+ "📄 `usestack.cpp` – tik `struct` → `class`"
     ```cpp
-    #include <stdio.h>
-    #define SIZE 5
-
-    class Stack {       // ← tik šis pakeitimas!
-        char stack[SIZE];
-        int top;
-
-        void init()       { top = 0; }
-        int isEmpty()     { return 0 == top; }
-        int isFull()      { return SIZE == top; }
-        void push(char c) { if (!isFull()) stack[top++] = c; }
-        char pop()        { if (!isEmpty()) return stack[--top]; return '\0'; }
-    };
-
-    int main(void) {
-        char c;
-        Stack st1, st2;
-        st1.init();
-        while ((!st1.isFull()) && ('\n' != (c = getchar()))) st1.push(c);
-        while (!st1.isEmpty()) putchar(st1.pop());
-        putchar('\n');
-        st2.init();
-        while ((!st2.isFull()) && ('\n' != (c = getchar()))) st2.push(c);
-        while (!st2.isEmpty()) putchar(st2.pop());
-        putchar('\n');
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/13_HIDING_in_CLASS/01_NC_Naive/usestack.cpp"
     ```
 
 === "🔨 g++ kompiliavimas"
@@ -558,34 +400,7 @@ char c = s.pop();
 
 ???+ "📄 `usestack.cpp` – su `public:`/`private:`"
     ```cpp
-    #include <stdio.h>
-    #define SIZE 5
-
-    class Stack {
-    private:                        // ← duomenys paslėpti
-        char stack[SIZE];
-        int top;
-    public:                         // ← metodai prieinami
-        void init()       { top = 0; }
-        int isEmpty()     { return 0 == top; }
-        int isFull()      { return SIZE == top; }
-        void push(char c) { if (!isFull()) stack[top++] = c; }
-        char pop()        { if (!isEmpty()) return stack[--top]; return '\0'; }
-    };
-
-    int main(void) {
-        char c;
-        Stack st1, st2;
-        st1.init();
-        while ((!st1.isFull()) && ('\n' != (c = getchar()))) st1.push(c);
-        while (!st1.isEmpty()) putchar(st1.pop());
-        putchar('\n');
-        st2.init();
-        while ((!st2.isFull()) && ('\n' != (c = getchar()))) st2.push(c);
-        while (!st2.isEmpty()) putchar(st2.pop());
-        putchar('\n');
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/13_HIDING_in_CLASS/02_OK/usestack.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
@@ -615,15 +430,7 @@ char c = s.pop();
 
 ???+ "📄 Atakos kodas `main()` dalyje"
     ```cpp
-    // ... (tas pats class Stack su private:/public:)
-
-    int main(void) {
-        // ...
-        //// ATTACK!
-        st2.stack[st2.top++] = '!';
-        ////
-        // ...
-    }
+    --8<-- "code/evolution/stack-2026/13_HIDING_in_CLASS/03_NC_Attack/usestack.cpp"
     ```
 
 === "🔨 Kompiliavimas"
@@ -694,9 +501,9 @@ char c = s.pop();
 ---
 
 <a name="14"></a>
-## 1️⃣4️⃣ Etapas: `14_CONSTRUCTOR_and_DESTRUCTOR`
+## 1️⃣4️⃣ Etapas: `14_CONSTRUCTORS_and_DESTRUCTORS`
 
-> [`14_CONSTRUCTOR_and_DESTRUCTOR`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/14_CONSTRUCTOR_and_DESTRUCTOR/)
+> [`14_CONSTRUCTORS_and_DESTRUCTORS`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/14_CONSTRUCTORS_and_DESTRUCTORS/)
 
 !!! note "🎯 Tikslas"
     Suprasti, kad **kūrimo momentas** yra garantuotas inicializavimo taškas – tai ne taisyklė kurią reikia prisiminti, o kalbos mechanizmas. Ir kad **naikinimo momentas** taip pat garantuotas – automatiškai.
@@ -711,45 +518,16 @@ char c = s.pop();
 
 ---
 
-### 0 žingsnis: Bazinis kodas – veikia atsitiktinai → [`00`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/14_CONSTRUCTOR_and_DESTRUCTOR/00/)
+### 0 žingsnis: Bazinis kodas – veikia atsitiktinai → [`00`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/14_CONSTRUCTORS_and_DESTRUCTORS/00/)
 
-> Failas: [`14_CONSTRUCTOR_and_DESTRUCTOR/00/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/14_CONSTRUCTOR_and_DESTRUCTOR/00/usestack.cpp)
+> Failas: [`14_CONSTRUCTORS_and_DESTRUCTORS/00/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/14_CONSTRUCTORS_and_DESTRUCTORS/00/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     Minimizuotas bazinis kodas – vienas objektas, `bool`, be `init()`. Ar veiks?
 
 ???+ "📄 `usestack.cpp`"
     ```cpp
-    #include <iostream>
-    using namespace std;
-    // ===> stack dalis
-    #define SIZE 5
-    class Stack {
-    private:
-        char stack[SIZE];
-        int top;
-    public:
-        bool isEmpty() { return 0 == top; }
-        bool isFull()  { return SIZE == top; }
-        void push(char c) {
-            if (!isFull()) stack[top++] = c;
-        }
-        char pop() {
-            if (!isEmpty()) return stack[--top];
-            return '\0';
-        }
-    };
-    // ===> user dalis
-    int main(void) {
-        char c;
-        Stack s;
-        while (!s.isFull() && cin.get(c) && c != '\n')
-            s.push(c);
-        while (!s.isEmpty())
-            cout << s.pop();
-        cout << '\n';
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/14_CONSTRUCTORS_and_DESTRUCTORS/00/usestack.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
@@ -777,57 +555,16 @@ char c = s.pop();
 
 ---
 
-### 1 žingsnis: Default konstruktorius + destruktorius → [`01_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/14_CONSTRUCTOR_and_DESTRUCTOR/01_OK/)
+### 1 žingsnis: Default konstruktorius + destruktorius → [`01_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/14_CONSTRUCTORS_and_DESTRUCTORS/01_OK/)
 
-> Failas: [`14_CONSTRUCTOR_and_DESTRUCTOR/01_OK/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/14_CONSTRUCTOR_and_DESTRUCTOR/01_OK/usestack.cpp)
+> Failas: [`14_CONSTRUCTORS_and_DESTRUCTORS/01_OK/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/14_CONSTRUCTORS_and_DESTRUCTORS/01_OK/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „Noriu, kad objektas **pats** pasirūpintų savo inicializacija kūrimo metu – ir praneštu apie save gyvavimo pradžioje ir pabaigoje."
 
 ???+ "📄 `usestack.cpp`"
     ```cpp
-    #include <iostream>
-    using namespace std;
-    // ===> stack dalis
-    #define SIZE 5
-    class Stack {
-    private:
-        char stack[SIZE];
-        int top;
-    public:
-        Stack()  {                              // ← konstruktorius: tas pats vardas kaip klasė, be grąžinamo tipo
-            top = 0;
-            cout << "[CTOR] Stack sukurtas\n";
-        }
-        ~Stack() {                              // ← destruktorius: ~ + klasės vardas
-            cout << "[DTOR] Stack sunaikintas\n";
-        }
-        bool isEmpty() { return 0 == top; }
-        bool isFull()  { return SIZE == top; }
-        void push(char c) {
-            if (!isFull()) stack[top++] = c;
-        }
-        char pop() {
-            if (!isEmpty()) return stack[--top];
-            return '\0';
-        }
-    };
-    // ===> user dalis
-    int main(void) {
-        char c;
-        cout << "--- prieš Stack s ---\n";
-        {
-            Stack s;                            // ← CTOR iškviečiamas čia
-            while (!s.isFull() && cin.get(c) && c != '\n')
-                s.push(c);
-            while (!s.isEmpty())
-                cout << s.pop();
-            cout << '\n';
-            cout << "--- prieš scope pabaigą ---\n";
-        }                                       // ← DTOR iškviečiamas čia automatiškai!
-        cout << "--- po scope pabaigos ---\n";
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/14_CONSTRUCTORS_and_DESTRUCTORS/01_OK/usestack.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
@@ -885,19 +622,6 @@ char c = s.pop();
 
 ---
 
-## 🎯 Santrauka: 11–14 etapai
-
-| Nr | Etapas | Žingsniai | Atradimas |
-|----|--------|-----------|-----------|
-| **11** | Discovering_CPP_Struct | `00` → `01_NC_Naive` | Funkcija klasės viduje ≠ globali funkcija |
-| **12** | ENCAPSULATING_in_CPP_Struct | `01_OK` → `02_OK_Attack` | `this` + encapsulation ≠ information hiding |
-| **13** | HIDING_in_CLASS | `01_NC_Naive` → `02_OK` → `03_NC_Attack` | `class` = `private` pagal nutylėjimą; kompiliatorius saugo |
-| **14** | CONSTRUCTOR_and_DESTRUCTOR | `00` → `01_OK` | Kūrimas = inicializavimas; naikinimas = automatinis |
-
-**Kitas žingsnis:** Overloading – du konstruktoriai vienu vardu! 🚀
-
----
-
 <a name="15"></a>
 ## 1️⃣5️⃣ Etapas: `15_OVERLOADING_CONSTRUCTORS`
 
@@ -917,41 +641,7 @@ char c = s.pop();
 
 ???+ "📄 `usestack.cpp` – dar tik default konstruktorius"
     ```cpp
-    #include <iostream>
-    using namespace std;
-    #define SIZE 5
-    class Stack {
-    private:
-        char stack[SIZE];
-        int top;
-    public:
-        Stack() {
-            top = 0;
-            cout << "[CTOR] Stack sukurtas (tuščias)\n";
-        }
-        ~Stack() {
-            cout << "[DTOR] Stack sunaikintas\n";
-        }
-        bool isEmpty() { return 0 == top; }
-        bool isFull()  { return SIZE == top; }
-        void push(char c) {
-            if (!isFull()) stack[top++] = c;
-        }
-        char pop() {
-            if (!isEmpty()) return stack[--top];
-            return '\0';
-        }
-    };
-    int main(void) {
-        Stack s1;               // ← default: tuščias stekas
-        s1.push('A');
-        s1.push('B');
-        s1.push('C');
-        while (!s1.isEmpty())
-            cout << s1.pop();
-        cout << '\n';
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/15_OVERLOADING_CONSTRUCTORS/00/usestack.cpp"
     ```
 
 === "⌨️➔🖥️"
@@ -976,53 +666,7 @@ char c = s.pop();
 
 ???+ "📄 `usestack.cpp` – du konstruktoriai"
     ```cpp
-    #include <iostream>
-    using namespace std;
-    #define SIZE 5
-    class Stack {
-    private:
-        char stack[SIZE];
-        int top;
-    public:
-        Stack() {                               // ← default konstruktorius
-            top = 0;
-            cout << "[CTOR] Stack sukurtas (tuščias)\n";
-        }
-        Stack(const char* str) {               // ← parametrinis konstruktorius
-            top = 0;
-            while (*str && !isFull())
-                stack[top++] = *str++;
-            cout << "[CTOR] Stack sukurtas su duomenimis\n";
-        }
-        ~Stack() {
-            cout << "[DTOR] Stack sunaikintas\n";
-        }
-        bool isEmpty() { return 0 == top; }
-        bool isFull()  { return SIZE == top; }
-        void push(char c) {
-            if (!isFull()) stack[top++] = c;
-        }
-        char pop() {
-            if (!isEmpty()) return stack[--top];
-            return '\0';
-        }
-    };
-    int main(void) {
-        Stack s1;               // ← default konstruktorius
-        Stack s2("ABCDE");      // ← parametrinis konstruktorius
-
-        cout << "s1: ";
-        s1.push('X');
-        while (!s1.isEmpty())
-            cout << s1.pop();
-        cout << '\n';
-
-        cout << "s2: ";
-        while (!s2.isEmpty())
-            cout << s2.pop();
-        cout << '\n';
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/15_OVERLOADING_CONSTRUCTORS/01_OK/usestack.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
@@ -1075,67 +719,26 @@ char c = s.pop();
 
 ---
 
-## 🎯 Santrauka: 11–15 etapai
-
-| Nr | Etapas | Žingsniai | Atradimas |
-|----|--------|-----------|-----------|
-| **11** | Discovering_CPP_Struct | `00` → `01_NC_Naive` | Funkcija klasės viduje ≠ globali funkcija |
-| **12** | ENCAPSULATING_in_CPP_Struct | `01_OK` → `02_OK_Attack` | `this` + encapsulation ≠ information hiding |
-| **13** | HIDING_in_CLASS | `01_NC_Naive` → `02_OK` → `03_NC_Attack` | `class` = `private` pagal nutylėjimą; kompiliatorius saugo |
-| **14** | CONSTRUCTOR_and_DESTRUCTOR | `00` → `01_OK` | Kūrimas = inicializavimas; naikinimas = automatinis |
-| **15** | OVERLOADING_CONSTRUCTORS | `00` → `01_OK` | Overloading: tas pats vardas, skirtingi parametrai |
-
-**Kitas žingsnis:** Metodų apibrėžimas išorėje – `Stack::` ir moduliavimas į `.h`/`.cpp`! 🚀
-
----
-
 <a name="16"></a>
-## 1️⃣6️⃣ Etapas: `16_DEFINING_METHODS_OUTSIDE`
+## 1️⃣6️⃣ Etapas: `16_Defining_METHODS_OUTSIDE`
 
-> [`16_DEFINING_METHODS_OUTSIDE`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/)
+> [`16_Defining_METHODS_OUTSIDE`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/)
 
 !!! note "🎯 Tikslas"
     Suprasti, kad metodų **apibrėžimus** galima (ir dažnai reikia) iškelti **už klasės ribų** – ir kaip tai daryti su `Stack::` scope resolution operatoriumi. Tada – pažįstamas žingsnis: skaidymas į `.h` ir `.cpp`.
 
 ---
 
-### 0 žingsnis: Bazinis kodas – viskas klasės viduje → [`00`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/00/)
+### 0 žingsnis: Bazinis kodas – viskas klasės viduje → [`00`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/00/)
 
-> Failas: [`16_DEFINING_METHODS_OUTSIDE/00/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/00/usestack.cpp)
+> Failas: [`16_Defining_METHODS_OUTSIDE/00/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/00/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     Turima versija iš 15 etapo – visi metodai **inline** klasės viduje. Veikia, bet klasė tampa didelė ir sunkiai skaitoma.
 
 ???+ "📄 `usestack.cpp` – viskas viduje (atspirties taškas)"
     ```cpp
-    #include <iostream>
-    using namespace std;
-    #define SIZE 5
-    class Stack {
-    private:
-        char stack[SIZE];
-        int top;
-    public:
-        Stack()              { top = 0; }
-        Stack(const char* s) { top = 0; while (*s && !isFull()) stack[top++] = *s++; }
-        ~Stack()             { }
-        bool isEmpty()       { return 0 == top; }
-        bool isFull()        { return SIZE == top; }
-        void push(char c)    { if (!isFull()) stack[top++] = c; }
-        char pop()           { if (!isEmpty()) return stack[--top]; return '\0'; }
-    };
-    int main(void) {
-        Stack s1;
-        Stack s2("ABCDE");
-        s1.push('X');
-        while (!s1.isEmpty())
-            cout << s1.pop();
-        cout << '\n';
-        while (!s2.isEmpty())
-            cout << s2.pop();
-        cout << '\n';
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/00/usestack.cpp"
     ```
 
 !!! warning "Klasė auga – metodų apibrėžimai užgožia struktūrą"
@@ -1145,40 +748,16 @@ char c = s.pop();
 
 ---
 
-### 1 žingsnis: Metodai išorėje be `Stack::` → [`01_NC_Naive`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/01_NC_Naive/)
+### 1 žingsnis: Metodai išorėje be `Stack::` → [`01_NC_Naive`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/01_NC_Naive/)
 
-> Failas: [`16_DEFINING_METHODS_OUTSIDE/01_NC_Naive/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/01_NC_Naive/usestack.cpp)
+> Failas: [`16_Defining_METHODS_OUTSIDE/01_NC_Naive/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/01_NC_Naive/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „Ištrauksiu metodų apibrėžimus iš klasės – kaip C kalboje funkcijas iš `struct {}` bloko."
 
 ???+ "📄 `usestack.cpp` – metodai išorėje, bet be `Stack::`"
     ```cpp
-    #include <iostream>
-    using namespace std;
-    #define SIZE 5
-    class Stack {
-    private:
-        char stack[SIZE];
-        int top;
-    public:
-        Stack();
-        Stack(const char* str);
-        ~Stack();
-        bool isEmpty();
-        bool isFull();
-        void push(char c);
-        char pop();
-    };
-
-    Stack()              { top = 0; }                   // ← be Stack::
-    Stack(const char* s) { top = 0; while (*s && !isFull()) stack[top++] = *s++; }
-    bool isEmpty()       { return 0 == top; }
-    bool isFull()        { return SIZE == top; }
-    void push(char c)    { if (!isFull()) stack[top++] = c; }
-    char pop()           { if (!isEmpty()) return stack[--top]; return '\0'; }
-
-    int main(void) { /* ... */ return 0; }
+    --8<-- "code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/01_NC_Naive/usestack.cpp"
     ```
 
 === "🔨 Kompiliavimas"
@@ -1209,52 +788,16 @@ char c = s.pop();
 
 ---
 
-### 2 žingsnis: Metodai išorėje su `Stack::` → [`02_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/02_OK/)
+### 2 žingsnis: Metodai išorėje su `Stack::` → [`02_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/02_OK/)
 
-> Failas: [`16_DEFINING_METHODS_OUTSIDE/02_OK/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/02_OK/usestack.cpp)
+> Failas: [`16_Defining_METHODS_OUTSIDE/02_OK/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/02_OK/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
     „Pridėsiu `Stack::` prieš kiekvieną metodo apibrėžimą – tada kompiliatorius žinos, kad jie priklauso klasei."
 
 ???+ "📄 `usestack.cpp` – metodai išorėje su `Stack::`"
     ```cpp
-    #include <iostream>
-    using namespace std;
-    #define SIZE 5
-    class Stack {
-    private:
-        char stack[SIZE];
-        int top;
-    public:
-        Stack();
-        Stack(const char* str);
-        ~Stack();
-        bool isEmpty();
-        bool isFull();
-        void push(char c);
-        char pop();
-    };
-
-    Stack::Stack()              { top = 0; }
-    Stack::Stack(const char* s) { top = 0; while (*s && !isFull()) stack[top++] = *s++; }
-    Stack::~Stack()             { }
-    bool Stack::isEmpty()       { return 0 == top; }
-    bool Stack::isFull()        { return SIZE == top; }
-    void Stack::push(char c)    { if (!isFull()) stack[top++] = c; }
-    char Stack::pop()           { if (!isEmpty()) return stack[--top]; return '\0'; }
-
-    int main(void) {
-        Stack s1;
-        Stack s2("ABCDE");
-        s1.push('X');
-        while (!s1.isEmpty())
-            cout << s1.pop();
-        cout << '\n';
-        while (!s2.isEmpty())
-            cout << s2.pop();
-        cout << '\n';
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/02_OK/usestack.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
@@ -1283,66 +826,26 @@ char c = s.pop();
 
 ---
 
-### 3 žingsnis: Skaidymas į `stack.h` + `stack.cpp` → [`03_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/03_OK/)
+### 3 žingsnis: Skaidymas į `stack.h` + `stack.cpp` → [`03_OK`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/03_OK/)
 
-> Failai: [`stack.h`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/03_OK/stack.h) · [`stack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/03_OK/stack.cpp) · [`user.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_DEFINING_METHODS_OUTSIDE/03_OK/user.cpp)
+> Failai: [`stack.h`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/03_OK/stack.h) · [`stack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/03_OK/stack.cpp) · [`user.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/03_OK/user.cpp)
 
 !!! quote "Mintis / ketinimas"
     „02_OK viename faile jau atrodo kaip du moduliai – tiesiog fiziškai juos atskirkime."
 
 === "📄 `stack.h`"
     ```cpp
-    #pragma once
-    #define SIZE 5
-
-    class Stack {
-    private:
-        char stack[SIZE];
-        int top;
-    public:
-        Stack();
-        Stack(const char* str);
-        ~Stack();
-        bool isEmpty();
-        bool isFull();
-        void push(char c);
-        char pop();
-    };
+    --8<-- "code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/03_OK/stack.h"
     ```
 
 === "📄 `stack.cpp`"
     ```cpp
-    #include <iostream>
-    #include "stack.h"
-    // std:: – naudojame pilną vardą (ne using namespace std)
-
-    Stack::Stack()              { top = 0; }
-    Stack::Stack(const char* s) { top = 0; while (*s && !isFull()) stack[top++] = *s++; }
-    Stack::~Stack()             { }
-    bool Stack::isEmpty()       { return 0 == top; }
-    bool Stack::isFull()        { return SIZE == top; }
-    void Stack::push(char c)    { if (!isFull()) stack[top++] = c; }
-    char Stack::pop()           { if (!isEmpty()) return stack[--top]; return '\0'; }
+    --8<-- "code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/03_OK/stack.cpp"
     ```
 
 === "📄 `user.cpp`"
     ```cpp
-    #include <iostream>
-    #include "stack.h"
-    // std:: – naudojame pilną vardą
-
-    int main(void) {
-        Stack s1;
-        Stack s2("ABCDE");
-        s1.push('X');
-        while (!s1.isEmpty())
-            std::cout << s1.pop();
-        std::cout << '\n';
-        while (!s2.isEmpty())
-            std::cout << s2.pop();
-        std::cout << '\n';
-        return 0;
-    }
+    --8<-- "code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/03_OK/user.cpp"
     ```
 
 === "🔨 = ⚙️➔🔗➔🚀"
