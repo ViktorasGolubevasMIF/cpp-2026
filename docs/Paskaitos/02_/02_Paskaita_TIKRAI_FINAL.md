@@ -86,9 +86,9 @@
 
 === "usestack.c"
 
-    ??? "📄 01_Running_PROGRAM/01_OK_naive/usestack.c"
+    ???+ "📄 01_Running_PROGRAM/01_OK_naive/usestack.c"
 
-        ```c linenums="1" hl_lines="6-7"
+        ```c linenums="1" hl_lines="6-7 39-58"
         --8<-- "code/evolution/stack-2026/01_Running_PROGRAM/01_OK_naive/usestack.c"
         ```
 

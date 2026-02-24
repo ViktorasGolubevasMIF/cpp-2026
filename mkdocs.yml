@@ -85,6 +85,7 @@ nav:
       - 'Parametrų perdavimas (pdf)': Paskaitos/01_3/Parameters_Passing.pdf
     - '02 Paskaita': 
       - 'Stack ADT Evoliucija C kalboje': Paskaitos/02_/02_Paskaita_TIKRAI_FINAL.md
+      - 'Stack ADT Evoliucija C++ kalboje': Paskaitos/02_/03_Paskaita_CPP_Stack_Evolution_START.md
 
 # ═══════════════════════════════════════════════════════════
 # 🎯 NAUJAS: Extra JavaScript (jei reikės Mermaid ar MathJax)
