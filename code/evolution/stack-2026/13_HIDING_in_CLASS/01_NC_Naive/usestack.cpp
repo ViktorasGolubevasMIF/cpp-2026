@@ -1,15 +1,15 @@
 #include <stdio.h>
 // ===> stack dalis
 #define SIZE 5
-    struct Stack {
+    class Stack {	// CLASS !
         char stack[SIZE];
         int top;
 
-        void init()       { top = 0; }            // ← pst - išmestas, top - tiesiogiai
+        void init()       { top = 0; }       
         int isEmpty()     { return 0 == top; }
         int isFull()      { return SIZE == top; }
         void push(char c) {
-            if (!isFull()) stack[top++] = c;       // ← stack, top – tiesiogiai
+            if (!isFull()) stack[top++] = c;
         }
         char pop() {
             if (!isEmpty()) return stack[--top];
@@ -19,9 +19,8 @@
 // ===> user dalis
     int main(void) {
         char c;
-        struct Stack st1;
-        Stack st2;	// "nebetampome" etikėtės 'struct'
-        st1.init();	// ← nebėra (&st) !
+        Stack st1, st2;	// "nebetampome" žodelių 'struct' ar 'class'
+        st1.init();	
         while ((!st1.isFull()) && ('\n' != (c = getchar()))) st1.push(c);
         while (!st1.isEmpty()) putchar(st1.pop());
         putchar('\n');

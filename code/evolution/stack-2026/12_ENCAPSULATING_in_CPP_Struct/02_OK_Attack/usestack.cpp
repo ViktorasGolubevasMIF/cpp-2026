@@ -27,6 +27,9 @@
         putchar('\n');
         st2.init();
         while ((!st2.isFull()) && ('\n' != (c = getchar()))) st2.push(c);
+    //// ATTACK!
+    st2.stack[st2.top++] = '!';
+    ////
         while (!st2.isEmpty()) putchar(st2.pop());
         putchar('\n');
         return 0;

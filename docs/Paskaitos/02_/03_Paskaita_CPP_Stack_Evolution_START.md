@@ -63,8 +63,8 @@ char c = s.pop();
 
 | Nr | Etapas | Koncepcija | Esmė |
 |----|--------|------------|------|
-| **11** | [Discovering_CPP_Struct](#11) | Naivus copy-paste + `static` vargai | NC klaidos atskleidžia klasės anatomiją |
-| **12** | [Anatomy_of_CPP_Struct](#12) | Funkcijos *viduje* `struct {}` | `this` gimimas, C++ `struct` semantika |
+| **11** | [Discovering_CPP_Struct](#11) | Funkcijos *į* `struct {}` vidų – C stiliaus kvietimas | NC: `main()` nebemato funkcijų globaliai |
+| **12** | [Anatomy_of_CPP_Struct](#12) | Funkcijos viduje + `this` + parametrų išmetimas | OK: C++ `struct` semantika |
 | **13** | [Discovering_CLASS](#13) | `struct` → `class` + `public:`/`private:` | Paradigminis switch: kompiliatorius saugo! |
 
 ---
@@ -75,23 +75,24 @@ char c = s.pop();
 > [`11_Discovering_CPP_Struct`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/11_Discovering_CPP_Struct/)
 
 !!! note "🎯 Tikslas"
-    Pamatyti, kas nutinka kai C kodą tiesiog *perkeliame* į `.cpp` – ir kodėl tai **neveikia**.
+    Suprasti, kas nutinka kai C funkcijų apibrėžimus **perkeliame į `struct {}` bloką** – ir `main()` jas vis dar kviečia C stiliumi.
 
 !!! info "🔍 Ką darysime"
     - Paimsime `05_Defining_USER_TYPE/03_OK/usestack.c` kodą
-    - Pervadinsime į `usestack.cpp` – minimalus pakeitimas
-    - Paleisime kompiliatorių ir **skaitysime klaidas**
+    - Funkcijų apibrėžimus **fiziškai perkeliame į** `struct Stack {}` vidų (su visais `struct Stack *pst` parametrais)
+    - `main()` lieka nepakeistas – kviečia C stiliumi: `init(&st1)`
+    - Skaitome klaidas
 
 ---
 
-### 1 žingsnis: Naivus copy-paste → `01_NC_Naive`
+### 1 žingsnis: Funkcijos į `struct` vidų, `main()` nepakeistas → `01_NC_Naive`
 
 > Failas: `11_Discovering_CPP_Struct/01_NC_Naive/usestack.cpp`
 
 !!! quote "Mintis / ketinimas"
-    „Turiu veikiantį C kodą. Pervadinu į `.cpp` – ir viskas turėtų veikti, ne?"
+    „C++ `struct` gali turėti funkcijas viduje – įdėsiu jas ten. `main()` vis tiek ras jas, kaip ir anksčiau."
 
-???+ "📄 `usestack.cpp` (identiškas C originalui)"
+???+ "📄 `usestack.cpp`"
     ```cpp
     #include <stdio.h>
     // ===> stack dalis
@@ -99,25 +100,23 @@ char c = s.pop();
     struct Stack {
         char stack[SIZE];
         int top;
+        static void reset(struct Stack *pst) { pst->top = 0; }  // ← viduje!
+        void init(struct Stack *pst)         { pst->top = 0; }
+        int isEmpty(struct Stack *pst)       { return 0 == pst->top; }
+        int isFull(struct Stack *pst)        { return SIZE == pst->top; }
+        void push(struct Stack *pst, char c) {
+            if (!isFull(pst)) pst->stack[pst->top++] = c;
+        }
+        char pop(struct Stack *pst) {
+            if (!isEmpty(pst)) return pst->stack[--pst->top];
+            return '\0';
+        }
     };
-    
-    static void reset(struct Stack *pst) { pst->top = 0; }
-    void init(struct Stack *pst)         { pst->top = 0; }
-    int isEmpty(struct Stack *pst)       { return 0 == pst->top; }
-    int isFull(struct Stack *pst)        { return SIZE == pst->top; }
-    void push(struct Stack *pst, char c) {
-        if (!isFull(pst)) pst->stack[pst->top++] = c;
-    }
-    char pop(struct Stack *pst) {
-        if (!isEmpty(pst)) return pst->stack[--pst->top];
-        return '\0';
-    }
-    
     // ===> user dalis
     int main(void) {
         char c;
         struct Stack st1, st2;
-        init(&st1);
+        init(&st1);                                              // ← C stilius
         while ((!isFull(&st1)) && ('\n' != (c = getchar()))) push(&st1, c);
         while (!isEmpty(&st1)) putchar(pop(&st1));
         putchar('\n');
@@ -136,77 +135,98 @@ char c = s.pop();
 
 === "💥 Klaidos"
     ```
-    usestack.cpp:49:5: error: use of undeclared identifier 'init'; did you mean 'int'?
-    usestack.cpp:50:15: error: use of undeclared identifier 'isFull'
-    usestack.cpp:50:60: error: use of undeclared identifier 'push'
-    usestack.cpp:51:13: error: use of undeclared identifier 'isEmpty'
-    usestack.cpp:51:36: error: use of undeclared identifier 'pop'
+    usestack.cpp:22:5: error: use of undeclared identifier 'init'; did you mean 'int'?
+    usestack.cpp:23:15: error: use of undeclared identifier 'isFull'
+    usestack.cpp:23:60: error: use of undeclared identifier 'push'
+    usestack.cpp:24:13: error: use of undeclared identifier 'isEmpty'
+    usestack.cpp:24:36: error: use of undeclared identifier 'pop'
     ... (10 klaidų iš viso)
     ```
 
-!!! failure "🤔 Bet kodėl?!"
-    Kodas **identiškas** veikiančiam C kodui. Skiriasi tik plėtinys `.cpp`.  
-    Vis dėlto – **10 klaidų**. Kas nutiko?
+!!! failure "🤔 Funkcijos yra faile – kodėl kompiliatorius jų nemato?!"
 
 ??? question "Pamąstykite prieš skaitant toliau..."
-    Funkcijos `init`, `push`, `pop` ir kt. yra **apibrėžtos faile**. Kodėl kompiliatorius jų „nemato"?  
+    `init`, `push`, `pop` ir kt. yra **apibrėžtos** – tik viduje `struct Stack {}`.  
+    `main()` jas kviečia kaip globalias: `init(&st1)`.  
     
-    Atkreipkite dėmesį: jos apibrėžtos *po* `struct Stack {}` bloko, bet *prieš* `main()`.  
-    C kalboje tai veikė. C++ kalboje – ne. Kodėl?
+    Kas pasikeitė, kai funkcijos „persikėlė" į vidų?
 
-!!! tip "Atsakymas: C++ `struct` yra *kita* nei C `struct`"
-    C kalboje `struct Stack {}` – tai tik duomenų konteineris. Funkcijos *šalia* yra tiesiog globalios funkcijos.
+!!! tip "Atsakymas: funkcija „persikėlė" – ir išnyko iš globalios erdvės"
+    Kai funkcija yra **viduje** `struct Stack {}`, ji nebėra globali funkcija.  
+    Ji tapo **klasės nariu** – ir dabar priklauso `Stack` vardų erdvei.
     
-    C++ kalboje `struct Stack {}` jau yra *klasės pirmtakas* – ir kompiliatorius tikisi, kad funkcijos, dirbančios su `Stack`, bus *susijusios* su juo kitaip.
+    `main()` ieško `init` globaliai – ir neranda. Kompiliatorius pasiūlo: *„did you mean 'int'?"* – nes globaliai žino tik `int`, ne `init`.
     
-    Klaida `undeclared identifier 'init'` – kompiliatorius bando `init` rasti kaip **klasės narį**, ne kaip globalią funkciją!
+    **Taisymas akivaizdus:** kviesti per objektą – `st1.init(...)`.
+
+    ??? note "Beje: `static reset` nekelia klaidos..."
+        Pastebėsite, kad `static void reset(...)` viduje `struct` kompiliatorius priima be skundo.  
+        Tai ne atsitiktinumas – `static` klasės viduje reiškia visai **ką kitą** nei C kalboje. Tai „klasės lygio" narys, ne egzemplioriaus. Prie šio `static` grįšime vėliau – kol kas tiesiog atkreipkite dėmesį.
 
 ---
 
-### 2 žingsnis: „Gal `static` padės?" → `02_NC_Static_Trap`
+### 2 žingsnis: `main()` pakeičiamas į objekto sintaksę → `02_OK`
+
+> Failas: `11_Discovering_CPP_Struct/02_OK/usestack.cpp`
 
 !!! quote "Mintis / ketinimas"
-    „Gal funkcijos nerandamos dėl matomumo? C kalboje `static` padėjo su information hiding – pabandykime!"
+    „Jei funkcijos priklauso `Stack` – kviesiu jas per objektą: `st1.init(...)`."
 
-???+ "📄 Pakeitimas: `static` prie funkcijų"
+???+ "📄 `usestack.cpp` – tik `main()` pakeistas"
     ```cpp
-    // Bandymas: prikišti static prie visų funkcijų
-    static void init(struct Stack *pst)  { pst->top = 0; }
-    static int isEmpty(struct Stack *pst){ return 0 == pst->top; }
-    // ...
+    #include <stdio.h>
+    #define SIZE 5
+    struct Stack {
+        char stack[SIZE];
+        int top;
+        static void reset(struct Stack *pst) { pst->top = 0; }
+        void init(struct Stack *pst)         { pst->top = 0; }
+        int isEmpty(struct Stack *pst)       { return 0 == pst->top; }
+        int isFull(struct Stack *pst)        { return SIZE == pst->top; }
+        void push(struct Stack *pst, char c) {
+            if (!isFull(pst)) pst->stack[pst->top++] = c;
+        }
+        char pop(struct Stack *pst) {
+            if (!isEmpty(pst)) return pst->stack[--pst->top];
+            return '\0';
+        }
+    };
+    int main(void) {
+        char c;
+        struct Stack st1, st2;
+        st1.init(&st1);                                          // ← objekto sintaksė
+        while ((!st1.isFull(&st1)) && ('\n' != (c = getchar()))) st1.push(&st1, c);
+        while (!st1.isEmpty(&st1)) putchar(st1.pop(&st1));
+        putchar('\n');
+        st2.init(&st2);
+        while ((!st2.isFull(&st2)) && ('\n' != (c = getchar()))) st2.push(&st2, c);
+        while (!st2.isEmpty(&st2)) putchar(st2.pop(&st2));
+        putchar('\n');
+        return 0;
+    }
     ```
 
-=== "🔨 Kompiliavimas"
+=== "🔨 = ⚙️➔🔗➔🚀"
     ```bash
-    clang usestack.cpp -o app
+    clang usestack.cpp -o app   # ✅
+    ./app
     ```
 
-=== "💥 Klaidos (tos pačios!)"
+=== "⌨️➔🖥️"
     ```
-    usestack.cpp:49:5: error: use of undeclared identifier 'init'
-    ...
+    hello
+    olleh
+    world
+    dlrow
     ```
 
-!!! failure "❌ `static` nepadėjo!"
-    
-!!! warning "⚠️ Terminų spąstai: du skirtingi `static`"
-    C kalboje matėme **du** `static` reikšmes:
-    
-    | Kontekstas | Reikšmė |
-    |------------|---------|
-    | Globalios funkcijos/kintamojo | Internal linkage – „nematoma" iš kitų failų |
-    | Lokalaus kintamojo funkcijoje | Išsaugoma tarp iškvietimų |
-    
-    C++ klasėje atsiranda **trečia** reikšmė:
-    
-    | Kontekstas | Reikšmė |
-    |------------|---------|
-    | Klasės nario | Bendras visiems klasės objektams (ne `this`!) |
-    
-    Čia `static` problemų neišsprendžia – tai **kitas** `static`.
+!!! success "✅ Veikia!"
 
-!!! tip "Diagnozė"
-    Problema ne matomumas – problema **architektūrinė**: funkcijos turi būti *klasės viduje*, ne šalia jos.
+!!! warning "Bet... `st1.init(&st1)` – ar tai normalu?"
+    Veikia – bet atrodo keistai. Kviečiame per objektą `st1`, ir dar atskirai perduodame `&st1` kaip parametrą.  
+    Objektas perduodamas **du kartus**: vieną kartą kaip kvietėjas, antrą kartą kaip argumentas.
+    
+    Tai yra **kitas žingsnis**: kaip išmesti `struct Stack *pst` parametrą – ir leisti C++ tai tvarkyti automatiškai.
 
 ---
 
@@ -216,45 +236,46 @@ char c = s.pop();
 > [`12_Anatomy_of_CPP_Struct`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/12_Anatomy_of_CPP_Struct/)
 
 !!! note "🎯 Tikslas"
-    Atrasti, kad C++ `struct` gali *turėti funkcijas viduje* – ir suprasti, ką tai reiškia.
+    Suprasti, kodėl `struct Stack *pst` parametras nebereikalingas – ir kas jį pakeičia.
 
 !!! info "🔍 Ką darysime"
-    - Perkelti funkcijas **į** `struct Stack {}` bloką
-    - Išmesti `struct Stack *pst` parametrą – jis nebereikalingas
-    - Suprasti `this` gimimo momentą
+    - Iš 11/02_OK turime `st1.init(&st1)` – objektas perduodamas **du kartus**
+    - Išmetame `struct Stack *pst` parametrą iš visų funkcijų
+    - Pakeičiame `pst->top` į tiesiog `top`, `pst->stack` į `stack`
+    - Suprantame, kas yra `this`
 
 ---
 
-### 1 žingsnis: Funkcijos viduje → `01_OK`
+### 1 žingsnis: Išmetame `pst` parametrą → `01_OK`
 
 !!! quote "Mintis / ketinimas"
-    „Jei kompiliatorius nori, kad funkcijos būtų *susijusios* su `Stack` – padėkime jas viduje!"
+    "`st1.init(&st1)` – absurdas. Objektas jau žino, kas jis yra. Išmeskime `&st1` kaip parametrą!"
 
-???+ "📄 `usestack.cpp` – funkcijos perkeltos į `struct`"
+???+ "📄 `usestack.cpp` – `pst` parametro nebėra"
     ```cpp
     #include <stdio.h>
     #define SIZE 5
-    
+
     struct Stack {
         char stack[SIZE];
         int top;
-    
-        void init()         { top = 0; }          // ← nėra *pst!
-        int isEmpty()       { return 0 == top; }
-        int isFull()        { return SIZE == top; }
+
+        void init()       { top = 0; }            // ← pst išmestas, top tiesiogiai
+        int isEmpty()     { return 0 == top; }
+        int isFull()      { return SIZE == top; }
         void push(char c) {
-            if (!isFull()) stack[top++] = c;       // ← tiesiog top, stack
+            if (!isFull()) stack[top++] = c;       // ← stack, top – tiesiogiai
         }
         char pop() {
             if (!isEmpty()) return stack[--top];
             return '\0';
         }
     };
-    
+
     int main(void) {
         char c;
         struct Stack st1, st2;
-        st1.init();                                // ← nauja sintaksė!
+        st1.init();                                // ← švaru!
         while ((!st1.isFull()) && ('\n' != (c = getchar()))) st1.push(c);
         while (!st1.isEmpty()) putchar(st1.pop());
         putchar('\n');
@@ -282,22 +303,22 @@ char c = s.pop();
 
 !!! success "✅ Veikia!"
 
-!!! tip "Kas pasikeitė – anatomija"
-    **Prieš (C stilius):**
-    ```c
-    void init(struct Stack *pst) { pst->top = 0; }
-    // naudojimas:
-    init(&st1);
-    ```
-    
-    **Po (C++ struct):**
+!!! tip "Klasės anatomija – kas nutiko su `pst`?"
+    **Prieš (11/02_OK – dar su `pst`):**
     ```cpp
-    void init() { top = 0; }   // top – tai this->top!
-    // naudojimas:
-    st1.init();
+    void init(struct Stack *pst) { pst->top = 0; }
+    // kvietimas:
+    st1.init(&st1);   // ← absurdas: objektas du kartus
     ```
     
-    Kompiliatorius *automatiškai* perduoda nuorodą į objektą. Tas paslėptas parametras vadinamas **`this`**.
+    **Po (12/01_OK – be `pst`):**
+    ```cpp
+    void init() { top = 0; }
+    // kvietimas:
+    st1.init();        // ← švaru
+    ```
+    
+    Kompiliatorius *automatiškai* perduoda nuorodą į kviečiantį objektą. Tas paslėptas parametras vadinamas **`this`**.
 
 ??? info "Kas yra `this`?"
     Kiekvienoje ne-`static` klasės funkcijoje kompiliatorius *netiesiogiai* prideda parametrą:
@@ -305,16 +326,16 @@ char c = s.pop();
     // Tai ką mes rašome:
     void init() { top = 0; }
     
-    // Tai ką kompiliatorius „mato":
-    void init(Stack* this) { this->top = 0; }
+    // Tai ką kompiliatorius „mato" po gaubtu:
+    void init(Stack* const this) { this->top = 0; }
     ```
     
     Kai rašome `st1.init()` – kompiliatorius išverčia į `Stack::init(&st1)`.  
-    `this` visada rodo į **tą objektą**, kuris kvietė metodą.
+    `this` visada rodo į **tą objektą**, kuris kvietė metodą – todėl `st2.init()` operuoja su `st2`, ne `st1`.
 
 ??? question "Refleksija: kas liko neišspręsta?"
     - Visi nariai vis dar **vieši** – bet kuris `main()` kodas gali daryti `st1.top = 999;`
-    - Dar naudojame `struct Stack st1` – ar reikia žodžio `struct`?
+    - Vis dar rašome `struct Stack st1` – C++ leidžia tiesiog `Stack st1`
     - `init()` vis dar reikia kviesti rankiniu būdu – ar galėtų tai daryti automatiškai?
 
 ---
