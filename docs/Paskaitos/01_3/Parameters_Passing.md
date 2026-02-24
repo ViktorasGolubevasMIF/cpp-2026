@@ -1,5 +1,6 @@
 # Parametrų perdavimo mechanizmai
-# **`value`** | **`pointer`** | **`reference`**
+#  **`value`**  | **`pointer`** | **`reference`**
+# **`reikšmė`** | **`rodyklė`** |  **`nuoroda`** 
 
 ## 1. Perdavimas pagal reikšmę (_call/pass by value_)
 
@@ -32,7 +33,7 @@ int main() {
 
 C kalboje norėdami pakeisti originalą, turime "gudrauti" naudodami adresus.
 
-1.  Parametrai tampa rodyklėmis (`int*`).
+1.  Parametrai tampa **rodyklėmis** (`int*`).
 2.  Naudojame **išadresavimo** (dereference) operatorių `*`, kad pasiektume reikšmę.
 3.  Kviečiant funkciją, siunčiame **adresus** (`&a`).
 
