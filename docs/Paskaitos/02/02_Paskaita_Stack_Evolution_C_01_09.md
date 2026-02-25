@@ -599,9 +599,10 @@
         clang stack.o user.o -o app  # ❌
         ```
         ```
-        C:/mingw64/bin/ld: user.o:user.c:(.bss+0x0): multiple definition of `stack'; stack.o:stack.c:(.bss+0x0): first defined here
-        C:/mingw64/bin/ld: user.o:user.c:(.bss+0x64): multiple definition of `top'; stack.o:stack.c:(.bss+0x64): first defined here
+        C:/mingw64/bin/ld: C:/Users/vikto/AppData/Local/Temp/stack-34f531.o:stack.c:(.rdata$.refptr.stack[.refptr.stack]+0x0): undefined reference to `stack'
+        C:/mingw64/bin/ld: C:/Users/vikto/AppData/Local/Temp/stack-34f531.o:stack.c:(.rdata$.refptr.top[.refptr.top]+0x0): undefined reference to `top'
         clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
         ```
         ❌ multiple definition of ...
 
@@ -610,6 +611,7 @@
 #### ❌ Nesilinkina
 
 ??? bug "Dar viena NL klaida!"
+    **Netesigai nukopijuota - taisyti**
     `extern` header'yje gerai, bet `stack.c` TAIP PAT turi kintamųjų apibrėžimus! Dabar abu `.c` failai sukuria apibrėžimus. Header'yje turi būti TIK `extern` deklaracijos, o apibrėžimas – TIKTAI viename `.c` faile.
 
 ---
