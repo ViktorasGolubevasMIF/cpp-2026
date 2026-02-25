@@ -1,0 +1,2104 @@
+
+<!doctype html>
+<html lang="lt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://viktorasgolubevasmif.github.io/cpp-2026/Kursas/Kurso_Struktura/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>OBJEKTINIS PROGRAMAVIMAS C++, 2026 - Objektinis programavimas C++. INF-1K</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#objektinis-programavimas-c-2026" class="md-skip">
+          Pereiti prie turinio
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Antraštė">
+    <a href="../.." title="Objektinis programavimas C++. INF-1K" class="md-header__button md-logo" aria-label="Objektinis programavimas C++. INF-1K" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Objektinis programavimas C++. INF-1K
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OBJEKTINIS PROGRAMAVIMAS C++, 2026
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Perjungti į tamsų režimą"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Perjungti į tamsų režimą" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Perjungti į šviesų režimą"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Perjungti į šviesų režimą" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Paieška" placeholder="Paieška" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Paieška">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Išvalyti" aria-label="Išvalyti" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Paieškos inicijavimas
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ViktorasGolubevasMIF/cpp-2026" title="Eiti į saugyklą" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub cpp-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Skirtukai" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Pradžia
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Temos/Better_C/ParamPass/" class="md-tabs__link">
+          
+  
+  
+  Temos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Paskaitos/01/Parameters_Passing/" class="md-tabs__link">
+          
+  
+  
+  Paskaitos
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigacija" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Objektinis programavimas C++. INF-1K" class="md-nav__button md-logo" aria-label="Objektinis programavimas C++. INF-1K" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Objektinis programavimas C++. INF-1K
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ViktorasGolubevasMIF/cpp-2026" title="Eiti į saugyklą" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub cpp-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pradžia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Temos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Temos/Better_C/ParamPass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametrų perdavimas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paskaitos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Paskaitos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Paskaita
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Paskaita
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Paskaitos/01/Parameters_Passing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametrų perdavimas (su Tutor)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Paskaitos/01/C_System.pdf" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C/C++ sistema (pdf)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Paskaitos/01/Parameters_Passing.pdf" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametrų perdavimas (pdf)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Paskaita
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Paskaita
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Paskaitos/02/02_Paskaita_Stack_Evolution_C_01_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stack ADT Evoliucija C kalboje: 01-09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Paskaitos/02/02_Paskaita_Stack_Evolution_CPP_11_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stack ADT Evoliucija C++ kalboje: 11-16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Turinys">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Turinys
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#kurso-struktura-teminiai-skyriai-paskaitos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kurso struktūra: Teminiai skyriai -&gt; Paskaitos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teminiai-skyriai-temine-struktura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TEMINIAI SKYRIAI (TEMINĖ STRUKTŪRA)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TEMINIAI SKYRIAI (TEMINĖ STRUKTŪRA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-skyrius-evoliucija-nuo-c-iki-modern-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 skyrius. EVOLIUCIJA: Nuo C iki Modern C++
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1 skyrius. EVOLIUCIJA: Nuo C iki Modern C++">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-is-monolito-i-moduli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1. Iš Monolito į Modulį
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-informacijos-slepimas-pradzia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2. Informacijos slėpimas. Pradžia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-inkapsuliacija-pradzia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3. Inkapsuliacija. Pradžia
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-gyvavimo-ciklas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4. Gyvavimo ciklas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-pazangios-c-technikos-priedas-10a-d-perdaryti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5. Pažangios C technikos (Priedas 10A-D) - perdaryti
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-suolis-i-c-perdaryti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6. Šuolis į C++ - perdaryti
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-skyrius-klases-anatomija" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 skyrius. KLASĖS ANATOMIJA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 skyrius. KLASĖS ANATOMIJA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-klases-pagrindai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1. KLASĖS pagrindai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-prieigos-kontrole" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2. Prieigos kontrolė
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-raii-principas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3. RAII principas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-skyrius-geresnis-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 skyrius. GERESNIS C
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 skyrius. GERESNIS C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-nuorodos-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. Nuorodos (References)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-auto-ir-tipo-isvedimas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Auto ir tipo išvedimas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-ciklas-su-diapazonu-range-based-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Ciklas su diapazonu (Range-based loops)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-nullptr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4. Nullptr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-vieninga-inicializacija-uniform-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5. Vieninga inicializacija (Uniform initialization)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-skyrius-kopijavimo-semantika" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 skyrius. KOPIJAVIMO SEMANTIKA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 skyrius. KOPIJAVIMO SEMANTIKA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-numatytasis-kopijavimo-elgesys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Numatytasis kopijavimo elgesys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-kopijavimo-konstruktorius-copy-constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Kopijavimo konstruktorius (Copy Constructor)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-kopijavimo-priskyrimo-operatorius-copy-assignment-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Kopijavimo priskyrimo operatorius (Copy Assignment Operator)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-triju-taisykle-rule-of-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4. Trijų taisyklė (Rule of 3)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-skyrius-oop-principai-4-kolonos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 skyrius. OOP PRINCIPAI (4 kolonos)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 skyrius. OOP PRINCIPAI (4 kolonos)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-inkapsuliacija-encapsulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Inkapsuliacija (Encapsulation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-paveldejimas-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2. Paveldėjimas (Inheritance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-polimorfizmas-polymorphism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3. Polimorfizmas (Polymorphism)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-abstrakcija-abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4. Abstrakcija (Abstraction)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-skyrius-modern-c-c111417202326" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 skyrius. MODERN C++ (C++11/14/17/20/23/26)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 skyrius. MODERN C++ (C++11/14/17/20/23/26)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-rvalue-nuorodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. rvalue nuorodos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-perkelimo-konstruktorius-move-constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Perkėlimo konstruktorius (Move Constructor)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-perkelimo-priskyrimo-operatorius-move-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Perkėlimo priskyrimo operatorius (Move Assignment)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-penkiu-taisykle-rule-of-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Penkių taisyklė (Rule of 5)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-ismaniosios-rodykles-smart-pointers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5. Išmaniosios rodyklės (Smart Pointers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-skyrius-operatoriu-perkrovimas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 skyrius. OPERATORIŲ PERKROVIMAS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7 skyrius. OPERATORIŲ PERKROVIMAS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-aritmetiniai-operatoriai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. Aritmetiniai operatoriai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-palyginimo-operatoriai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Palyginimo operatoriai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-srauto-operatoriai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Srauto operatoriai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-indeksavimo-operatorius" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4. Indeksavimo operatorius []
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-funkcijos-iskvietimo-operatorius" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5. Funkcijos iškvietimo operatorius ()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-skyrius-sablonu-pagrindai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8 skyrius. ŠABLONŲ PAGRINDAI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8 skyrius. ŠABLONŲ PAGRINDAI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-funkciju-sablonai-function-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1. Funkcijų šablonai (Function templates)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-klasiu-sablonai-class-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2. Klasių šablonai (Class templates)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-skyrius-stl-pagrindai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9 skyrius. STL PAGRINDAI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9 skyrius. STL PAGRINDAI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-konteineriu-pagrindai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1. Konteinerių pagrindai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-iteratoriai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2. Iteratoriai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-algoritmai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3. Algoritmai
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-kiti-konteineriai-apzvalga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4. Kiti konteineriai (apžvalga)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-skyrius-isimciu-apdorojimas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 skyrius. IŠIMČIŲ APDOROJIMAS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10 skyrius. IŠIMČIŲ APDOROJIMAS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-trycatchthrow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1. try/catch/throw
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-standartines-isimtys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2. Standartinės išimtys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-raii-ir-isimtys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3. RAII ir išimtys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-noexcept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4. Noexcept
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#paskaitu-projekcija-i-temines-dalis-siekiamybe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PASKAITŲ PROJEKCIJA Į TEMINES DALIS (siekiamybė 🚀)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objektu-hierarchija-pagal-sudetinguma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OBJEKTŲ HIERARCHIJA PAGAL SUDĖTINGUMĄ
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OBJEKTŲ HIERARCHIJA PAGAL SUDĖTINGUMĄ">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-paprastas-objektas-tik-duomenys-prieiga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. PAPRASTAS objektas (tik duomenys + prieiga)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-kompozicinis-objektas-turi-kitu-objektu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. KOMPOZICINIS objektas (turi kitų objektų)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-resursus-valdantis-objektas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. RESURSUS VALDANTIS objektas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-polimorfinis-objektas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. POLIMORFINIS objektas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kritiniai-rysiai-tarp-paskaitu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KRITINIAI RYŠIAI TARP PASKAITŲ
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#papildomi-objektai-seminaramsuzduotims" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PAPILDOMI OBJEKTAI SEMINARAMS/UŽDUOTIMS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versija" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VERSIJA
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="objektinis-programavimas-c-2026">OBJEKTINIS PROGRAMAVIMAS C++, 2026</h1>
+<h2 id="kurso-struktura-teminiai-skyriai-paskaitos">Kurso struktūra: Teminiai skyriai -&gt; Paskaitos</h2>
+<hr />
+<h2 id="teminiai-skyriai-temine-struktura">TEMINIAI SKYRIAI (TEMINĖ STRUKTŪRA)</h2>
+<h3 id="1-skyrius-evoliucija-nuo-c-iki-modern-c">1 skyrius. EVOLIUCIJA: Nuo C iki Modern C++</h3>
+<h4 id="11-is-monolito-i-moduli">1.1. Iš Monolito į Modulį</h4>
+<ul>
+<li>Programos dekompozicija</li>
+<li>Kompiliavimo vienetai (<em>compilation units</em>)</li>
+<li>Antraštės/implementacijos atskyrimas (<em>header</em>/<em>implementation</em>)</li>
+</ul>
+<h4 id="12-informacijos-slepimas-pradzia">1.2. Informacijos slėpimas. Pradžia</h4>
+<ul>
+<li>Statiniai kintamieji (<code>static</code>)</li>
+</ul>
+<h4 id="13-inkapsuliacija-pradzia">1.3. Inkapsuliacija. Pradžia</h4>
+<ul>
+<li>Vartotojo apibrėžti tipai (<em>User-Defined Types</em>)</li>
+<li>Inkapsuliacija (<em>Encapsulation</em>) C būdu</li>
+</ul>
+<h4 id="14-gyvavimo-ciklas">1.4. Gyvavimo ciklas</h4>
+<ul>
+<li>Nepermatomos rodyklės (<em>opaque pointers</em>)</li>
+<li>Rankinis resursų valdymas</li>
+<li>RAII. Pradžia</li>
+</ul>
+<h4 id="15-pazangios-c-technikos-priedas-10a-d-perdaryti">1.5. Pažangios C technikos (Priedas 10A-D) - perdaryti</h4>
+<ul>
+<li>Tipų alijavimas (<code>typedef aliasing</code>)</li>
+<li>Konstantiškumo taisyklės (<code>const correctness</code>)</li>
+<li>Funkcijų rodykliai (<code>function pointers</code>) polimorfizmui</li>
+<li>Bendrinio rodyklio technika (<code>void pointer generics</code>)</li>
+</ul>
+<h4 id="16-suolis-i-c-perdaryti">1.6. Šuolis į C++ - perdaryti</h4>
+<ul>
+<li><code>class</code> kaip sprendimas</li>
+<li><code>Constructor</code>/<code>Destructor</code> automatizacija</li>
+<li><code>private</code>/<code>public</code> vykdymas kompiliatoriaus lygmenyje</li>
+</ul>
+<hr />
+<h3 id="2-skyrius-klases-anatomija">2 skyrius. KLASĖS ANATOMIJA</h3>
+<h4 id="21-klases-pagrindai">2.1. KLASĖS pagrindai</h4>
+<ul>
+<li><code>struct</code> vs <code>class</code></li>
+<li>Funkcijos-nariai (<em>member functions</em>)</li>
+<li><code>this</code> rodyklė</li>
+<li>Konstruktoriai: numatytasis (<code>default</code>), parametrizuotas</li>
+<li>Destruktorius</li>
+<li>Inicializacija vs Priskyrimas</li>
+</ul>
+<h4 id="22-prieigos-kontrole">2.2. Prieigos kontrolė</h4>
+<ul>
+<li><code>public</code>/<code>private</code>/<code>protected</code></li>
+<li>Draugiškos funkcijos/klasės (<code>friend</code>)</li>
+<li>Getterių/Setterių šablonas (<em>getter</em>/<em>setter</em>)</li>
+</ul>
+<h4 id="23-raii-principas">2.3. RAII principas</h4>
+<ul>
+<li>Resursų gavimas yra inicializacija (<em>Resource Acquisition Is Initialization</em>)</li>
+<li>Destruktoriaus atsakomybė</li>
+<li>Automatinis valymas (<em>automatic cleanup</em>)</li>
+</ul>
+<hr />
+<h3 id="3-skyrius-geresnis-c">3 skyrius. GERESNIS C</h3>
+<h4 id="31-nuorodos-references">3.1. Nuorodos (<em>References</em>)</h4>
+<ul>
+<li><em>lvalue</em> nuorodos</li>
+<li>Nuoroda vs rodyklė</li>
+<li>Nuorodos kaip funkcijų parametrai</li>
+<li>Grąžinimas per nuorodą (<em>return by reference</em>)</li>
+</ul>
+<h4 id="32-auto-ir-tipo-isvedimas">3.2. Auto ir tipo išvedimas</h4>
+<ul>
+<li><code>auto</code> raktažodis; kada naudoti/nenaudoti</li>
+<li><code>decltype</code></li>
+</ul>
+<h4 id="33-ciklas-su-diapazonu-range-based-loops">3.3. Ciklas su diapazonu (<em>Range-based loops</em>)</h4>
+<ul>
+<li><code>for (auto&amp; elem : container)</code>; kada efektyvu</li>
+</ul>
+<h4 id="34-nullptr">3.4. Nullptr</h4>
+<ul>
+<li>vs <code>NULL</code> vs <code>0</code></li>
+</ul>
+<h4 id="35-vieninga-inicializacija-uniform-initialization">3.5. Vieninga inicializacija (<em>Uniform initialization</em>)</h4>
+<ul>
+<li>Riestinių skliaustų inicializacija <code>{}</code></li>
+<li>Tiesioginė inicializacija <code>()</code></li>
+</ul>
+<hr />
+<h3 id="4-skyrius-kopijavimo-semantika">4 skyrius. KOPIJAVIMO SEMANTIKA</h3>
+<h4 id="41-numatytasis-kopijavimo-elgesys">4.1. Numatytasis kopijavimo elgesys</h4>
+<ul>
+<li>Paviršinio kopijavimo (<em>shallow copy</em>) problema</li>
+<li>Bitinis kopijavimas (<em>bitwise copy</em>)</li>
+</ul>
+<h4 id="42-kopijavimo-konstruktorius-copy-constructor">4.2. Kopijavimo konstruktorius (<em>Copy Constructor</em>)</h4>
+<ul>
+<li>Kada kviečiamas</li>
+<li>Giliojo kopijavimo (<em>deep copy</em>) implementacija</li>
+</ul>
+<h4 id="43-kopijavimo-priskyrimo-operatorius-copy-assignment-operator">4.3. Kopijavimo priskyrimo operatorius (<em>Copy Assignment Operator</em>)</h4>
+<ul>
+<li><code>operator=</code> perkrovimas (<em>overloading</em>)</li>
+<li>Savęs priskyrimo patikra (<em>self-assignment check</em>)</li>
+<li>"Kopijuok-ir-keisk" idioma (<em>copy-and-swap idiom</em>)</li>
+</ul>
+<h4 id="44-triju-taisykle-rule-of-3">4.4. Trijų taisyklė (<em>Rule of 3</em>)</h4>
+<ul>
+<li>Destruktorius + Kopijos konstruktorius + Kopijos priskyrimas</li>
+<li>Kada reikalinga</li>
+</ul>
+<hr />
+<h3 id="5-skyrius-oop-principai-4-kolonos">5 skyrius. OOP PRINCIPAI (4 kolonos)</h3>
+<h4 id="51-inkapsuliacija-encapsulation">5.1. Inkapsuliacija (<em>Encapsulation</em>)</h4>
+<ul>
+<li>Apibendrinimas iš Klasės anatomijos</li>
+</ul>
+<h4 id="52-paveldejimas-inheritance">5.2. Paveldėjimas (<em>Inheritance</em>)</h4>
+<ul>
+<li><code>public</code>/<code>protected</code>/<code>private</code> paveldėjimas</li>
+<li>Konstruktorių/destruktorių grandinė</li>
+<li><code>is-a</code> ryšys</li>
+<li>Bazinės klasės inicializacija (<em>base class initialization</em>)</li>
+<li>Apsaugotų narių (<em>protected members</em>) prieiga</li>
+</ul>
+<h4 id="53-polimorfizmas-polymorphism">5.3. Polimorfizmas (<em>Polymorphism</em>)</h4>
+<ul>
+<li>Funkcijų perkrovimas (<em>function overloading</em>) - kompiliavimo metu</li>
+<li>Virtualios funkcijos (<code>virtual</code> <em>functions</em>) - vykdymo metu (<em>runtime</em>)</li>
+<li>Virtualių funkcijų lentelė (<em>vtable</em>)</li>
+<li><code>override</code> raktažodis</li>
+<li>Grynai virtuali (<em>pure</em> <code>virtual</code>) <code>=0</code></li>
+<li>Abstrakčios klasės (<em>abstract classes</em>)</li>
+<li>Sąsajos šablonas (<em>interface pattern</em>)</li>
+</ul>
+<h4 id="54-abstrakcija-abstraction">5.4. Abstrakcija (<em>Abstraction</em>)</h4>
+<ul>
+<li>Sąsaja (<em>interface</em>) vs Implementacija</li>
+<li>Priklausomybių inversija (<em>dependency inversion</em>)</li>
+</ul>
+<hr />
+<h3 id="6-skyrius-modern-c-c111417202326">6 skyrius. MODERN C++ (C++11/14/17/20/23/26)</h3>
+<h4 id="61-rvalue-nuorodos">6.1. rvalue nuorodos</h4>
+<ul>
+<li><em>lvalue</em> vs <em>rvalue</em></li>
+<li><code>&amp;&amp;</code> sintaksė</li>
+<li><code>std::move</code></li>
+</ul>
+<h4 id="62-perkelimo-konstruktorius-move-constructor">6.2. Perkėlimo konstruktorius (<em>Move Constructor</em>)</h4>
+<ul>
+<li>Kada kviečiamas</li>
+<li>Resursų "vagystė" (<em>resource stealing</em>)</li>
+<li><code>noexcept</code></li>
+</ul>
+<h4 id="63-perkelimo-priskyrimo-operatorius-move-assignment">6.3. Perkėlimo priskyrimo operatorius (<em>Move Assignment</em>)</h4>
+<ul>
+<li>"Perkelk-ir-sukeisk" šablonas (<em>move-and-swap pattern</em>)</li>
+</ul>
+<h4 id="64-penkiu-taisykle-rule-of-5">6.4. Penkių taisyklė (<em>Rule of 5</em>)</h4>
+<ul>
+<li>Trijų taisyklė + Perkėlimo operacijos</li>
+<li>Nulio taisyklė (<em>Rule of 0</em>) - kada nereikia nieko</li>
+</ul>
+<h4 id="65-ismaniosios-rodykles-smart-pointers">6.5. Išmaniosios rodyklės (<em>Smart Pointers</em>)</h4>
+<ul>
+<li><code>unique_ptr</code> (nuosavybė)</li>
+<li><code>shared_ptr</code> (nuorodų skaičiavimas, <em>reference counting</em>)</li>
+<li><code>weak_ptr</code></li>
+<li><code>make_unique</code>/<code>make_shared</code></li>
+<li><strong>RAII</strong> "tobulumas"</li>
+</ul>
+<hr />
+<h3 id="7-skyrius-operatoriu-perkrovimas">7 skyrius. OPERATORIŲ PERKROVIMAS</h3>
+<h4 id="71-aritmetiniai-operatoriai">7.1. Aritmetiniai operatoriai</h4>
+<ul>
+<li><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> kaip narys/draugas (<code>member</code>/<code>friend</code>)</li>
+<li>Sudėtinis priskyrimas <code>+=</code>, <code>-=</code></li>
+</ul>
+<h4 id="72-palyginimo-operatoriai">7.2. Palyginimo operatoriai</h4>
+<ul>
+<li><code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></li>
+<li>Erdvėlaivio operatorius (<code>spaceship operator</code>) <code>&lt;=&gt;</code> (C++20)</li>
+</ul>
+<h4 id="73-srauto-operatoriai">7.3. Srauto operatoriai</h4>
+<ul>
+<li><code>operator&lt;&lt;</code> / <code>operator&gt;&gt;</code></li>
+<li><code>friend</code> reikalavimas</li>
+</ul>
+<h4 id="74-indeksavimo-operatorius">7.4. Indeksavimo operatorius <code>[]</code></h4>
+<ul>
+<li><code>const</code>/ne-<code>const</code> versijos</li>
+</ul>
+<h4 id="75-funkcijos-iskvietimo-operatorius">7.5. Funkcijos iškvietimo operatorius <code>()</code></h4>
+<ul>
+<li>Funktoriai (<code>functors</code>)</li>
+</ul>
+<hr />
+<h3 id="8-skyrius-sablonu-pagrindai">8 skyrius. ŠABLONŲ PAGRINDAI</h3>
+<h4 id="81-funkciju-sablonai-function-templates">8.1. Funkcijų šablonai (<em>Function templates</em>)</h4>
+<ul>
+<li>Šablono sintaksė (<code>template</code> syntax)</li>
+<li>Tipo išvedimas (<em>type deduction</em>)</li>
+<li>Šablono specializacija (<em>template specialization</em>)</li>
+</ul>
+<h4 id="82-klasiu-sablonai-class-templates">8.2. Klasių šablonai (<em>Class templates</em>)</h4>
+<ul>
+<li>Šablono parametrai (<em>template parameters</em>)</li>
+<li>Šablono instanciacija (<em>template instantiation</em>)</li>
+<li>Atskiro kompiliavimo problema</li>
+</ul>
+<hr />
+<h3 id="9-skyrius-stl-pagrindai">9 skyrius. STL PAGRINDAI</h3>
+<h4 id="91-konteineriu-pagrindai">9.1. Konteinerių pagrindai</h4>
+<ul>
+<li><code>std::array</code> (fiksuoto dydžio)</li>
+<li><code>std::vector</code> (dinaminis)</li>
+<li>Bendra konteinerių sąsaja</li>
+</ul>
+<h4 id="92-iteratoriai">9.2. Iteratoriai</h4>
+<ul>
+<li>Iteratoriaus koncepcija</li>
+<li><code>begin()</code>/<code>end()</code></li>
+<li>Iteratorių kategorijos</li>
+</ul>
+<h4 id="93-algoritmai">9.3. Algoritmai</h4>
+<ul>
+<li><code>std::sort</code>, <code>std::find</code></li>
+<li><em>Lambda</em> išraiškos (pagrindinės)</li>
+<li>Algoritmas + Iteratorius šablonas</li>
+</ul>
+<h4 id="94-kiti-konteineriai-apzvalga">9.4. Kiti konteineriai (apžvalga)</h4>
+<ul>
+<li><code>std::string</code></li>
+<li><code>std::list</code></li>
+<li><code>std::map</code></li>
+<li><code>std::set</code></li>
+<li>Kada ką naudoti</li>
+</ul>
+<hr />
+<h3 id="10-skyrius-isimciu-apdorojimas">10 skyrius. IŠIMČIŲ APDOROJIMAS</h3>
+<h4 id="101-trycatchthrow">10.1. <code>try</code>/<code>catch</code>/<code>throw</code></h4>
+<ul>
+<li>Išimčių sklidimas (<em>exception propagation</em>)</li>
+<li>Steko atsukimas (<em>stack unwinding</em>)</li>
+</ul>
+<h4 id="102-standartines-isimtys">10.2. Standartinės išimtys</h4>
+<ul>
+<li><code>std::exception</code> hierarchija</li>
+</ul>
+<h4 id="103-raii-ir-isimtys">10.3. RAII ir išimtys</h4>
+<ul>
+<li>Kodėl RAII kritiškas</li>
+<li>Išimčių saugumo lygiai (<em>exception safety levels</em>)</li>
+</ul>
+<h4 id="104-noexcept">10.4. Noexcept</h4>
+<ul>
+<li>Kada ir kodėl</li>
+</ul>
+<hr />
+<h2 id="paskaitu-projekcija-i-temines-dalis-siekiamybe">PASKAITŲ PROJEKCIJA Į TEMINES DALIS (siekiamybė 🚀)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Paskaitos pavadinimas</th>
+<th>Objektas</th>
+<th>Teminės dalys</th>
+<th>Fokusas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Įvadas + C evoliucija I dalis</strong></td>
+<td><strong>Stack (C, stages 1-5)</strong></td>
+<td>Intro + I.1, I.2</td>
+<td>Moduliarumas, kompiliacija, info hiding pradžia. <strong>Įsibėgėjimas su C</strong></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>C evoliucija II + šuolis į C++</strong></td>
+<td><strong>Stack (C, 6-9)</strong> → <strong>Stack-C++ "v0"</strong></td>
+<td>I.3, I.4, I.5</td>
+<td><code>Factory</code>, <code>lifecycle</code> problema → <code>CLASS</code> sprendimas. <strong>Wow!</strong> Fixed <code>array</code> dar.</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>Klasės anatomija: paprasti objektai</strong></td>
+<td><strong>Student, Point</strong></td>
+<td>II.1, II.2, II.3 (basic)</td>
+<td><code>class</code> sintaksė, konstruktoriai, <code>getters</code>/<code>setters</code>, <code>this</code>, <code>access control</code></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>Geresnis C</strong></td>
+<td><strong>Student</strong> su <code>refs</code></td>
+<td>III (visa)</td>
+<td><code>References</code>, <code>auto</code>, <code>range-loops</code>, <code>nullptr</code>, <code>uniform init</code></td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>STL įvadas: konteineriai</strong></td>
+<td><strong>Student</strong> + <code>vector</code></td>
+<td>IX.1, IX.2 (dalis)</td>
+<td><code>std::array</code>, <code>std::vector</code>, iteratoriai, <code>begin</code>/<code>end</code>, <code>range-based</code> praktikoje</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td><strong>RAII ir destruktorius</strong></td>
+<td><strong>String</strong></td>
+<td>II.3 (full) + IV.1</td>
+<td><code>char*</code> dinamika, destruktorius, <code>shallow copy</code> problema, "žemiškas" pavyzdys</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><strong>Copy Constructor</strong></td>
+<td><strong>String</strong></td>
+<td>IV.2</td>
+<td><code>Deep copy</code>, kada kvičiamas, <code>String(const String&amp;)</code></td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><strong>Copy Assignment + Rule of Three</strong></td>
+<td><strong>String</strong></td>
+<td>IV.3, IV.4</td>
+<td><code>operator=</code>, <code>self-assignment</code>, <code>copy-and-swap</code>, <code>Rule of Three</code></td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td><strong>Kompozicija "ant pirštų"</strong></td>
+<td><strong>Course</strong> (has Students)</td>
+<td>V.1 (extend)</td>
+<td><code>Shallow</code>/<code>deep</code> lifecycle, <code>has-a</code>, agregacija vs kompozicija</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td><strong>Paveldėjimas</strong></td>
+<td><strong>Shape</strong> → Circle/Rect</td>
+<td>V.2</td>
+<td><code>Is-a</code>, konstruktorių <code>chain</code>, <code>protected</code>, base <code>init</code></td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td><strong>Polimorfizmas: virtualios funkcijos</strong></td>
+<td><strong>Shape</strong> su <code>draw()</code></td>
+<td>V.3 (dalis)</td>
+<td><code>Virtual</code>, <code>vtable</code>, <code>override</code>, runtime binding</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td><strong>Abstrakčios klasės ir sąsajos</strong></td>
+<td><strong>IDrawable</strong>, <strong>Animal</strong></td>
+<td>V.3 (finish), V.4</td>
+<td><code>Pure virtual</code> (<code>=0</code>), <code>interface pattern</code>, <code>dependency inversion</code></td>
+</tr>
+<tr>
+<td><strong>13</strong></td>
+<td><strong>Move semantika</strong></td>
+<td><strong>String</strong> su <code>move</code></td>
+<td>VI.1, VI.2, VI.3, VI.4</td>
+<td><code>Rvalue refs</code>, <code>std::move</code>, Move <code>ctor</code>/<code>assign</code>, <code>Rule of Five</code></td>
+</tr>
+<tr>
+<td><strong>14</strong></td>
+<td><strong>Protingi rodykliai + Rule of Zero</strong></td>
+<td><strong>Stack-C++</strong> su <code>unique_ptr</code></td>
+<td>VI.5 + Rule of Zero</td>
+<td><code>Smart pointers</code>, <code>RAII</code> tobulumas, compiler-generated methods</td>
+</tr>
+<tr>
+<td><strong>15</strong></td>
+<td><strong>Šablonai + Kulminacija</strong></td>
+<td><strong>Stack\&lt;T&gt;</strong> → <code>std::stack</code></td>
+<td>VIII.1, VIII.2 + IX.3</td>
+<td><code>Templates</code>, <code>Stack&lt;T&gt;</code>, connection to STL, exceptions, best practices</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="objektu-hierarchija-pagal-sudetinguma">OBJEKTŲ HIERARCHIJA PAGAL SUDĖTINGUMĄ</h2>
+<h3 id="1-paprastas-objektas-tik-duomenys-prieiga">1. PAPRASTAS objektas (tik duomenys + prieiga)</h3>
+<ul>
+<li><strong>Student</strong> arba <strong>Point</strong> arba <strong>Date</strong></li>
+<li>Nėra dinaminių resursų<blockquote>
+<p><strong>Fokusas:</strong> <code>class</code> sintaksė, <code>constructors</code>, <code>getters</code>/<code>setters</code>, <code>access control</code></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-kompozicinis-objektas-turi-kitu-objektu">2. KOMPOZICINIS objektas (turi kitų objektų)</h3>
+<ul>
+<li><strong>Course</strong> (turi <code>Student</code>'ų <code>array</code>/<code>vector</code>)</li>
+<li><strong>Rectangle</strong> (turi 2 <code>Point</code>'us)<blockquote>
+<p><strong>Fokusas:</strong> <code>shallow</code> vs <code>deep</code>, objektų santykiai, kompozicija</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="3-resursus-valdantis-objektas">3. RESURSUS VALDANTIS objektas</h3>
+<ul>
+<li><strong>String</strong> (dinaminis <code>char</code> masyvas)</li>
+<li><strong>Stack</strong> (dinaminis masyvas)<blockquote>
+<p><strong>Fokusas:</strong> <code>RAII</code>, destruktorius, <code>copy</code>/<code>move</code> semantika</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="4-polimorfinis-objektas">4. POLIMORFINIS objektas</h3>
+<ul>
+<li><strong>Shape</strong> → Circle, Rectangle (<code>inheritance hierarchy</code>)</li>
+<li><strong>Animal</strong> → Dog, Cat<blockquote>
+<p><strong>Fokusas:</strong> <code>virtual functions</code>, <code>abstract classes</code></p>
+</blockquote>
+</li>
+</ul>
+<hr />
+<h2 id="kritiniai-rysiai-tarp-paskaitu">KRITINIAI RYŠIAI TARP PASKAITŲ</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>P1-P2 (Evoliucija) ────&gt; P3 (Class) ────&gt; P4 (Geresnis C)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                           │                   │
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                           └─&gt; P6-8 (Copy) ────┘
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                           │
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                           └─&gt; P10 (Inheritance) ──&gt; P11-12 (Polymorphism)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                                                        │
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>P5 (STL basic) ─────────────────────────────────────────┴──&gt; P15 (Templates)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>P3 (RAII) ──&gt; P13 (Move) ──&gt; P14 (Smart ptr) ──&gt; P15 (Best practices)
+</span></code></pre></div>
+<hr />
+<h2 id="papildomi-objektai-seminaramsuzduotims">PAPILDOMI OBJEKTAI SEMINARAMS/UŽDUOTIMS</h2>
+<table>
+<thead>
+<tr>
+<th>Objektas</th>
+<th>Kam</th>
+<th>Sudėtingumas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Date</strong></td>
+<td>Operatorių perkrovimas (<code>+</code>, <code>-</code>, <code>==</code>, <code>&lt;</code>, <code>&lt;&lt;</code>)</td>
+<td>Paprastas</td>
+</tr>
+<tr>
+<td><strong>Fraction</strong></td>
+<td>Aritmetiniai operatoriai, normalizacija</td>
+<td>Vidutinis</td>
+</tr>
+<tr>
+<td><strong>Matrix</strong></td>
+<td><code>operator[]</code>, 2D dinaminis masyvas, <code>copy</code>/<code>move</code></td>
+<td>Sudėtingas</td>
+</tr>
+<tr>
+<td><strong>BankAccount</strong></td>
+<td>Kompozicija (turi <code>Transaction</code>'ų <code>vector</code>)</td>
+<td>Vidutinis</td>
+</tr>
+<tr>
+<td><strong>Employee</strong> → Manager</td>
+<td><code>Inheritance</code>, <code>virtual</code> salary calculation</td>
+<td>Vidutinis</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="versija">VERSIJA</h2>
+<p><strong>Data:</strong> 2026-02-01<br />
+<strong>Autorius:</strong> Viktoras Golubevas<br />
+<strong>Statusas:</strong> Preliminari struktūra: 13-15 paskaitų iš 10 teminių skyrių</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Grįžti į viršų
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.tracking", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Nukopijuota \u012f i\u0161karpin\u0119", "clipboard.copy": "Kopijuoti \u012f i\u0161karpin\u0119", "search.result.more.one": "Dar 1 \u0161iame puslapyje", "search.result.more.other": "Dar # \u0161iame puslapyje", "search.result.none": "Atitinkan\u010di\u0173 dokument\u0173 nerasta", "search.result.one": "1 atitinkantis dokumentas", "search.result.other": "# atitinkantys dokumentai", "search.result.placeholder": "\u012eveskite nor\u0117dami prad\u0117ti paie\u0161k\u0105", "search.result.term.missing": "Nerasta", "select.version": "Pasrinkti versij\u0105"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>

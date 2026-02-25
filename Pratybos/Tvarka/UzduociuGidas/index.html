@@ -1,0 +1,1878 @@
+
+<!doctype html>
+<html lang="lt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://viktorasgolubevasmif.github.io/cpp-2026/Pratybos/Tvarka/UzduociuGidas/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Užduočių Atlikimo ir Pateikimo Gidas - Objektinis programavimas C++. INF-1K</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#uzduociu-atlikimo-ir-pateikimo-gidas" class="md-skip">
+          Pereiti prie turinio
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Antraštė">
+    <a href="../../.." title="Objektinis programavimas C++. INF-1K" class="md-header__button md-logo" aria-label="Objektinis programavimas C++. INF-1K" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Objektinis programavimas C++. INF-1K
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Užduočių Atlikimo ir Pateikimo Gidas
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Perjungti į tamsų režimą"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Perjungti į tamsų režimą" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Perjungti į šviesų režimą"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Perjungti į šviesų režimą" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Paieška" placeholder="Paieška" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Paieška">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Išvalyti" aria-label="Išvalyti" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Paieškos inicijavimas
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ViktorasGolubevasMIF/cpp-2026" title="Eiti į saugyklą" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub cpp-2026
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Skirtukai" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Pradžia
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Temos/Better_C/ParamPass/" class="md-tabs__link">
+          
+  
+  
+  Temos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../Paskaitos/01/Parameters_Passing/" class="md-tabs__link">
+          
+  
+  
+  Paskaitos
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigacija" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Objektinis programavimas C++. INF-1K" class="md-nav__button md-logo" aria-label="Objektinis programavimas C++. INF-1K" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Objektinis programavimas C++. INF-1K
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ViktorasGolubevasMIF/cpp-2026" title="Eiti į saugyklą" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub cpp-2026
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pradžia
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Temos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Temos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Temos/Better_C/ParamPass/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametrų perdavimas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paskaitos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Paskaitos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 Paskaita
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    01 Paskaita
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Paskaitos/01/Parameters_Passing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametrų perdavimas (su Tutor)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Paskaitos/01/C_System.pdf" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C/C++ sistema (pdf)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Paskaitos/01/Parameters_Passing.pdf" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametrų perdavimas (pdf)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 Paskaita
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    02 Paskaita
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Paskaitos/02/02_Paskaita_Stack_Evolution_C_01_09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stack ADT Evoliucija C kalboje: 01-09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Paskaitos/02/02_Paskaita_Stack_Evolution_CPP_11_16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stack ADT Evoliucija C++ kalboje: 11-16
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Turinys">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Turinys
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#turinys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📋 Turinys
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gitlab-projekto-sukurimas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🚀 GitLab projekto sukūrimas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 GitLab projekto sukūrimas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-zingsnis-sukurti-repo-gitlabe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 žingsnis: Sukurti repo GitLab'e
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-zingsnis-suteikti-prieiga-destytojui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 žingsnis: Suteikti prieigą dėstytojui
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-zingsnis-clone-repo-i-savo-kompiuteri" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 žingsnis: Clone repo į savo kompiuterį
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projekto-struktura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📁 Projekto struktūra
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📁 Projekto struktūra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pilna-struktura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pilna struktūra:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readmemd-hierarchija" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        README.md hierarchija:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uzduoties-atlikimo-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔄 Užduoties atlikimo workflow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Užduoties atlikimo workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bendra-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bendra schema:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detalus-pavyzdys-u1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detalus pavyzdys (U1):
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detalus pavyzdys (U1):">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zingsnis-1-sukurti-direktorijas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Žingsnis 1: Sukurti direktorijas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zingsnis-2-atlikti-uzduoties-u1-1-zingsni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Žingsnis 2: Atlikti užduoties U1 1 žingsnį
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zingsnis-3-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Žingsnis 3: Commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zingsnis-4-atlikti-uzduoties-u1-2-zingsni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Žingsnis 4: Atlikti užduoties U1 2 žingsnį
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zingsnis-5-po-visu-zingsniu-uzduoties-readme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Žingsnis 5: Po visų žingsnių - užduoties README
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-commitu-gaires" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📝 Git commit'ų gairės
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Git commit&#39;ų gairės">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#geri-commitai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geri commit'ai:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blogi-commitai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blogi commit'ai:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit-pranesimu-formatas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commit pranešimų formatas:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#readmemd-reikalavimai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📄 README.md reikalavimai
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📄 README.md reikalavimai">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-projekto-readme-readmemd-privalomas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Projekto README (/README.md) - PRIVALOMAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-uzduoties-readme-u1readmemd-privalomas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Užduoties README (/U1/README.md) - PRIVALOMAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-zingsnio-readme-u101readmemd-neprivalomas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Žingsnio README (/U1/01/README.md) - NEPRIVALOMAS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pateikimas-moodle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📦 Pateikimas Moodle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 Pateikimas Moodle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-budas-git-archive-rekomenduojama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 būdas: Git archive (rekomenduojama)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-budas-rankinis-zip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 būdas: Rankinis zip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#archyvo-vardas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Archyvo vardas:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kas-turi-buti-archyve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kas turi būti archyve:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moodle-pateikimo-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moodle pateikimo workflow:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#duk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❓ DUK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❓ DUK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-ar-galiu-naudoti-branchus-vietoj-subdirektoriju" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Ar galiu naudoti branch'us vietoj subdirektorijų?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-ar-reikia-makefile-kiekviename-zingsnyje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Ar reikia Makefile kiekviename žingsnyje?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-ar-galiu-naudoti-ide-vs-code-clion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Ar galiu naudoti IDE (VS Code, CLion)?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-ka-daryti-jei-pamirsau-commitinti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Ką daryti, jei pamiršau commit'inti?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-ar-senasis-kodas-turi-buti-uzkomentuotas-ar-istrinti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Ar senasis kodas turi būti užkomentuotas ar ištrinti?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-ar-gitignore-privalomas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Ar .gitignore privalomas?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-ka-daryti-jei-gitlab-permission-denied" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Ką daryti, jei GitLab "permission denied"?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-ar-galiu-dirbti-grupeje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Ar galiu dirbti grupėje?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-kiek-laiko-uztrunka-uzduotis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Kiek laiko užtrunka užduotis?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k-i-ka-kreiptis-pagalbos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K: Į ką kreiptis pagalbos?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naudingos-nuorodos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔗 Naudingos nuorodos
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="uzduociu-atlikimo-ir-pateikimo-gidas">Užduočių Atlikimo ir Pateikimo Gidas</h1>
+<p><strong>Kursas</strong>: Objektinis programavimas C++<br />
+<strong>Semestras</strong>: 2026 pavasaris<br />
+<strong>Versija</strong>: 1.0</p>
+<hr />
+<h2 id="turinys">📋 Turinys</h2>
+<ol>
+<li><a href="#-gitlab-projekto-sukūrimas">GitLab projekto sukūrimas</a></li>
+<li><a href="#-projekto-struktūra">Projekto struktūra</a></li>
+<li><a href="#-užduoties-atlikimo-workflow">Užduoties atlikimo workflow</a></li>
+<li><a href="#-git-commitų-gairės">Git commit'ų gairės</a></li>
+<li><a href="#-readmemd-reikalavimai">README.md reikalavimai</a></li>
+<li><a href="#-pateikimas-moodle">Pateikimas Moodle</a></li>
+<li><a href="#-vertinimas">Vertinimas</a></li>
+<li><a href="#-duk">DUK</a></li>
+</ol>
+<hr />
+<h2 id="gitlab-projekto-sukurimas">🚀 GitLab projekto sukūrimas</h2>
+<h3 id="1-zingsnis-sukurti-repo-gitlabe"><strong>1 žingsnis: Sukurti repo GitLab'e</strong></h3>
+<ol>
+<li>Eikite į fakulteto GitLab: <code>https://git.mif.vu.lt</code></li>
+<li>Prisijunkite su MIF (!) kredencialais</li>
+<li>Sukurkite <strong>naują projektą</strong>:</li>
+<li><strong>Project name</strong>: <code>cpp-2026</code></li>
+<li><strong>Visibility</strong>: <code>Private</code> (svarbu!)</li>
+<li><strong>Initialize with README</strong>: ✅ (pažymėti)</li>
+</ol>
+<h3 id="2-zingsnis-suteikti-prieiga-destytojui"><strong>2 žingsnis: Suteikti prieigą dėstytojui</strong></h3>
+<ol>
+<li><strong>Settings</strong> → <strong>Members</strong></li>
+<li><strong>Add member</strong>: <code>[dėstytojo username]</code></li>
+<li><strong>Role</strong>: <code>Maintainer</code></li>
+</ol>
+<h3 id="3-zingsnis-clone-repo-i-savo-kompiuteri"><strong>3 žingsnis: Clone repo į savo kompiuterį</strong></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.mif.vu.lt/<span class="o">[</span>jūsų-username<span class="o">]</span>/cpp-2026.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>cpp-2026
+</span></code></pre></div>
+<hr />
+<div style="page-break-after: always;"></div>
+
+<h2 id="projekto-struktura">📁 Projekto struktūra</h2>
+<h3 id="pilna-struktura"><strong>Pilna struktūra:</strong></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>cpp-2026/                    ← GitLab repo
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── README.md                ← Pagrindinis projekto README (PRIVALOMA)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── .gitignore               ← Git ignoruojami failai (PRIVALOMA)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── U1/                      ← Užduotis 1
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── README.md            ← Užduoties santrauka (PRIVALOMA)
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   ├── 01/                  ← 1 žingsnis
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│   │   └── main.cpp
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│   ├── 02/                  ← 2 žingsnis
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│   │   └── main.cpp
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│   ├── 03/                  ← 3 žingsnis
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│   │   ├── main.cpp
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│   │   ├── rusiavimas.h
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│   │   ├── rusiavimas.cpp
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│   │   └── Makefile
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>│   ├── 04/                  ← 4 žingsnis
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│   └── 05/                  ← 5 žingsnis (FINAL)
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>│
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>├── U2/                      ← Užduotis 2
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>│   ├── README.md
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>│   ├── 01/
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>│   ├── 02/
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>│   └── 03/
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>│
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>├── U3/                      ← Užduotis 3
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>│   └── ...
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>│
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>└── ... (U4-U9)
+</span></code></pre></div>
+<h3 id="readmemd-hierarchija"><strong>README.md hierarchija:</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Lygis</th>
+<th>Failas</th>
+<th>Turinys</th>
+<th>Privaloma?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Projektas</strong></td>
+<td><code>/README.md</code></td>
+<td>Bendras projekto aprašymas, užduočių būsena</td>
+<td>✅ TAIP</td>
+</tr>
+<tr>
+<td><strong>Užduotis</strong></td>
+<td><code>/U1/README.md</code></td>
+<td>Užduoties santrauka, testavimas, pastabos</td>
+<td>✅ TAIP</td>
+</tr>
+<tr>
+<td><strong>Žingsnis</strong></td>
+<td><code>/U1/01/README.md</code></td>
+<td><em>Nebūtina</em></td>
+<td>❌ NE</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div style="page-break-after: always;"></div>
+
+<h2 id="uzduoties-atlikimo-workflow">🔄 Užduoties atlikimo workflow</h2>
+<h3 id="bendra-schema"><strong>Bendra schema:</strong></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>1. Perskaityti užduotį (pvz., U1.md)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>   ↓
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>2. Sukurti direktorijas žingsniams (U1/01/, U1/02/, ...)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>   ↓
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>3. Atlikti žingsnį → compile → test
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>   ↓
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>4. Commit (po kiekvieno žingsnio!)
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>   ↓
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>5. Push į GitLab (backup!)
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>   ↓
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>6. Kartoti 3-5 kiekvienam žingsniui
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>   ↓
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>7. Užpildyti U1/README.md
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>   ↓
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>8. Final commit + push
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>   ↓
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>9. Sukurti archyvą
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>   ↓
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>10. Pateikti Moodle
+</span></code></pre></div>
+<div style="page-break-after: always;"></div>
+
+<h3 id="detalus-pavyzdys-u1"><strong>Detalus pavyzdys (U1):</strong></h3>
+<h4 id="zingsnis-1-sukurti-direktorijas"><strong>Žingsnis 1: Sukurti direktorijas</strong></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>cpp-2026
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>U1/01<span class="w"> </span>U1/02<span class="w"> </span>U1/03<span class="w"> </span>U1/04<span class="w"> </span>U1/05
+</span></code></pre></div>
+<h4 id="zingsnis-2-atlikti-uzduoties-u1-1-zingsni"><strong>Žingsnis 2: Atlikti užduoties U1 1 žingsnį</strong></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span><span class="w"> </span>U1/01
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># Rašyti kodą (main.cpp)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>g++<span class="w"> </span>main.cpp<span class="w"> </span>-o<span class="w"> </span>programa
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>./programa
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Testuoti</span>
+</span></code></pre></div>
+<h4 id="zingsnis-3-commit"><strong>Žingsnis 3: Commit</strong></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>add<span class="w"> </span>U1/01/
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: 1 žingsnis - Hello World ir masyvų įvestis&quot;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>git<span class="w"> </span>push
+</span></code></pre></div>
+<h4 id="zingsnis-4-atlikti-uzduoties-u1-2-zingsni"><strong>Žingsnis 4: Atlikti užduoties U1 2 žingsnį</strong></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>../02
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># Kopijuoti iš 01/ (jei reikia)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>cp<span class="w"> </span>../01/main.cpp<span class="w"> </span>.
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Modifikuoti kodą</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># ...</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>git<span class="w"> </span>add<span class="w"> </span>U1/02/
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: 2 žingsnis - Bubble sort funkcija&quot;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>git<span class="w"> </span>push
+</span></code></pre></div>
+<h4 id="zingsnis-5-po-visu-zingsniu-uzduoties-readme"><strong>Žingsnis 5: Po visų žingsnių - užduoties README</strong></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">cd</span><span class="w"> </span>U1
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># Sukurti README.md (žr. šabloną ...)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>git<span class="w"> </span>add<span class="w"> </span>README.md
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: Užduoties README&quot;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>git<span class="w"> </span>push
+</span></code></pre></div>
+<hr />
+<div style="page-break-after: always;"></div>
+
+<h2 id="git-commitu-gaires">📝 Git commit'ų gairės</h2>
+<h3 id="geri-commitai"><strong>Geri commit'ai:</strong></h3>
+<p>✅ <strong>Po kiekvieno žingsnio</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: 1 žingsnis - Hello World ir masyvų įvestis&quot;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: 2 žingsnis - Bubble sort funkcija&quot;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: 3 žingsnis - Modulinė struktūra&quot;</span>
+</span></code></pre></div></p>
+<p>✅ <strong>Aprašomieji pranešimai</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U2: Pridėtas copy constructor su deep copy&quot;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U3: Pataisyta memory leak destruktoriuje&quot;</span>
+</span></code></pre></div></p>
+<p>✅ <strong>Dažni commit'ai</strong> (po kiekvienos reikšmingos modifikacijos)</p>
+<h3 id="blogi-commitai"><strong>Blogi commit'ai:</strong></h3>
+<p>❌ <strong>Vienas commit visai užduočiai</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1 done&quot;</span><span class="w">  </span><span class="c1"># Blogai!</span>
+</span></code></pre></div></p>
+<p>❌ <strong>Neaprašomieji pranešimai</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;fix&quot;</span><span class="w">      </span><span class="c1"># Blogai!</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;asdf&quot;</span><span class="w">     </span><span class="c1"># Blogai!</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;commit&quot;</span><span class="w">   </span><span class="c1"># Blogai!</span>
+</span></code></pre></div></p>
+<p>❌ <strong>Reti commit'ai</strong> (tik pradžioje ir pabaigoje)</p>
+<h3 id="commit-pranesimu-formatas"><strong>Commit pranešimų formatas:</strong></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>U[numeris]: [Trumpas aprašymas]
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Pavyzdžiai:
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>- U1: 1 žingsnis - Hello World ir masyvų įvestis
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>- U1: 3 žingsnis - Modulinė struktūra (.h/.cpp)
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>- U2: IntList konstruktorius su dynamic allocation
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>- U3: Copy constructor - deep copy implementacija
+</span></code></pre></div>
+<hr />
+<div style="page-break-after: always;"></div>
+
+<h2 id="readmemd-reikalavimai">📄 README.md reikalavimai</h2>
+<h3 id="1-projekto-readme-readmemd-privalomas"><strong>1. Projekto README (<code>/README.md</code>)</strong> - PRIVALOMAS</h3>
+<p><strong>Šablonas:</strong></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gh"># C++ Objektinis Programavimas (2026)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="gs">**Studentas**</span>: Vardas Pavardė  
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="gs">**Grupė**</span>: XXXXXX  
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="gs">**GitLab**</span>: https://gitlab.mif.vu.lt/[username]/cpp-2026
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>---
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="gu">## 📁 Projekto struktūra</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="k">-</span><span class="w"> </span><span class="gs">**U1/**</span> - C++ primityvai ir funkcijų moduliai
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="k">-</span><span class="w"> </span><span class="gs">**U2/**</span> - IntList klasė (RAII)
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="k">-</span><span class="w"> </span><span class="gs">**U3/**</span> - Kompozicija (Langas/Kambarys)
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="k">-</span><span class="w"> </span><span class="ge">*(bus papildoma...)*</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>---
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="gu">## ✅ Užduočių būsena</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>| Užduotis | Būsena | Terminas | Pateikta |
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>|----------|--------|----------|----------|
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>| U1 | ✅ Atlikta | 2026-02-14 | 2026-02-13 |
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>| U2 | 🔄 Vykdoma | 2026-02-28 | - |
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>| U3 | ⏳ Laukia | 2026-03-14 | - |
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>---
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>
+</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="gu">## 🛠️ Kompiliavimas</span>
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>Kiekviena užduotis turi savo Makefile:
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>
+</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>```bash
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>cd U1/05/
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>make
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>./programa
+</span></code></pre></div>
+<hr />
+<div style="page-break-after: always;"></div>
+
+<h3 id="2-uzduoties-readme-u1readmemd-privalomas"><strong>2. Užduoties README (<code>/U1/README.md</code>)</strong> - PRIVALOMAS</h3>
+<p><strong>Šablonas:</strong></p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="gh"># U1: C++ Primityvai ir Funkcijų Moduliai</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="gs">**Būsena**</span>: ✅ Atlikta  
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="gs">**Pateikta**</span>: 2026-XX-XX
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>---
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="gu">## 📝 Žingsniai</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>| Žingsnis | Direktorija | Aprašymas |
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>|----------|-------------|-----------|
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>| 1 | <span class="sb">`01/`</span> | Hello World + masyvas |
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>| 2 | <span class="sb">`02/`</span> | Bubble sort funkcija |
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>| 3 | <span class="sb">`03/`</span> | Modulinė struktūra (.h/.cpp) |
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>| 4 | <span class="sb">`04/`</span> | array → vector&lt;int&gt; |
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>| 5 | <span class="sb">`05/`</span> | vector&lt;int&gt; → vector&lt;string&gt; |
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>---
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="gu">## 🧪 Testavimas</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="gs">**Testas 1 (skaičiai)**</span>:
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>```bash
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>Input: 42 17 99 5 0
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>Output: 5 17 42 99
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>```bash
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>✅ VEIKIA
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a><span class="gs">**Testas 2 (žodžiai)**</span>:
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>```bash
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>Input: obuolys bananas citrina -
+</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>Output: bananas citrina obuolys
+</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>```bash
+</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>✅ VEIKIA
+</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>
+</span><span id="__span-14-37"><a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a>
+</span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a>---
+</span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a>
+</span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="gu">## 💭 Pagrindinės įžvalgos</span>
+</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a>
+</span><span id="__span-14-42"><a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a><span class="k">1.</span> Modulinė struktūra - <span class="sb">`.h`</span>/.`cpp` separacija patogu
+</span><span id="__span-14-43"><a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a><span class="k">2.</span> Vector daug lankstesnis už masyvą (dinaminis dydis)
+</span><span id="__span-14-44"><a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a><span class="k">3.</span> Tas pats algoritmas veikia su int ir string!
+</span><span id="__span-14-45"><a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a>
+</span><span id="__span-14-46"><a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a>---
+</span><span id="__span-14-47"><a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a>
+</span><span id="__span-14-48"><a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a><span class="gu">## ⚠️ Problemos (jei buvo)</span>
+</span><span id="__span-14-49"><a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a>
+</span><span id="__span-14-50"><a id="__codelineno-14-50" name="__codelineno-14-50" href="#__codelineno-14-50"></a><span class="gs">**Problema 1**</span>: Makefile TAB vs spaces  
+</span><span id="__span-14-51"><a id="__codelineno-14-51" name="__codelineno-14-51" href="#__codelineno-14-51"></a><span class="gs">**Sprendimas**</span>: Pakeisti spaces į TAB simbolius
+</span><span id="__span-14-52"><a id="__codelineno-14-52" name="__codelineno-14-52" href="#__codelineno-14-52"></a>
+</span><span id="__span-14-53"><a id="__codelineno-14-53" name="__codelineno-14-53" href="#__codelineno-14-53"></a>---
+</span><span id="__span-14-54"><a id="__codelineno-14-54" name="__codelineno-14-54" href="#__codelineno-14-54"></a>
+</span><span id="__span-14-55"><a id="__codelineno-14-55" name="__codelineno-14-55" href="#__codelineno-14-55"></a><span class="gu">## 📦 Kompiliavimas</span>
+</span><span id="__span-14-56"><a id="__codelineno-14-56" name="__codelineno-14-56" href="#__codelineno-14-56"></a>
+</span><span id="__span-14-57"><a id="__codelineno-14-57" name="__codelineno-14-57" href="#__codelineno-14-57"></a>```bash
+</span><span id="__span-14-58"><a id="__codelineno-14-58" name="__codelineno-14-58" href="#__codelineno-14-58"></a>cd 05/
+</span><span id="__span-14-59"><a id="__codelineno-14-59" name="__codelineno-14-59" href="#__codelineno-14-59"></a>make
+</span><span id="__span-14-60"><a id="__codelineno-14-60" name="__codelineno-14-60" href="#__codelineno-14-60"></a>./programa
+</span></code></pre></div>
+<hr />
+<p><strong>Minimumas</strong> (jei tingite):
+- ✅ Žingsnių lentelė
+- ✅ Bent 1-2 testai
+- ✅ Kompiliavimo instrukcijos</p>
+<hr />
+<h3 id="3-zingsnio-readme-u101readmemd-neprivalomas"><strong>3. Žingsnio README (<code>/U1/01/README.md</code>)</strong> - NEPRIVALOMAS</h3>
+<p>Jei norite, galite pridėti trumpas pastabas kiekviename žingsnyje!</p>
+<hr />
+<div style="page-break-after: always;"></div>
+
+<h2 id="pateikimas-moodle">📦 Pateikimas Moodle</h2>
+<h3 id="1-budas-git-archive-rekomenduojama"><strong>1 būdas: Git archive (rekomenduojama)</strong></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">cd</span><span class="w"> </span>cpp-2026
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1"># Sukurti archyvą tik su U1 užduotimi</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>git<span class="w"> </span>archive<span class="w"> </span>--format<span class="o">=</span>zip<span class="w"> </span>--output<span class="o">=</span>U1_VardasPavarde.zip<span class="w"> </span>HEAD<span class="w"> </span>U1/
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1"># ARBA visa repo archyvas</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>git<span class="w"> </span>archive<span class="w"> </span>--format<span class="o">=</span>zip<span class="w"> </span>--output<span class="o">=</span>cpp2026_VardasPavarde.zip<span class="w"> </span>HEAD
+</span></code></pre></div>
+<p><strong>Pliusai</strong>: 
+- ✅ Archyvuoja tik commit'intus failus (ne "junk" failus)
+- ✅ Automatiškai ignoruoja <code>.o</code>, <code>programa</code>, ir kt.</p>
+<hr />
+<h3 id="2-budas-rankinis-zip"><strong>2 būdas: Rankinis zip</strong></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">cd</span><span class="w"> </span>cpp-2026
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1"># Išvalyti compiled failus</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="nb">cd</span><span class="w"> </span>U1/05
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>make<span class="w"> </span>clean
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="nb">cd</span><span class="w"> </span>../..
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="c1"># Sukurti archyvą</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>zip<span class="w"> </span>-r<span class="w"> </span>U1_VardasPavarde.zip<span class="w"> </span>U1/<span class="w"> </span>README.md<span class="w"> </span>.gitignore
+</span></code></pre></div>
+<p><strong>Minusai</strong>:
+- ⚠️ Reikia rankiniu būdu išvalyti
+- ⚠️ Galite įtraukti "junk" failus</p>
+<hr />
+<h3 id="archyvo-vardas"><strong>Archyvo vardas:</strong></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>U[numeris]_VardasPavarde.zip
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>Pavyzdžiai:
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>- U1_JonasJonaitis.zip
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>- U2_PetrasPetraitis.zip
+</span></code></pre></div>
+<hr />
+<h3 id="kas-turi-buti-archyve"><strong>Kas turi būti archyve:</strong></h3>
+<p>✅ <strong>Privaloma:</strong>
+- <code>/U1/</code> direktorija su visais žingsniais
+- <code>/U1/README.md</code>
+- <code>/README.md</code> (projekto root README)
+- <code>/.gitignore</code></p>
+<p>❌ <strong>Neturi būti:</strong>
+- <code>*.o</code> failai (compiled object files)
+- Executable failai (<code>programa</code>, <code>a.out</code>, etc.)
+- Editor junk (<code>.vscode/</code>, <code>.idea/</code>, <code>*~</code>)</p>
+<hr />
+<h3 id="moodle-pateikimo-workflow"><strong>Moodle pateikimo workflow:</strong></h3>
+<ol>
+<li><strong>Sukurti archyvą</strong> (žr. aukščiau)</li>
+<li><strong>Eiti į Moodle</strong> → C++ kursas → Užduotis U1</li>
+<li><strong>Upload failą</strong>: <code>U1_VardasPavarde.zip</code></li>
+<li><strong>Pridėti GitLab URL</strong> (comment/text field):
+   <div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>GitLab repo: https://gitlab.mif.vu.lt/[username]/cpp-2026
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Commit hash: abc123def456
+</span></code></pre></div></li>
+<li><strong>Submit</strong></li>
+</ol>
+<p><strong>Terminas</strong>: Žiūrėkite užduoties aprašyme (pvz., U1.md)</p>
+<hr />
+<div style="page-break-after: always;"></div>
+
+<h2 id="duk">❓ DUK</h2>
+<h3 id="k-ar-galiu-naudoti-branchus-vietoj-subdirektoriju"><strong>K: Ar galiu naudoti branch'us vietoj subdirektorijų?</strong></h3>
+<p><strong>A:</strong> Taip, <strong>galite</strong>, bet <strong>neprivaloma</strong>. </p>
+<p><strong>Pavyzdys su branch'ais:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>u1-step1
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="c1"># ... darbas ...</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: 1 žingsnis&quot;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>u1-step2
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="c1"># ... darbas ...</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: 2 žingsnis&quot;</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c1"># Galutinis merge į main</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>git<span class="w"> </span>checkout<span class="w"> </span>main
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>git<span class="w"> </span>merge<span class="w"> </span>u1-step5
+</span></code></pre></div></p>
+<p><strong>Bet</strong> subdirektorijos (<code>01/</code>, <code>02/</code>, ...) <strong>paprastesnės</strong> ir <strong>labiau atitinka paskaitų medžiagą</strong> (Stack Evolution stilius).</p>
+<hr />
+<h3 id="k-ar-reikia-makefile-kiekviename-zingsnyje"><strong>K: Ar reikia Makefile kiekviename žingsnyje?</strong></h3>
+<p><strong>A:</strong> Ne, <strong>tik nuo 3 žingsnio</strong> (kai turite kelis <code>.cpp</code> failus).</p>
+<ul>
+<li>Žingsniai 1-2: <code>g++ main.cpp -o programa</code> pakanka</li>
+<li>Žingsniai 3-5: <strong>Makefile rekomenduojamas</strong> (daug failų)</li>
+</ul>
+<hr />
+<h3 id="k-ar-galiu-naudoti-ide-vs-code-clion"><strong>K: Ar galiu naudoti IDE (VS Code, CLion)?</strong></h3>
+<p><strong>A:</strong> Taip, <strong>bet</strong>:
+- ✅ <strong>Įtraukite <code>.gitignore</code></strong> ignoruoti IDE failus
+- ✅ <strong>Programa turi kompiliuotis su Makefile</strong> (ne tik IDE)
+- ❌ <strong>Neįtraukite</strong> <code>.vscode/</code>, <code>.idea/</code> į repo</p>
+<hr />
+<h3 id="k-ka-daryti-jei-pamirsau-commitinti"><strong>K: Ką daryti, jei pamiršau commit'inti?</strong></h3>
+<p><strong>A:</strong> Commit'inkite dabar!</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Jei jau padarėte kelis žingsnius be commit&#39;ų:</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>git<span class="w"> </span>add<span class="w"> </span>U1/01/
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: 1 žingsnis (late commit)&quot;</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>git<span class="w"> </span>add<span class="w"> </span>U1/02/
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;U1: 2 žingsnis (late commit)&quot;</span>
+</span></code></pre></div>
+<p><strong>Geriau vėliau nei niekada!</strong> Bet <strong>ateityje</strong> commit'inkite <strong>dažnai</strong>.</p>
+<hr />
+<h3 id="k-ar-senasis-kodas-turi-buti-uzkomentuotas-ar-istrinti"><strong>K: Ar senasis kodas turi būti užkomentuotas ar ištrinti?</strong></h3>
+<p><strong>A:</strong> Priklauso nuo užduoties:</p>
+<ul>
+<li><strong>U1</strong>: Užkomentuoti (žr. U1.md reikalavimus)</li>
+<li><strong>U2-U9</strong>: <strong>Ištrinti</strong> (senasis kodas - tai praeitų žingsnių direktorijos)</li>
+</ul>
+<p><strong>Git saugo visą istoriją</strong>, todėl galite ištrinti seną kodą - jis vis tiek matomas commit'uose!</p>
+<hr />
+<h3 id="k-ar-gitignore-privalomas"><strong>K: Ar <code>.gitignore</code> privalomas?</strong></h3>
+<p><strong>A:</strong> <strong>Taip!</strong> Įtraukite šį minimalų <code>.gitignore</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a># Compiled files
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>*.o
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>*.out
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>programa
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>a.out
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a># Editor files
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>*~
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>.vscode/
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>.idea/
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>*.swp
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a># OS files
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>.DS_Store
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>Thumbs.db
+</span></code></pre></div>
+<hr />
+<h3 id="k-ka-daryti-jei-gitlab-permission-denied"><strong>K: Ką daryti, jei GitLab "permission denied"?</strong></h3>
+<p><strong>A:</strong> Patikrinkite SSH raktus:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Sugeneruoti SSH raktą (jei neturite)</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;your.email@mif.vu.lt&quot;</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># Nukopijuoti public key</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>cat<span class="w"> </span>~/.ssh/id_ed25519.pub
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="c1"># Įtraukti į GitLab:</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="c1"># Settings → SSH Keys → Add key</span>
+</span></code></pre></div>
+<p>Arba naudokite HTTPS:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://gitlab.mif.vu.lt/<span class="o">[</span>username<span class="o">]</span>/cpp-2026.git
+</span></code></pre></div></p>
+<hr />
+<h3 id="k-ar-galiu-dirbti-grupeje"><strong>K: Ar galiu dirbti grupėje?</strong></h3>
+<p><strong>A:</strong> <strong>Ne</strong>, kiekvienas studentas turi <strong>savo repo</strong>.</p>
+<p>Bet galite:
+- ✅ Diskutuoti idėjas
+- ✅ Padėti debug'inti (neduoti kodo!)
+- ❌ Kopijuoti kodą (plagiatas!)</p>
+<hr />
+<h3 id="k-kiek-laiko-uztrunka-uzduotis"><strong>K: Kiek laiko užtrunka užduotis?</strong></h3>
+<p><strong>A:</strong> Priklauso nuo užduoties ir jūsų patirties:</p>
+<ul>
+<li><strong>U1</strong>: 3-5 valandos (pradedantiesiems), 2-3 val (patyrusiems)</li>
+<li><strong>U2-U3</strong>: 4-6 valandos</li>
+<li><strong>U4-U7</strong>: 5-8 valandos</li>
+<li><strong>U8-U9</strong>: 8-12 valandų (projektas)</li>
+</ul>
+<p><strong>Patariu</strong>: Pradėti <strong>anksčiau</strong>, nelaukti paskutinės dienos! 😊</p>
+<hr />
+<h3 id="k-i-ka-kreiptis-pagalbos"><strong>K: Į ką kreiptis pagalbos?</strong></h3>
+<p><strong>A:</strong>
+1. <strong>Pirmiausia</strong>: Perskaityti užduoties aprašymą (U1.md, U2.md, ...)
+2. <strong>Antra</strong>: Pažiūrėti Stack Overflow, cppreference.com
+3. <strong>Trečia</strong>: Klausti dėstytojo (auditorijoje, Teams arba email)
+4. <strong>Paskutinis būdas</strong>: Klausti kolegos (bet <strong>ne kopijuoti</strong> kodo!)</p>
+<hr />
+<div style="page-break-after: always;"></div>
+
+<h2 id="naudingos-nuorodos">🔗 Naudingos nuorodos</h2>
+<ul>
+<li><strong>GitLab dokumentacija</strong>: https://docs.gitlab.com/</li>
+<li><strong>Git tutorial</strong>: https://git-scm.com/book/en/v2</li>
+<li><strong>Markdown sintaksė</strong>: https://www.markdownguide.org/</li>
+<li><strong>Makefile tutorial</strong>: https://makefiletutorial.com/</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Grįžti į viršų
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.expand", "navigation.top", "navigation.tabs", "navigation.instant", "navigation.tracking", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Nukopijuota \u012f i\u0161karpin\u0119", "clipboard.copy": "Kopijuoti \u012f i\u0161karpin\u0119", "search.result.more.one": "Dar 1 \u0161iame puslapyje", "search.result.more.other": "Dar # \u0161iame puslapyje", "search.result.none": "Atitinkan\u010di\u0173 dokument\u0173 nerasta", "search.result.one": "1 atitinkantis dokumentas", "search.result.other": "# atitinkantys dokumentai", "search.result.placeholder": "\u012eveskite nor\u0117dami prad\u0117ti paie\u0161k\u0105", "search.result.term.missing": "Nerasta", "select.version": "Pasrinkti versij\u0105"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+      
+    
+  </body>
+</html>
