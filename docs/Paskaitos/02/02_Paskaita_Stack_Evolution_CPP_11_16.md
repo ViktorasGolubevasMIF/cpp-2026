@@ -1,35 +1,36 @@
 # Stack ADT Evoliucija C++ kalboje
-## II dalis: Nuo C `struct` iki C++ `class` – Klasės Anatomija
+## II dalis: Nuo C `struct` iki C++ `class`:
+## Klasės, kaip vartootojo apibrėžto duomenų tipo (VDT), "anatomija"
 
 ---
 
-> **Tęsinys po:** I dalies 9 etapų "Pilnaverčio vartotojo apibrėžto tipo" (C UDT su _opaque pointer_ ir _factory pattern_)  
-> **Tikslas:** Atrasti/suvokti C++ klasę `class` kaip *naujos kartos* `struct`  
-> **Metodologija:** Tas pats principas – klaidos = mokymo(si)s įrankis!
+> **Tęsinys po:** I dalies 9 etapų Vartotojo tipo `struct` apibrėžimas modulyje (`.c`+`.h`)  
+> **Tikslas:** Atrasti/suvokti C++ klasę `class` kaip **naujos kartos** `struct`  
+> **Metodologija:** Tas pats principas – bandymai ir klaidos yra mokymo(si) įrankis!
 
 ---
 
-## 🔁 Prisiminkime: Kur sustojome?
+## 🔁 Ką turime po/su C?
 
 !!! success "I dalis: Pasiekėme pilną C ADT (09 etapas)"
-    - ✅ **Information hiding** (`static` nariai, _opaque pointer_)
-    - ✅ **Encapsulation** (duomenys + funkcijos **modulyje**)
-    - ✅ **Multiple instances** (su rodyklėmis `*pst1`, `*pst2`, ...)
-    - ✅ **Lifecycle management** (`create()` → `destroy()`)
+    - ✅ **Information hiding** (`static` nariai, _opaque pointer_/_forward declaration_)
+    - ✅ **Encapsulation** (duomenys + funkcijos → **modulyje**)
+    - ✅ **Multiple instances** (naudojant `struct` kintamųjų adresus (rodykles) `*pst1`, `*pst2`, ...)
+    - ✅ **Lifecycle management** ("rankiniai" `create()` → `destroy()`)
 
 !!! warning "Bet C kalboje liko neišspręstų problemų..."
     - **Manual lifecycle:** programuotojas **privalo** prisiminti `destroy()` – užmirštus _memory leak_
-    - **No operator overloading**: negalima natūralaus priskyrimo/kopijavimo `pst1 = pst2;`
+    - **No operator overloading**: neturime natūralaus priskyrimo/kopijavimo `pst1 = pst2;`
     - **Opaque pointer**/**Forward declaration** biurokratija: `create()`/`destroy()` – rankinis darbas, kurį galėtų automatizuoti kompiliatorius
 
 ---
 
-## 🚀 Šuolis: C ADT → C++ Class
+## 🚀 Kaip atrodo Šuolis: C `struct` → C++ `class`
 
 ```c
 // C (09 etapas) – rankinis valdymas
 struct Stack *s = create(); // rankinis create()
-push(s, 'a');               // C funkcijos iškvietimo sintaksė: funkcija(objektas, ...)
+push(s, 'C');               // C funkcijos iškvietimo sintaksė: funkcija(objektas, ...)
 char c = pop(s);            // C objektas paprastai perduodamas rodykle=adresu
 destroy(s);                 // ← REIKIA PRISIMINTI!
 ```
@@ -37,28 +38,28 @@ destroy(s);                 // ← REIKIA PRISIMINTI!
 ```cpp
 // C++ – automatinis valdymas
 Stack s;               // konstruktorius = automatinis create()
-s.push('a');           // metodo sintaksė: objektas.funkcija(...)
+s.push('C');           // metodo sintaksė: objektas.funkcija(...)
 char c = s.pop();
 ..}                    // destruktorius = automatinis destroy()
 ```
 
 !!! tip "Paradigminis pokytis"
-    **C:** (išorinės/nesavos/globalios) funkcijos valdo objektą → `push(s, 'a')`  
-    **C++:** objektas turi (savas) funkcijas → `s.push('a')`  
+    **C:** (išorinės/nesavos/globalios) funkcijos valdo objektą → `push(s, 'C')`  
+    **C++:** objektas turi (savas) funkcijas → `s.push('C')`  
     
     Tai ne tik sintaksės skirtumas – tai kitoks mąstymo būdas apie kodą.
 
 ---
 
-## 🗺️ II dalies kelionė
+## 🗺️ II dalies kelias
 
 | Nr | Etapas | Žingsniai | Esmė |
 |----|--------|-----------|------|
 | **11** | [Discovering_CPP_Struct](#11) | `00` → `01_NC_Naive` | NC: `main()` nebemato funkcijų globaliai |
 | **12** | [ENCAPSULATING_in_CPP_Struct](#12) | `01_OK` → `02_OK_Attack` | `this` gimimas; `struct` dar atviras |
 | **13** | [HIDING_in_CLASS](#13) | `01_NC_Naive` → `02_OK` → `03_NC_Attack` | Paradigminis switch: kompiliatorius saugo! |
-| **14** | [CONSTRUCTORS_and_DESTRUCTORS](#14) | `00` → `01_OK` | Kūrimas = inicializavimas; naikinimas = automatinis |
-| **15** | [OVERLOADING_CONSTRUCTORS](#15) | `00` → `01_OK` | Overloading: tas pats vardas, skirtingi parametrai |
+| **14** | [CONSTRUCTORS_and_DESTRUCTORS](#14) | `00` → `01_OK` | Kūrimas = inicializavimas → automatinis; naikinimas → automatinis |
+| **15** | [OVERLOADING_CONSTRUCTORS](#15) | `00` → `01_OK` | **Overloading**: tas pats vardas, skirtingi parametrai |
 | **16** | [Defining_METHODS_OUTSIDE](#16) | `00` → `01_NC_Naive` → `02_OK` → `03_OK` | `Stack::` + `.h`/`.cpp` moduliavimas |
 
 ---
@@ -132,7 +133,7 @@ char c = s.pop();
 
 !!! tip "Atsakymas: funkcija „persikėlė" – ir išnyko iš globalios erdvės"
     Kai funkcija yra **viduje** `struct Stack {}`, ji nebėra globali funkcija.  
-    Ji tapo **klasės nariu** – ir dabar priklauso `Stack` vardų erdvei.
+    Ji tapo (užbėgant į priekį) **klasės nariu** – ir dabar priklauso `Stack` vardų erdvei.
 
     `main()` ieško `init` globaliai – ir neranda. Kompiliatorius pasiūlo: *„did you mean 'int'?"* – nes globaliai žino tik `int`, ne `init`.
 
@@ -276,7 +277,7 @@ char c = s.pop();
 
 ---
 
-## 📌 Terminų kampas: Encapsulation vs Information Hiding
+## 📌 Terminų painiava: Encapsulation vs Information Hiding
 
 !!! abstract "Dvi skirtingos sąvokos – dažnai supainiojamos"
 

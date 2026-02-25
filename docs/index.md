@@ -1,7 +1,6 @@
-!!! quote "Naujienos (Atnaujinta: 2026-02-17)"
-    * Įkelta **1-os paskaitos** medžiaga.
+!!! quote "Naujienos (Atnaujinta: 2026-02-25)"
+    * Įkelta **2-os paskaitos** medžiaga.
 
-    * Pratybų užduotys U1, U2 jau Moodle.
 
 ## 🛠️ Naudingi įrankiai
 
