@@ -585,8 +585,9 @@
         gcc stack.o user.o -o app  # ❌
         ```
         ```
-        C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: stack.o:stack.c:(.bss+0x0): multiple definition of `stack'; user.o:user.c:(.bss+0x0): first defined here
-        C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: stack.o:stack.c:(.bss+0x64): multiple definition of `top'; user.o:user.c:(.bss+0x64): first defined here
+        C:\Repos\Github\ViktorasGolubevasMIF\cpp-2026\code\evolution\stack-2026\03_Discovering_C_MODULE\03_NL>gcc user.c stack.c -o app
+        C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\vikto\AppData\Local\Temp\ccpza694.o:stack.c:(.rdata$.refptr.stack[.refptr.stack]+0x0): undefined reference to `stack'
+        C:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/13.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\vikto\AppData\Local\Temp\ccpza694.o:stack.c:(.rdata$.refptr.top[.refptr.top]+0x0): undefined reference to `top'
         collect2.exe: error: ld returned 1 exit status
         ```
         ❌ multiple definition of ...
@@ -604,7 +605,7 @@
         clang: error: linker command failed with exit code 1 (use -v to see invocation)
 
         ```
-        ❌ multiple definition of ...
+        ❌ `undefined reference to` ...
 
 ---
 
