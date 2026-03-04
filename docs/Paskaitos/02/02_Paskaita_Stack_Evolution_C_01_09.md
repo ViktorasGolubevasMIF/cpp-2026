@@ -974,7 +974,7 @@
 
 ---
 
-#### ❌ Nekompiliuojasi
+#### ❌ Nesikompiliuoja
 
 ??? bug "🔍 Diagnozė: static draudžiamas struktūrose"
     **Problema:** C neleidžia `static` **storage class specifiers** struktūrų nariams!
@@ -1332,7 +1332,7 @@
 
 ---
 
-#### ❌ Nekompiliuojasi
+#### ❌ Nesikompiliuoja
 
 ??? bug "🔍 Diagnozė: Incomplete type - nežinomas dydis"
     **Problema:** `user.c` bando sukurti `struct Stack st1, st2;` bet kompiliatorius nežino struktūros dydžio!
@@ -1398,7 +1398,7 @@
 
 ---
 
-#### ❌ Nekompiliuojasi
+#### ❌ Nesikompiliuoja
 
 ??? bug "🔍 Diagnozė: sizeof() incomplete type"
     **Problema:** `user.c` bando `malloc(sizeof(struct Stack))` bet `sizeof()` reikia pilno tipo!
