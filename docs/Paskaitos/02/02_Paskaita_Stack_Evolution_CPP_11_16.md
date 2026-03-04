@@ -177,7 +177,7 @@ char c = s.pop();
     Veikia – bet atrodo keistai. Kviečiame per objektą `st1`, ir dar atskirai perduodame `&st1` kaip parametrą.  
     Objektas perduodamas **du kartus**: vieną kartą kaip kvietėjas, antrą kartą kaip argumentas.
     
-    Tai yra **kitas žingsnis**: kaip išmesti `struct Stack *pst` parametrą – ir leisti C++ tai tvarkyti automatiškai.
+    Tuomet - kitas žingsnis:  **panaikinti `struct Stack *pst` parametrą** – ir leisti C++ tai tvarkyti automatiškai.
 
 ---
 
@@ -196,7 +196,7 @@ char c = s.pop();
 > Failas: [`12_ENCAPSULATING_in_CPP_Struct/01_OK/usestack.cpp`](https://github.com/ViktorasGolubevasMIF/cpp-2026/blob/main/code/evolution/stack-2026/12_ENCAPSULATING_in_CPP_Struct/01_OK/usestack.cpp)
 
 !!! quote "Mintis / ketinimas"
-    "`st1.init(&st1)` – absurdas. Objektas jau žino, kas jis yra – išmeskime `&st1` kaip parametrą!"
+    "`st1.init(&st1)` – nesusipratimas. Objektas jau žino, kas jis yra – panaikinkime `&st1` kaip parametrą!"
 
 ???+ "📄 `usestack.cpp`"
     ```cpp
@@ -223,7 +223,7 @@ char c = s.pop();
     **Prieš (11 – dar su `pst`):**
     ```cpp
     void init(struct Stack *pst) { pst->top = 0; }
-    st1.init(&st1);   // ← objektas du kartus – absurdas
+    st1.init(&st1);   // ← objektas du kartus – "nesusipratimas"
     ```
     **Po (12 – be `pst`):**
     ```cpp
@@ -237,7 +237,7 @@ char c = s.pop();
     // Tai ką mes rašome:
     void init() { top = 0; }
 
-    // Tai ką kompiliatorius „mato" po gaubtu:
+    // Tai ką kompiliatorius „mato po gaubtu":
     void init(Stack* const this) { this->top = 0; }
     ```
     Kai rašome `st1.init()` – kompiliatorius išverčia į `Stack::init(&st1)`.  
@@ -514,8 +514,8 @@ char c = s.pop();
     Bet nuo šiol naudosime `cin`/`cout` – C++ standartinės įvesties/išvesties srautus.
 
     Beje: `cin.get(c)`, o ne `cin >> c` – nes `>>` praleistų tarpelius.  
-    Ir pastebėkite: `cin.get(c)` – **metodas ant objekto**, lygiai kaip `s.push(c)`.  
-    `cin` ir `cout` – tai objektai! Tik šito mokykloje niekas nepasakė 🙂
+    Ir pastebėkite: `cin.get(c)` – **`cin` kviečia `get()`**, lygiai kaip `s.push(c)`.  
+    `cin` ir `cout` – tai **objektai**! Tik šito mokykloje niekas nepasakė 🙂
 
 ---
 
@@ -648,7 +648,7 @@ char c = s.pop();
 === "⌨️➔🖥️"
     ```
     [CTOR] Stack sukurtas (tuščias)
-    CBA
+    ++C
     [DTOR] Stack sunaikintas
     ```
 
@@ -726,7 +726,7 @@ char c = s.pop();
 > [`16_Defining_METHODS_OUTSIDE`](https://github.com/ViktorasGolubevasMIF/cpp-2026/tree/main/code/evolution/stack-2026/16_Defining_METHODS_OUTSIDE/)
 
 !!! note "🎯 Tikslas"
-    Suprasti, kad metodų **apibrėžimus** galima (ir dažnai reikia) iškelti **už klasės ribų** – ir kaip tai daryti su `Stack::` scope resolution operatoriumi. Tada – pažįstamas žingsnis: skaidymas į `.h` ir `.cpp`.
+    Suprasti, kad metodų **apibrėžimus** galima (ir dažnai reikia) iškelti **už klasės ribų** – ir kaip tai daryti su `Stack::` **scope resolution** operacija. Tada – pažįstamas žingsnis: skaidymas į `.h` ir `.cpp`.
 
 ---
 
