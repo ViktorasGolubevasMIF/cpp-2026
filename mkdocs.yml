@@ -86,6 +86,16 @@ nav:
     - '02 Paskaita': 
       - 'Stack ADT Evoliucija C kalboje: 01-09': Paskaitos/02/02_Paskaita_Stack_Evolution_C_01_09.md
       - 'Stack ADT Evoliucija C++ kalboje: 11-16': Paskaitos/02/02_Paskaita_Stack_Evolution_CPP_11_16.md
+  - 'Pratybos':
+    - 'Tvarka': Pratybos/Tvarka/UzduociuGidas_1_1.md
+    - 'Užduotys':
+      - 'U1': Pratybos/Užduotys/U1.md
+      - 'U2':
+        - 'v1': Pratybos/Užduotys/U2.md
+        - 'v2': Pratybos/Užduotys/U2_v2.md
+      - 'U3':
+        - 'v0 (tvarkoma)': Pratybos/Užduotys/U3_v0.md
+        
 
 # ═══════════════════════════════════════════════════════════
 # 🎯 NAUJAS: Extra JavaScript (jei reikės Mermaid ar MathJax)
