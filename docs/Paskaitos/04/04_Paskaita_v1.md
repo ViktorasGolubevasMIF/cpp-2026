@@ -16,10 +16,11 @@
 
 === "Modulis 1: Klasė kaip UDT"
 
-    **Tema:** Klasės "anatomija", enkapsuliacija
+    **Tema:** Klasės "anatomija", inkapsuliacija
     
     **Išmokome:**
     
+    - Klasės struktūra (duomenys + funkcijos)
     - Klasės struktūra (`private`/`public`)
     - Static nariai (klasės kintamieji)
     - Const static konstantos
@@ -53,16 +54,14 @@
     
     **Išmokome:**
     
-    - Value semantics (`vector<Type>`)
-    - Pointer semantics (`Type*`)
+    - _Value semantics_ (`vector<Type>`)
+    - _Pointer semantics_ (`Type*`)
     - Kompozicija vs agregacija
     - Globalios funkcijos vs metodai
     
     **Nuorodos:**
     
     - U3 Visi žingsniai
-
----
 
 <div style="page-break-after: always;"></div>
 
@@ -78,19 +77,19 @@
 
 ```cpp
 class Student {
-private:                    // ← DUOMENYS (slėpti)
+private:                    // ← DUOMENYS (paslėpti nuo išorės)
     string name;
     int age;
     static int studentCount; // ← KLASĖS kintamasis
     
-public:                     // ← INTERFEISAS (matomas)
-    Student(string n, int a); // ← Konstruktorius
-    ~Student();               // ← Destruktorius
+public:                     // ← INTERFEISAS (matomas išorėje)
+    Student(string n, int a); // ← Konstruktorius (specialieji metodai)
+    ~Student();               // ← Destruktorius (kviečiami automatiškai/netiesiogiai)
     
-    string getName() const;   // ← Getter
-    void setAge(int a);       // ← Setter
+    string getName() const;   // ← Getter (interfeiso metodai)
+    void setAge(int a);       // ← Setter (išorėje kviečiami tiesiogiai; sakoma: perduodame objektui pranešimą )
     
-    static int getStudentCount(); // ← Klasės metodas
+    static int getStudentCount(); // ← Klasės metodas (paprastai "inkapsuliuoja" klasės/`static` kintamuosius)
 };
 ```
 
@@ -104,11 +103,11 @@ public:                     // ← INTERFEISAS (matomas)
 
 ---
 
-## Skaidrė 3: Enkapsuliacija vs Informacijos slėpimas 🔒
+## Skaidrė 3: Inkapsuliacija vs Informacijos slėpimas 🔒
 
 **DU skirtingi dalykai!**
 
-=== "Enkapsuliacija (Encapsulation)"
+=== "Inkapsuliacija (Encapsulation)"
 
     **Apibrėžimas:** Duomenų ir metodų **sujungimas** į vieną vienetą (klasę)
     
@@ -155,9 +154,9 @@ public:                     // ← INTERFEISAS (matomas)
 
 ## Skaidrė 4: Fizinis moduliavimas (.h + .cpp) — 1 📁
 
-**C++ paveldas iš C:** Atskirti **deklaracijas** nuo **implementacijų**.
+**C++ paveldas iš C:** Atskirti **deklaracijas** nuo **implementacijų** (dėstytojas akcentuoja: **aprašus** nuo **apibrėžimų**).
 
-**Problema:** Visos funkcijos `main.cpp` → netvarkinga, sunku testuoti.
+**Problema:** Visos funkcijos `main.cpp` → netvarkinga, sunku testuoti, nėra pakartotino panaudojimo (_code reuseability_).
 
 **Sprendimas:** Sukurti atskirą **modulį** (failų porą).
 
@@ -213,7 +212,7 @@ public:                     // ← INTERFEISAS (matomas)
 
 === "main.cpp (Usage)"
 
-    **Naudojimas** — clean ir paprastas
+    **Naudojimas** — "švarus ir paprastas"
     
     ```cpp
     #include "Student.h"
@@ -255,7 +254,7 @@ public:                     // ← INTERFEISAS (matomas)
 
 ## Skaidrė 5: Fizinis moduliavimas — 2 (kompiliacija) ⚙️
 
-**Kaip sukompiliuoti kelių failų projektą?**
+Kaip sukompiliuoti **kelių failų** projektą/programą?
 
 **Projekto struktūra:**
 
@@ -426,7 +425,7 @@ public:
     }
 };
 
-// Nereikia inicializuoti už klasės! (const static ypatybė)
+// Nereikia inicializuoti už klasės! (`const static` ypatybė)
 ```
 
 ??? info "Skirtumas nuo static int"
@@ -493,7 +492,10 @@ public:
     ```cpp
     void function() {
         Student s("Jonas", 20);  // ← Stack
-        
+
+        // Naudojam objektą tiesiogiai
+        cout << s.getName();
+
         // Destruktorius automatiškai iškviestas
     }  // ← s sunaikinamas čia
     ```
@@ -515,7 +517,7 @@ public:
     void function() {
         Student* p = new Student("Jonas", 20);  // ← Heap
         
-        // Naudojam per rodyklę
+        // Naudojam rodyklę į objektą (objekto adresą)
         cout << p->getName();
         
         delete p;  // ← PRIVALOMA!
@@ -577,8 +579,21 @@ public:
 
 ??? question "Kada default konstruktorius BŪTINAS?"
 
-    **3 atvejai:**
+    **4 atvejai:**
     
+    **0. _Bazinis_ objektas:**
+
+    ```cpp
+    class Point {
+        int x, y;
+    public:
+        Point(int a, int b) : x(a), y(b) { }
+    // Nėra Point()
+    };
+
+    Point p;  // ❌ KLAIDA! Reikia Point()
+    ```
+
     **1. Masyvai:**
     ```cpp
     Window windows[10];  // ❌ Klaida jei nėra Window()
@@ -633,7 +648,7 @@ public:
 
 ## Skaidrė 11: Parametriniai konstruktoriai ir Overloading 🎛️
 
-**Parametrinis konstruktorius** — priima argumentus.
+**Parametrinis konstruktorius** — kviečiamas nurodant argumentus.
 
 ```cpp
 class Student {
@@ -2065,7 +2080,7 @@ vector<Window> vec(3);  // ❌ KLAIDA!
 
 ---
 
-## Skaidrė 27: Nuorodos ir ištekliai 📚
+## Skaidrė 30: Nuorodos ir ištekliai 📚
 
 **Paskaitos:**
 
