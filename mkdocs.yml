@@ -83,9 +83,11 @@ nav:
       - 'Parametrų perdavimas (su Tutor)': Paskaitos/01/Parameters_Passing.md
       - 'C/C++ sistema (pdf)': Paskaitos/01/C_System.pdf
       - 'Parametrų perdavimas (pdf)': Paskaitos/01/Parameters_Passing.pdf
-    - '02 Paskaita': 
+    - '02-03 Paskaita': 
       - 'Stack ADT Evoliucija C kalboje: 01-09': Paskaitos/02/02_Paskaita_Stack_Evolution_C_01_09.md
       - 'Stack ADT Evoliucija C++ kalboje: 11-16': Paskaitos/02/02_Paskaita_Stack_Evolution_CPP_11_16.md
+    - '04 Paskaita': 
+      - 'Klasė, objektas, kompozicija': Paskaitos/04/04_Paskaita_v1.md
   - 'Pratybos':
     - 'Tvarka': Pratybos/Tvarka/UzduociuGidas_1_1.md
     - 'Užduotys':
@@ -94,7 +96,7 @@ nav:
         - 'v1': Pratybos/Užduotys/U2.md
         - 'v2': Pratybos/Užduotys/U2_v2.md
       - 'U3':
-        - 'v0 (tvarkoma)': Pratybos/Užduotys/U3_v0.md
+        - 'v1': Pratybos/Užduotys/U3_v0.md
         
 
 # ═══════════════════════════════════════════════════════════
