@@ -8,7 +8,7 @@
 
 #### **Motyvacija:**
 
-Paskutiniams U3 žingsnyje **sąmoningai užkomentavome** `Window` ir `Door` konstruktorių ir destruktorių [DEBUG] logging'ą ("elgsenos protokolą").
+U3 3 žingsnyje **sąmoningai užkomentavome** `Window` ir `Door` konstruktorių ir destruktorių [DEBUG] logging'ą ("elgsenos protokolą").
 
 **Kodėl?** Jei jį įjungtume, pamatytume **keistą** dalyką `Window` objektų gyvavimo cikle:
 

@@ -92,11 +92,9 @@ nav:
     - 'Tvarka': Pratybos/Tvarka/UzduociuGidas_1_1.md
     - 'Užduotys':
       - 'U1': Pratybos/Užduotys/U1.md
-      - 'U2':
-        - 'v1': Pratybos/Užduotys/U2.md
-        - 'v2': Pratybos/Užduotys/U2_v2.md
+      - 'U2': Pratybos/Užduotys/U2_v2.md
       - 'U3':
-        - 'v1': Pratybos/Užduotys/U3.md
+        - '01-04': Pratybos/Užduotys/U3.md
         - 'bonus': Pratybos/Užduotys/U3_bonus.md
         
 
