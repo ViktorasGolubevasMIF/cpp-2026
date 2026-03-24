@@ -95,6 +95,8 @@ nav:
       - 'Stack ADT Evoliucija C++ kalboje: 11-16': Paskaitos/02/02_Paskaita_Stack_Evolution_CPP_11_16.md
     - '04 Paskaita': 
       - 'Klasė, objektas, kompozicija': Paskaitos/04/04_Paskaita_v1.md
+    - '05 Paskaita': 
+      - 'RAII, Objektų Kopijavimas, Trijų Taisyklė': Paskaitos/05/05_Paskaita_v0.md
   - 'Temos':
     - 'Geresnis C':
       - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
