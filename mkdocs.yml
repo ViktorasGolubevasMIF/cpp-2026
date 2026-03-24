@@ -77,7 +77,11 @@ markdown_extensions:
 nav:
   - 'Pradžia': index.md
   - 'Temos':
-    - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
+    - 'Geresnis C':
+      - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
+    - 'OOP': 
+      - 'Kompozicija': Temos/OOP/Kompozicija.md
+      - 'Kompozicija su pimpl v2C': Temos/OOP/Kompozicija_pimpl_v2C.md
   - 'Paskaitos':
     - '01 Paskaita': 
       - 'Parametrų perdavimas (su Tutor)': Paskaitos/01/Parameters_Passing.md
@@ -96,6 +100,13 @@ nav:
       - 'U3':
         - '01-04': Pratybos/Užduotys/U3.md
         - 'bonus': Pratybos/Užduotys/U3_bonus.md
+      - 'U2': Pratybos/Užduotys/U2_v2.md
+  - 'Drafts':
+    - 'Lectures':
+      - 'Klasės Anatomija': Drafts/P3_Klases_Anatomija.md
+      - 'Geresnis C': Drafts/P4_Geresnis_C.md
+      - 'Įvadas į STL': Drafts/P5_STL_Ivadas.md
+      - 'RAII ir Rule of 3': Drafts/P6_P8_RAII_Copy.md
         
 
 # ═══════════════════════════════════════════════════════════

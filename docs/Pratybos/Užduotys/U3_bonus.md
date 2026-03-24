@@ -1,4 +1,4 @@
-### BONUS žingsnis (+2 balai): 
+### BONUS žingsnis (+0,2 balai): 
 
 ### **Įvadas į Kopijos konstruktorių (Copy constructor)**
 
