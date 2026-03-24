@@ -76,12 +76,15 @@ markdown_extensions:
 # Jūsų meniu struktūra
 nav:
   - 'Pradžia': index.md
-  - 'Temos':
-    - 'Geresnis C':
-      - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
-    - 'OOP': 
-      - 'Kompozicija': Temos/OOP/Kompozicija.md
-      - 'Kompozicija su pimpl v2C': Temos/OOP/Kompozicija_pimpl_v2C.md
+  - 'Pratybos':
+    - 'Tvarka': Pratybos/Tvarka/UzduociuGidas_1_1.md
+    - 'Užduotys':
+      - 'U1': Pratybos/Užduotys/U1.md
+      - 'U2': Pratybos/Užduotys/U2_v2.md
+      - 'U3':
+        - '01-04': Pratybos/Užduotys/U3.md
+        - 'bonus': Pratybos/Užduotys/U3_bonus.md
+      - 'U4': Pratybos/Užduotys/U4.md
   - 'Paskaitos':
     - '01 Paskaita': 
       - 'Parametrų perdavimas (su Tutor)': Paskaitos/01/Parameters_Passing.md
@@ -92,15 +95,12 @@ nav:
       - 'Stack ADT Evoliucija C++ kalboje: 11-16': Paskaitos/02/02_Paskaita_Stack_Evolution_CPP_11_16.md
     - '04 Paskaita': 
       - 'Klasė, objektas, kompozicija': Paskaitos/04/04_Paskaita_v1.md
-  - 'Pratybos':
-    - 'Tvarka': Pratybos/Tvarka/UzduociuGidas_1_1.md
-    - 'Užduotys':
-      - 'U1': Pratybos/Užduotys/U1.md
-      - 'U2': Pratybos/Užduotys/U2_v2.md
-      - 'U3':
-        - '01-04': Pratybos/Užduotys/U3.md
-        - 'bonus': Pratybos/Užduotys/U3_bonus.md
-      - 'U2': Pratybos/Užduotys/U2_v2.md
+  - 'Temos':
+    - 'Geresnis C':
+      - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
+    - 'OOP': 
+      - 'Kompozicija': Temos/OOP/Kompozicija.md
+      - 'Kompozicija su pimpl v2C': Temos/OOP/Kompozicija_pimpl_v2C.md
   - 'Drafts':
     - 'Lectures':
       - 'Klasės Anatomija': Drafts/P3_Klases_Anatomija.md
