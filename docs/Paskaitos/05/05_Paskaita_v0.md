@@ -270,7 +270,9 @@ Programuotojas negali „pamiršti" atlaisvinti.
 
 ### Shallow copy problema
 
-Dabar — kodėl numatytoji kopija pavojinga:
+**Kodėl numatytasis (_default_) kopijavimo būdas pavojingas**:
+
+Pabandykime:
 
 ```cpp linenums="1" hl_lines="5"
 int main() {
@@ -322,12 +324,94 @@ Sunaikinus abu — `delete[]` **dvigubai** tam pačiam adresui → "griūtis/lū
 
 ---
 
+### String — praktinis pavyzdys
+
+`IntArray` parodė principą. Dar vienas pavyzdys `MyString` — praktiškesnis, realaus `std::string` kasdien naudojamo objekto analogas:
+
+=== "MyString.h"
+
+    ```cpp linenums="1"
+    #pragma once
+
+    class MyString {
+        char* data;
+        int   len;
+    public:
+        MyString(const char* s = "");
+        ~MyString();
+
+        int         length()              const;
+        const char* c_str()               const;
+        void        spausdinti()          const;
+    };
+    ```
+
+=== "MyString.cpp"
+
+    ```cpp linenums="1"
+    #include "MyString.h"
+    #include <cstring>
+    #include <iostream>
+
+    MyString::MyString(const char* s) {
+        len  = std::strlen(s);
+        data = new char[len + 1];
+        std::strcpy(data, s);
+        std::cout << "[CTOR] MyString(\"" << data << "\")\n";
+    }
+
+    MyString::~MyString() {
+        std::cout << "[DTOR] MyString(\"" << data << "\")\n";
+        delete[] data;
+    }
+
+    int         MyString::length()     const { return len; }
+    const char* MyString::c_str()      const { return data; }
+    void        MyString::spausdinti() const {
+        std::cout << "\"" << data << "\"\n";
+    }
+    ```
+
+=== "main.cpp"
+
+    ```cpp linenums="1"
+    #include <iostream>
+    #include "MyString.h"
+
+    int main() {
+        MyString s1("Labas");
+        MyString s2 = s1;  // ← Shallow copy (default copy constructor)
+        
+        // Abu s1 ir s2 rodo į tą patį "Labas" heap'e
+        // Programa baigiasi:
+        // s2.~MyString() → delete[] "Labas"  ✓
+        // s1.~MyString() → delete[] "Labas"  ✗ CRASH (jau ištrinta!)
+        
+        return 0;
+    }
+    ```
+
+=== "🖥️ (su shallow copy)"
+
+    ```
+    [CTOR] MyString("Labas")
+    [DTOR] MyString("Labas")
+    [DTOR] MyString("Labas")   ← dvigubas delete[] → CRASH
+    ```
+
+!!! note ""
+    Abu objektai — `IntArray` ir `MyString` — turi tą pačią problemą.
+    Problemos sprendimas: **copy constructor su deep copy**.
+
+---
+
 !!! tip "Užduotis U4"
     1 dalies teoriją patikrinsite **U4 Žingsniuose 1-2**:
     
     - **Žingsnis 1:** Shallow copy problema (IntArray)
     - **Žingsnis 2:** Deep copy su copy constructor
 
+---
 ---
 
 ## 2 DALIS: Kopijavimo konstruktorius
