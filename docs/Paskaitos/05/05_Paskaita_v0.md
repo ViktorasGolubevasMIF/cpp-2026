@@ -95,8 +95,8 @@ Room::~Room() {  // Numatytasis (default) — kompiliatorius sugeneruoja
 ```
 
 !!! note "U3/BONUS pastebėjimas"
-    - `vector` turi **Rule of Three** → kopijuoja objektus teisingai
-    - Kai `vector` kopijuojamas → Window objektai kopijuojami
+    - `vector`, kaip ir dera "teisingam" tipui, įgyvendina **Rule of Three** → kopijuoja objektus teisingai
+    - Kai `vector` kopijuojamas → `Window` objektai taip pat kopijuojami
     - Matėme: reikėjo user-defined copy constructor!
 
 **Išvada:** `std::vector` (kaip ir `std::string`) — tai **RAII pavyzdys**! Jis valdo dinaminį masyvą.
@@ -117,10 +117,10 @@ class IntArray {
 **Kodėl DABAR reikalingas destruktorius?**
 
 - `int*` — rodyklė į atmintį, **kurią PATYS alokavome** su `new`
-- Skirtumas nuo Lygių 2-3: **mes valdome** šią atmintį (ne kas kitas)
-- `new` atliko programuotojas → `delete[]` turi atlikti programuotojas
+- Skirtumas nuo Lygių 2-3: **mes valdome** šią atmintį — ne kas kitas
+- `new` atliko klasės autorius/programuotojas → `delete[]` turi atlikti irgi jis
 - Numatytasis destruktorius **NIEKO NEDARO** su `data` rodykle
-- Rezultatas: **atminties nutekėjimas** (memory leak)
+- Rezultatas: **atminties nutekėjimas** (_memory leak_)
 
 **Problema:**
 ```cpp
@@ -128,10 +128,10 @@ IntArray arr(5);  // Konstruktoriuje: data = new int[5]
 // ... naudojame arr ...
 // arr išeina iš scope → destruktorius?
 // ❌ Numatytasis destruktorius: data rodyklė sunaikinta
-// ❌ Atmintis heap'e (new int[5]) NEPALIESTA → memory leak!
+// ❌ Atmintis heap'e (new int[5]) NEATLAISVINTA → memory leak!
 ```
 
-**Dabar mes kuriame savo RAII klasę** — kaip `std::string` ar `std::vector`!
+**Išvada**: Turime kurti savo klasę besielgiančią kaip RAII klasės — kaip `std::string` ar `std::vector`!
 
 ---
 
@@ -192,14 +192,18 @@ Programuotojas negali „pamiršti" atlaisvinti.
 
 === "IntArray.cpp"
 
-    ```cpp linenums="1"
+    ```cpp linenums="1" hl_lines="7 12"
     #include "IntArray.h"
     #include <iostream>
     #include <stdexcept>
 
     IntArray::IntArray(int n) : size(n) {
         std::cout << "[CTOR] IntArray(" << n << ")\n";
-        data = new int[n]{};   // {} — inicializuojame nuliais
+        data = new int[n];
+        for (int i = 0; i < n; ++i) {
+            data[i] = 0;
+        }
+    //    data = new int[n]{};   // C++11 universalus {} - inicializuojame nuliais
     }
 
     IntArray::~IntArray() {
@@ -268,7 +272,7 @@ Programuotojas negali „pamiršti" atlaisvinti.
 
 Dabar — kodėl numatytoji kopija pavojinga:
 
-```cpp linenums="1" hl_lines="4 5"
+```cpp linenums="1" hl_lines="5"
 int main() {
     IntArray a(3);
     a.set(0, 1); a.set(1, 2); a.set(2, 3);
@@ -279,7 +283,7 @@ int main() {
     a.spausdinti();   // tikimės: [ 1 2 3 ]
                       // gauname: [ 99 2 3 ]  😱
     return 0;
-    // + CRASH: delete[] dvigubai!
+    // + CRASH: delete[] du kartus!
 }
 ```
 
