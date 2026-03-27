@@ -96,7 +96,7 @@ nav:
     - '04 Paskaita': 
       - 'Klasė, objektas, kompozicija': Paskaitos/04/04_Paskaita_v1.md
     - '05 Paskaita': 
-      - 'RAII, Objektų Kopijavimas, Trijų Taisyklė': Paskaitos/05/05_Paskaita_v0.md
+      - 'RAII, Objektų Kopijavimas, Trijų Taisyklė': Paskaitos/05/05_Paskaita_v1.md
   - 'Temos':
     - 'Geresnis C':
       - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
@@ -109,6 +109,7 @@ nav:
       - 'Geresnis C': Drafts/P4_Geresnis_C.md
       - 'Įvadas į STL': Drafts/P5_STL_Ivadas.md
       - 'RAII ir Rule of 3': Drafts/P6_P8_RAII_Copy.md
+      - 'Operatorių perkrovimas +': Drafts/06_Paskaita.md
         
 
 # ═══════════════════════════════════════════════════════════

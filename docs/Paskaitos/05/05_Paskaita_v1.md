@@ -471,7 +471,7 @@ ClassName(const ClassName& other);
         int* data;
         int  size;
     public:
-        explicit IntArray(int n);
+        IntArray(int n);
         IntArray(const IntArray& kitas);   // ← copy constructor
         ~IntArray();
 
@@ -667,7 +667,7 @@ Skirtumas svarbus — `operator=` turi pirmiau **sunaikinti seną turinį**.
         int* data;
         int  size;
     public:
-        explicit IntArray(int n);
+        IntArray(int n);
         IntArray(const IntArray& kitas);
         ~IntArray();
         IntArray& operator=(const IntArray& kitas);   // ← naujas
@@ -785,7 +785,7 @@ class IntArray {
     int* data;
     int  size;
 public:
-    explicit IntArray(int n);              // konstruktorius
+    IntArray(int n);              // konstruktorius
     ~IntArray();                           // destruktorius     ← Rule of Three
     IntArray(const IntArray& kitas);       // copy constructor  ← Rule of Three
     IntArray& operator=(const IntArray&);  // operator=         ← Rule of Three
