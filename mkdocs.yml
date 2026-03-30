@@ -102,7 +102,7 @@ nav:
       - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
     - 'OOP': 
       - 'Kompozicija': Temos/OOP/Kompozicija.md
-      - 'Kompozicija su pimpl v2C': Temos/OOP/Kompozicija_pimpl_v2C.md
+      - 'U2 gidas (Kompozicija su pimpl)': Temos/OOP/Kompozicija_pimpl.md
   - 'Drafts':
     - 'Lectures':
       - 'Klasės Anatomija': Drafts/P3_Klases_Anatomija.md

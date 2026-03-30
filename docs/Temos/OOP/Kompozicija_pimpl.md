@@ -1,31 +1,43 @@
-# Tiltas į U2: Kompozicija, pimpl, Deep Copy, Išimtys
+# U2 Gidas: Kompozicija, **_pimpl_**, _Deep Copy_, Išimtys
 
-!!! abstract "Šio dokumento tikslas"
-    U1 užduotyje sukūrėte klasę su laukais, metodais, konstruktoriumi ir destruktoriumi.
-    U2 plečia tą klasę penkiais naujais gebėjimais:
+## Ką reikia padaryti:
 
-    | Gebėjimas | Sąsaja su tuo, ką žinome |
-    |---|---|
-    | `.h` / `.cpp` išskaidymas | Kompiliacijos vienetai — matėme C evoliucijoje |
-    | `pimpl` idioma | Kompozicija su `T*` + opaque pointer — matėme C Stage 07! |
-    | Deep copy (Rule of Three) | Shallow copy problemą matėme P6–P8 paskaitose |
-    | `throw` / `try` / `catch` | Naujas mechanizmas |
-    | `id` / `liveCount` su `pimpl` | Tęsinys iš U1 — kur jie atsiduria? |
-    | `Makefile` *(neprivaloma)* | Kompiliavimo automatizavimas |
+1. Išskaidyti kodą į `.h` / `.cpp`, `main.cpp` – atskirai
+2. Naudoti `pimpl` (forward declaration + pointer)
+3. Įgyvendinti Rule of Three (deep copy)
+4. Išlaikyti `id` ir `liveCount`
+5. Naudoti išimtis (`throw`, `try/catch`)
+6. Turėti Makefile (`all`, `clean`, `build`)
 
-    Pagrindinis pavyzdys per visą dokumentą: **`Course`** klasė,
-    kuri turi **`Student`** objektų sąrašą.
+## Motyvacija:
+
+U1 užduotyje sukūrėme klasę su laukais, metodais, konstruktoriumi ir destruktoriumi. 
+
+U1 lygmenyje klasė buvo „viename faile“, o jos vidus — pilnai matomas.
+`private/public` leidžia kontroliuoti prieigą klasės viduje, bet
+neatskiria klasės realizacijos nuo kitų programos dalių.
+
+Didėjant klasei (daugiau laukų, ryšių, logikos), jos vidus tampa
+sudėtingas ir kintantis. Atsiranda poreikis:
+
+- atskirti sąsają nuo realizacijos
+- sumažinti, kiek kiti failai „žino“ apie klasės vidų
+
+Tam naudojamas `.h` / `.cpp` skaidymas ir `pimpl`.
+
+!!! example "Šio Gido pavyzdys per visą dokumentą:"
+    **`Course`** klasė, kuri turi (_has-a_ ryšys - kompozicija), t.y. įkomponuoja **`Student`** klasės objektų sąrašą/masyvą.
 
 ---
 
-## 0. Tiltas iš U1
+## Tiltas iš U1
 
-### Ką turime po U1
+### Ką turime po U1 (tariamas supaprastintas pavyzdys)
 
 ```cpp linenums="1"
-// one file: MyClass.cpp
+// Viskas viename faile: MyClass.cpp / main.cpp
 class Student {
-    std::string name;
+    std::string name;   // char* name;
     int age;
 public:
     Student(const std::string& n, int a) : name(n), age(a) {}
@@ -39,66 +51,73 @@ int main() {
 }
 ```
 
-!!! question "Kodėl `Course`, o ne `Student`?"
-    Geras klausimas — juk U1 esybė yra `Student`!
-
-    `pimpl` prasminga kai klasė turi **sudėtingą arba kintamą realizaciją**,
-    kurią verta paslėpti. `Student` — paprastas: tik `name` ir `age`.
-    Nėra ko slėpti, nėra priklausomybių kurios keistųsi.
+!!! question "Kodėl šioje medžiagoje pasirinktas `Course` + `Student`, o ne `Student`— juk U1 esybė yra `Student`?!"
+    **_pimpl_** (technika) prasminga kai klasė turi **sudėtingą arba kintamą realizaciją**, kurią verta paslėpti. `Student` — paprastas: tik `name` ir `age`. Nėra ko slėpti, nėra priklausomybių kurios keistųsi.
 
     `Course` — kita istorija: viduje turi `vector<Student>`,
-    gali turėti duomenų bazės ryšį, failo įkėlimą, cache'avimą...
-    Ir svarbiausia — **kiekvienas, kas naudoja `Course`, automatiškai
-    priklausytų nuo `Student`** (ir nuo visko ką `Student.h` įtraukia).
+    gali turėti ryšį su duomenų baze , failo įkėlimą, cache'avimą...
+    Ir svarbiausia — kiekvienas, kas naudoja `Course`, automatiškai
+    priklausytų nuo `Student` (ir, savo ruožtu, nuo visko ką `Student.h` įtraukia).
 
-    **Taisyklė:** `pimpl` naudojamas kai klasės realizacija:
+    **Taisyklė:** **_pimpl_** naudojamas kai klasės realizacija:
 
-    - turi savo priklausomybių (`#include`) kurių nenori eksponuoti
+    - turi savo priklausomybių (`#include`) kurių nenori atskleisti/eksponuoti
     - gali keistis nepriklausomai nuo sąsajos
-    - yra sudėtinga ir verčia ilgai kompiliuotis
+    - yra sudėtinga dėl ko ženkliai ilgėja kompiliavimosi laikas
+
+    **Svarbu:** ne kiekvienai klasei reikia `pimpl`.
+    Jis prasmingas tik tada, kai klasė turi ką „slėpti“.
 
     `Student` šių sąlygų neatitinka — jam `pimpl` būtų
     perteklinis komplikavimas (_overengineering_).
 
-    Jūsų U2 užduotyje — taikykite `pimpl` **savo U1 esybei**,
-    bet galvokite: ar jos realizacija pakankamai sudėtinga?
-    Jei ne — `pimpl` vis tiek reikalingas kaip **technikos demonstracija**,
-    net jei realiai čia jo nenaudotumėte.
+    Jūsų U2 užduotyje — taikykite **_pimpl_** **savo U1 esybei**, bet susimąstylite: ar jos realizacija pakankamai sudėtinga?
+    Jei ir ne... — **_pimpl_** užduotyje U2 numatytas kaip **technikos demonstracija**, net jei realiai čia jo ir nenaudotumėte.
 
-### Ko trūksta U2 tikslams
+### Kokios problemos liko po U1
 
-??? danger "1 problema: vidinė realizacija matoma visiems"
+Kad įgyvendinti **U2 reikalavimus** spręsime šias problemas:
+
+???+ danger "1 problema: vidinė realizacija matoma visiems"
     Jei `Course.h` antraštėje matomi visi privatūs laukai —
-    kiekvienas `#include "Course.h"` **mato realizacijos detales**.
-    Pakeitus privatų lauką — **rekompiliuojama viskas**, kas įtraukė antraštę.
+    kiekvienas, kas `#include "Course.h"`, **mato realizacijos detales**.
+    Pakeitus privatų lauką — **perkompiliuojami visi**, kas įtraukė tą antraštę.
 
-??? danger "2 problema: kopija tyliai dalijasi atmintimi"
-    Jei klasė viduje turi dinaminius resursus (`new`) —
-    numatytoji kopija nukopijuoja tik **adresą**, ne turinį.
-    Du objektai rodo į **tą pačią atmintį** → sunaikinus vieną, kitas sugenda.
+??? danger "2 problema: kopija "tyliai" dalijasi atmintimi su originalu"
+    Jei klasė viduje turi/savinasi dinaminius resursus (`new`) —
+    numatytoji kopija kopijuoja laukus (adresus), o ne pačius duomenis.
+    Du objektai (originalas ir kopija) rodo į **tą pačią atmintį** → sunaikinus vieną, kitas "sugadinamas".
 
-??? danger "3 problema: klaidos tyliai ignoruojamos"
-    Be išimčių, neleistini konstruktoriaus argumentai
-    palieka objektą sugedusioje būsenoje — be jokios galimybės tai aptikti.
+??? danger "3 problema: klaidos "tyliai" ignoruojamos"
+    Be klaidų/išimčių prevencijos/apdorojimo, neleistini konstruktoriaus argumentai (t.y. nelogiškos / klaidingos (nevaliduotos) reikšmės) nustato ir palieka objektą "kritinėje"/ **"sugadintoje" būsenoje**... be jokios galimybės tai aptikti...
 
-**`pimpl`** sprendžia 1 problemą · **deep copy** — 2-ą · **`throw`** — 3-ią.
+Trumpas atsakymas:
+
+- **`pimpl`** sprendžia 1-ą problemą
+- **_deep copy_** — 2-ą
+- **`throw`** — 3-ią.
+
+Na, bet... eikime papunkčiui:
 
 ---
 
-## 1. `.h` / `.cpp` išskaidymas
+## 1. Išskaidymas į `.h` / `.cpp`
 
-### Kodėl skaidome
+**Tikslas:** naudoti klasę iš kitų failų
 
-Kiekvienas `.cpp` failas yra atskiras **kompiliavimo vienetas**.
-Antraštė `.h` — **sutartis** (kas egzistuoja), realizacija `.cpp` — **įgyvendinimas** (kaip veikia).
+### Kodėl skaidome?
 
-```
-Student.h    ← sąsaja: ką klasė žada daryti
-Student.cpp  ← realizacija: kaip ji tai daro
-main.cpp     ← naudotojas: tik #include "Student.h"
-```
+- Programos skaidomos į mažesnes dalis (modulius), kad būtų lengviau jas kurti ir suprasti
+- C/C++: kiekvienas .cpp failas yra atskirai kompiliuojamas
+→ todėl kiekvienas `.cpp` failas turi turėti visą jam reikalingą informaciją (per `#include`)
+- Todėl kompiliuojant vieną `.cpp` failą, kiti failai nėra matomi
+→ todėl reikia būdo „pasakyti“ kompiliatoriui, kas egzistuoja kituose failuose
+- .h – deklaracijos (kas egzistuoja: klasės, funkcijos)
+- .cpp – apibrėžimai (kaip tai realizuota)
+- main.cpp (ir kiti failai) naudoja #include, kad per .h sužinotų apie kitus modulius
+- Net ir turint private/public, klasės turi būti „matomos“ kituose failuose, todėl deklaracijos iškeliamos į `.h`
 
-### Pavyzdys: minimalus išskaidymas
+### Išskaidymo pavyzdys
 
 === "Student.h"
 
@@ -149,29 +168,27 @@ main.cpp     ← naudotojas: tik #include "Student.h"
     }
     ```
 
-!!! info "Atpažinimo ženklas"
-    Antraštėje — tik **deklaracijos** (be kūno `{}`).
-    `.cpp` faile — **apibrėžimai** su `ClassName::` prefiksu.
-
 ---
 
-## 2. Kodo evoliucija: nuo kompozicijos iki `pimpl`
+## 2. Kompozicija → `pimpl`
 
-### Pradinis taškas: Course su Student sąrašu (P9 paskaita)
+**Tikslas:** paslėpti realizaciją
 
-Šią klasę jau žinome — `Course` **kompoziciškai** talpina `Student` objektus:
+### Pradinis taškas: `Course` su `Student` "sąrašu"
+
+T.y.`Course` naudodamas **kompozicijos** (**_has-a_** ryšį) turi/talpina `Student` objektų `vector`'ių:
 
 === "Course.h"
 
     ```cpp linenums="1"
     #pragma once
-    #include "Student.h"       // ← Student pilnai matomas visiems!
+    #include "Student.h"       // Student pilnai matomas visiems!
     #include <vector>
     #include <string>
 
     class Course {
         std::string title;
-        std::vector<Student> students;   // tiesioginis narys
+        std::vector<Student> students;   // tiesioginis has-a narys - kompozicija
     public:
         Course(const std::string& t);
         void add(const std::string& name, int age);
@@ -193,9 +210,10 @@ main.cpp     ← naudotojas: tik #include "Student.h"
 
     void Course::print() const {
         std::cout << "Course: " << title << "\n";
-        for (const auto& s : students)   // range-based for — šiuolaikiškas
+        for (const auto& s : students)   // range-based for — šiuolaikiškas (Modern C++11)
             s.print();
-        // Klasikinis iteratoriaus variantas (ekvivalentus):
+        // ADS dalyko kontekste pasidomėkite ir
+        // klasikiniu iteratoriaus variantu (ekvivalentus):
         // for (auto it = students.begin(); it != students.end(); ++it)
         //     it->print();
     }
@@ -206,7 +224,7 @@ main.cpp     ← naudotojas: tik #include "Student.h"
     ```cpp linenums="1"
     #include "Course.h"
     // Course.h viduje yra #include "Student.h" —
-    // todėl main.cpp automatiškai "mato" Student tipą!
+    // todėl main.cpp "mato" Student tipą!
 
     int main() {
         Course c("OOP C++");
@@ -214,16 +232,16 @@ main.cpp     ← naudotojas: tik #include "Student.h"
         c.add("Bob",   21);
         c.print();
 
-        // Nes Course.h įtraukė Student.h — galime kurti
+        // Kadangi Course.h įtraukė Student.h — galime kurti
         // Student objektus tiesiogiai main() viduje:
-        Student s("Charlie", 22);   // ← veikia, nors neįtraukėme Student.h!
+        Student s("Charlie", 22);
         s.print();
 
         return 0;
     }
     ```
 
-=== "⌨️➡️🖥️"
+=== "🖥️"
 
     ```
     Course: OOP C++
@@ -232,23 +250,26 @@ main.cpp     ← naudotojas: tik #include "Student.h"
     Charlie, 22
     ```
 
-??? warning "Problema: Course.h atskleidžia per daug"
-    `main.cpp` įtraukė tik `Course.h` — bet per jį **automatiškai** gavo
-    ir `Student.h`. Todėl `Student s(...)` veikia net be explicit `#include "Student.h"`.
+??? warning "Taigi - Problema 1: Course.h atskleidžia per daug"
+    `main.cpp` įtraukė tik `Course.h` — bet per jį **automatiškai** gavo ir `Student.h`. Todėl `Student s(...)` veikia net be explicit `#include "Student.h"`.
 
     Tai yra **netiesioginė priklausomybė** — pavojinga:
     jei ateityje `Course.h` nustotų įtraukti `Student.h`,
     `main.cpp` nustotų kompiliuotis, nors jo kodas nepakito.
 
-    Be to — kiekvienas `#include "Course.h"` mato visus `Student` ir `Course`
-    privačius laukus. Pakeitus bet kurį — **rekompiliuojama viskas**.
+    Be to — kiekvienas `#include "Course.h"` mato visus `Student` ir `Course` privačius laukus. Pakeitus bet kurį — **perkompiliuojama viskas**.
 
 ---
 
-### Evoliucija: ta pati Course, bet su `pimpl`
+**Kas keičiasi:**
 
-Sprendimas — **paslėpti** `students` vektorių ir `title` eilutę į atskirą struktūrą,
-matoma tik `.cpp` faile:
+- `title` ir `students` nebededami tiesiai į `Course`
+- jie perkeliami į paslėptą struktūrą `CourseImpl`
+- `Course` saugo tik rodyklę (`pimpl`) į šią struktūrą
+
+### Refactoring'as (perprojektavimas): ta pati `Course`, bet su `pimpl`
+
+Sprendimas — **perkelti/paslėpti** `students` vektorių (plačiau - kolekciją, ar tiesiog - masyvą) ir `title` eilutę į atskirą struktūrą, matomą tik `.cpp` faile:
 
 === "Course.h (su pimpl)"
 
@@ -343,7 +364,7 @@ matoma tik `.cpp` faile:
     }
     ```
 
-=== "⌨️➡️🖥️"
+=== "🖥️"
 
     ```
     Course: OOP C++
@@ -356,7 +377,7 @@ matoma tik `.cpp` faile:
     - Pakeitus `CourseImpl` vidų — `main.cpp` **nereikia rekompiliuoti**
     - `Course` destruktorius **valdo** `pimpl` gyvavimą — tai **kompozicija** su `CourseImpl*`
 
-??? question "O kas jei tiesiog pridėsiu `#include \"Student.h\"` į main.cpp?"
+??? question "O kas jei tiesiog pridėsiu `#include "Student.h"` į main.cpp?"
     Techniškai — **veiks**. Niekas nedraudžia. Bet pagalvokime:
 
     ```cpp
@@ -372,7 +393,7 @@ matoma tik `.cpp` faile:
 
     ...nors `main.cpp` tiesiogiai su `Student` **nedirba** — jis tik naudoja `Course`!
 
-    **Analogija:** jūs užsisakote picą per programėlę. Jums nereikia žinoti
+    **Analogija (Pasiūlyta DI):** jūs užsisakote picą per programėlę. Jums nereikia žinoti
     iš kurio sandėlio atkeliauja miltai. Galite sužinoti — bet tada kiekvienas
     sandėlio pasikeitimas taptų ir **jūsų problema**.
 
@@ -391,9 +412,9 @@ matoma tik `.cpp` faile:
 
 ---
 
-??? note "📌 `pimpl` ir C evoliucija — tas pats principas!"
+??? note "C++ _pimpl_ ir C _opaque pointer_ technikos — tas pats principas!"
 
-    Prisiminkite **C Stage 07** — _Opaque Pointer_ techniką:
+    Detaliau žr. Stack ADT Evoliucija C kalboje (08-09 etapai):
 
     ```
     ┌─────────────────────────────────────────────────────────────────┐
@@ -424,7 +445,7 @@ matoma tik `.cpp` faile:
     **Idėja identiška** — skiriasi tik sintaksė ir tai, kad C++ klasė
     valdo `pimpl` gyvavimą **automatiškai** per konstruktorių/destruktorių.
 
-    | | C Stage 07 | C++ pimpl |
+    | | C opaque pointer | C++ pimpl |
     |---|---|---|
     | **Paslėpimas** | `struct Stack` — forward decl | `struct CourseImpl` — forward decl |
     | **Rodyklė** | `Stack* s` — rankinis valdymas | `CourseImpl* pimpl` — per klasę |
@@ -439,11 +460,13 @@ matoma tik `.cpp` faile:
 
 ## 3. Shallow vs Deep copy
 
+**Problema:** neteisingas kopijavimas po `pimpl`
+
 ### Problema
 
 Su `pimpl` atsiranda nauja rizika:
 
-```cpp linenums="1" hl_lines="4"
+```cpp linenums="1" hl_lines="5"
 int main() {
     Course c1("OOP C++");
     c1.add("Alice", 20);
@@ -452,18 +475,18 @@ int main() {
 
     c2.add("Bob", 21);
     c1.print();        // tikimasi: tik Alice
-                       // gausime: Alice IR Bob  😱
+                       // gausime: Alice IR Bob
 }
 ```
 
-=== "⌨️➡️🖥️ (tikėtasi)"
+=== "🖥️ (tikėtasi)"
 
     ```
     Course: OOP C++
     Alice, 20
     ```
 
-=== "⌨️➡️🖥️ (realybė — arba crash)"
+=== "🖥️ (realybė — arba crash)"
 
     ```
     Course: OOP C++
@@ -472,9 +495,12 @@ int main() {
     ```
     Arba `double free` crash programos pabaigoje.
 
-### Kodėl
+### Kaas vyksta?
 
 Numatytasis copy constructor kopijuoja laukus **bitų lygmeniu** (_shallow copy_):
+
+Abi klasės (`c1` ir `c2`) turi savo rodyklę,
+bet abi rodyklės rodo į tą pačią `CourseImpl` struktūrą.
 
 ```mermaid
 graph LR
@@ -488,18 +514,6 @@ graph LR
     style pimpl fill:#ffcccc,stroke:#cc0000
     style c2 fill:#ffe0cc,stroke:#cc6600
 ```
-
-??? note "ASCII fallback (jei Mermaid neveikia)"
-    ```
-    shallow copy:
-    c1:  [ pimpl ──────►  CourseImpl { "OOP C++", [Alice] } ]
-                                   ↑
-    c2:  [ pimpl ──────────────────┘ ]   ← tas pats adresas!
-
-    deep copy (norima):
-    c1:  [ pimpl ──►  CourseImpl { "OOP C++", [Alice] }  ]
-    c2:  [ pimpl ──►  CourseImpl { "OOP C++", [Alice] }  ]  ← atskira kopija
-    ```
 
 ### Sprendimas: Rule of Three
 
@@ -538,7 +552,7 @@ reikia ir copy constructor, ir `operator=`:
 
 === "Course.cpp (Rule of Three)"
 
-    ```cpp linenums="1" hl_lines="16-28"
+    ```cpp linenums="1"
     #include "Course.h"
     #include "Student.h"
     #include <vector>
@@ -551,18 +565,28 @@ reikia ir copy constructor, ir `operator=`:
 
     Course::Course(const std::string& title)
         : pimpl(new CourseImpl{title, {}}) {}
-    //         ─────────────────────────
-    //         sukuriame pimpl heap'e ir iš karto inicializuojame:
-    //         title = parametras, students = {} tuščias vektorius
+    // sukuriame pimpl heap'e ir iš karto inicializuojame:
+    // title = parametras, students = {} tuščias vektorius
+    // `{}` – C++11 uniform initialization (galima galvoti kaip įprastą konstruktoriaus kvietimą)
+
 
     // Deep copy: sukuriame NAUJĄ CourseImpl su tuo pačiu turiniu
     Course::Course(const Course& other)
         : pimpl(new CourseImpl{*other.pimpl}) {}
-    //             ↑ kopijuojame struktūros TURINĮ, ne adresą
 
+    // `*other.pimpl` — kopijuojame visą struktūros turinį (ne adresą).
+    // `std::vector` ir `std::string` tai daro automatiškai (deep copy).
+
+
+    // Copy assignment operator: tas pats kaip copy ctor,
+    // tik jau egzistuojančiam objektui
     Course& Course::operator=(const Course& other) {
         if (this != &other) {           // savęs priskyrimo patikra
+
+            // 1. atlaisviname seną resursą
             delete pimpl;
+
+            // 2. sukuriame NAUJĄ kopiją (deep copy)
             pimpl = new CourseImpl{*other.pimpl};
         }
         return *this;
@@ -603,7 +627,7 @@ reikia ir copy constructor, ir `operator=`:
     }
     ```
 
-=== "⌨️➡️🖥️"
+=== "🖥️"
 
     ```
     c1:
@@ -762,7 +786,7 @@ int main() {
 }
 ```
 
-=== "⌨️➡️🖥️"
+=== "🖥️"
 
     ```
     Course: OOP C++
@@ -779,7 +803,7 @@ int main() {
 
 ---
 
-## 6. Makefile *(neprivaloma)*
+## 6. Makefile
 
 ### Kompiliavimo grandinė
 
@@ -842,35 +866,35 @@ main.o:             main.cpp Course.h
 
 ## ✅ U2 kontrolinis sąrašas
 
-### Struktūra
+#### Struktūra
 
 - [ ] Klasė išskaidyta į `.h` ir `.cpp` failus
 - [ ] `main()` yra **atskirame** `.cpp` faile
 - [ ] `pimpl`: antraštėje tik `ImplStruct*` + forward declaration
 - [ ] `XxxImpl` struktūra matoma **tik** `.cpp` faile
 
-### Rule of Three
+#### Rule of Three
 
 - [ ] Destruktorius naikina `pimpl` (`delete pimpl`)
 - [ ] Copy constructor sukuria **naują** `pimpl` (gilus kopijavimas)
 - [ ] `operator=` turi savęs priskyrimo patikrą (`if (this != &other)`)
 - [ ] Testas: pakeitimas vienoje kopijoje **nepaveikia** kitos
 
-### `id` ir `liveCount`
+#### `id` ir `liveCount`
 
 - [ ] `id`, `nextId`, `liveCount` yra **klasėje** (ne `Impl`)
 - [ ] `liveCount` didėja **copy constructor'yje** (ne tik pagrindiniame!)
 - [ ] `liveCount` mažėja destruktoriuje
 - [ ] `id` kopijai — sąmoningas ir **nuoseklus** pasirinkimas
 
-### Išimtys
+#### Išimtys
 
 - [ ] Sava išimties klasė (paveldi iš `std::exception` ar išvestinės)
 - [ ] `throw` bent dviejose vietose (konstruktoriuje + metode)
 - [ ] `try/catch` testuoja **sėkmingą** IR **klaidingą** atvejį
 - [ ] Rezultatai — ekrane **IR** tekstiniame faile
 
-### Makefile *(neprivaloma)*
+#### Makefile
 
 - [ ] Tikslai: `all`, `clean`, `build`
 - [ ] Generuojami `.o` failai
@@ -878,18 +902,19 @@ main.o:             main.cpp Course.h
 
 ---
 
-??? tip "🔧 Bonus A: `CourseImpl` kaip atskiras modulis"
+## Papildomos/Alternatyvios technikos bonusams
 
-    ### Variantas B — „fizinis" pimpl
+??? tip "Bonus I: `CourseImpl` kaip atskiras modulis"
+    Patobulinimas: **`pimpl` modulyje**
 
     Pagrindiniame variante `CourseImpl` apibrėžiamas `Course.cpp` viduje.
-    Tai paprasta ir dažniausiai pakanka. Tačiau yra ir **stipresnis** variantas:
-    `CourseImpl` kaip **atskiras kompiliavimo modulis** — savo `.h` ir `.cpp` failai.
+    Tai paprasta technika ir dažniausiai jos pakanka. Tačiau yra ir **stipresnis** variantas:
+    `CourseImpl` kaip **atskiras kompiliavimo modulis** — su savo `.h` ir `.cpp` failai.
 
     **Kompiliavimo priklausomybių palyginimas:**
 
     ```
-    Variantas A (dabartinis):        Variantas B (fizinis modulis):
+    Variantas A (įprastas):        Variantas B (patobulintas):
     ─────────────────────────        ──────────────────────────────────
     Course.h                         Course.h
       struct CourseImpl; ←             struct CourseImpl; ←
@@ -902,7 +927,7 @@ main.o:             main.cpp Course.h
                                        // tik Course logika
     ```
 
-    **Priklausomybių diagrama:**
+    **Priklausomybių diagrama (mermaid):**
 
     ```mermaid
     graph TD
@@ -922,7 +947,7 @@ main.o:             main.cpp Course.h
         style note1 fill:#ffffcc
     ```
 
-    ??? note "ASCII fallback"
+    ??? note "ASCII diagrama"
         ```
         Variantas A:              Variantas B:
         main.cpp                  main.cpp
@@ -998,6 +1023,10 @@ main.o:             main.cpp Course.h
         Course::Course(const Course& other)
             : pimpl(new CourseImpl{*other.pimpl}) {}
 
+            // `*other.pimpl` — kopijuojame visą struktūros turinį (ne adresą).
+            // `std::vector` ir `std::string` tai daro automatiškai (deep copy).
+
+
         Course& Course::operator=(const Course& other) {
             if (this != &other) {
                 delete pimpl;
@@ -1034,40 +1063,22 @@ main.o:             main.cpp Course.h
     - `Course.cpp` nereikia rekompiliuoti jei `CourseImpl.h` nepakito
     - Didelėse sistemose tai **reikšmingai** sutrumpina kompiliavimo laiką
 
-    !!! note "Ryšys su C evoliucija"
-        Tai tiksli **C Stage 02–03** analogija: tada skaidėme `stack.c` į
-        `stack.h` + `stack.c` modulį. Dabar `CourseImpl` tapo savo moduliu —
-        tas pats principas, dabar C++ klasės kontekste.
-
-        ```
-        C Stage 02–03:          C++ pimpl Variantas B:
-        stack.h                 CourseImpl.h
-          struct Stack; ←         struct CourseImpl { ... }
-        stack.c                 CourseImpl.cpp
-          struct Stack { ... }    // realizacija
-        ```
-
 ---
 
-??? tip "🔬 Bonus B: Copy constructor ir Rule of Three — savarankiška studija"
+??? tip "Bonus II: Copy constructor ir Rule of Three detaliau"
 
-    ### Kontekstas
-
-    Šio srauto studijose copy constructor ir Rule of Three detaliai nagrinėjami
-    P6–P8 paskaitose. Tačiau su `pimpl` jie jau **aktualūs dabar** —
-    verta pamatyti jų pėdsakus ir suprasti kas vyksta.
-
-    Šis eksperimentas veda per tris žingsnius:
+    Tikslas: pamatyti, kada ir kiek kartų iš tikrųjų kuriami ir naikinami objektai.
+    Šis "eksperimentas" turi tris žingsnius:
 
     1. **Pamatome problemą** — daugiau destruktorių nei konstruktorių
     2. **Atrandame priežastį** — copy constructor
-    3. **Patvirtiname** — `operator=` ir `liveCount` stebėjimas
+    3. **Patobuliname sprendimą** — `operator=` ir `liveCount` stebėjimas
 
     ---
 
-    ### Žingsnis 1: Protokolo neatitikimas
+    Žingsnis 1: Protokolo neatitikimas
 
-    Pridėkite logging'ą į `Course` konstruktorius **laikinai**:
+    Pridėkite logging'ą į `Course` konstruktorius:
 
     ```cpp linenums="1"
     Course::Course(const std::string& title)
@@ -1087,10 +1098,10 @@ main.o:             main.cpp Course.h
     }
     ```
 
-    **Paleiskite šį testą — dar BEZ copy constructor:**
+    **Paleiskite šį testą — dar be copy constructor:**
 
     ```cpp linenums="1"
-    void printCourse(Course c) {   // ← per reikšmę — kopija!
+    void printCourse(Course c) {   // ← perdavimas pagal reikšmę — kopija!
         c.print();
     }
 
@@ -1111,7 +1122,7 @@ main.o:             main.cpp Course.h
     }
     ```
 
-    === "⌨️➡️🖥️ (be [COPY])"
+    === "🖥️ (be [COPY])"
 
         ```
         === Sukuriame c1 ===
@@ -1130,13 +1141,13 @@ main.o:             main.cpp Course.h
         [DTOR] Course('OOP C++') id=? live=?
         ```
 
-    !!! question "Klausimas sau"
+    !!! question "Tad - klausimas:"
         Matome **1 konstruktorių**, bet **3 destruktorius**.
         Kas sukūrė kitus du objektus? Kur jų konstruktoriai?
 
     ---
 
-    ### Žingsnis 2: Copy constructor — paslėptas kūrėjas
+    Žingsnis 2: Copy constructor — paslėptas kūrėjas
 
     Pridėkite copy constructor su logging'u:
 
@@ -1151,7 +1162,7 @@ main.o:             main.cpp Course.h
     }
     ```
 
-    === "⌨️➡️🖥️ (su [COPY])"
+    === "🖥️ (su [COPY])"
 
         ```
         === Sukuriame c1 ===
@@ -1187,7 +1198,7 @@ main.o:             main.cpp Course.h
 
     ---
 
-    ### Žingsnis 3: `operator=` — kai objektas jau egzistuoja
+    Žingsnis 3: `operator=` — kai objektas jau egzistuoja
 
     Copy constructor veikia kai objektas **kuriamas**.
     Kai jis jau egzistuoja ir priskiriam naują reikšmę — `operator=`:
@@ -1241,7 +1252,7 @@ main.o:             main.cpp Course.h
     }
     ```
 
-    === "⌨️➡️🖥️"
+    === "🖥️"
 
         ```
         [CTOR] Course('OOP C++') id=1 live=1
@@ -1289,7 +1300,7 @@ main.o:             main.cpp Course.h
 
     ---
 
-    ### Apibendrinimas: Rule of Three
+    Apibendrinimas: Rule of Three (Trijų Taisyklė)
 
     | Metodas | Kviečiamas kai | Žymė |
     |---|---|---|
@@ -1303,21 +1314,18 @@ main.o:             main.cpp Course.h
         Course c2 = c1;   // ← COPY CONSTRUCTOR: c2 dar neegzistavo
         c2 = c1;          // ← OPERATOR=: c2 jau egzistuoja
         ```
-        Atrodo panašiai — tai du skirtingi metodai!
-
-    !!! note "Išsamiau — P6–P8 paskaitose"
-        Copy constructor ir `operator=` nagrinėjami detaliai su `IntArray`
-        ir `MyString` pavyzdžiais. Ten pamatysime ir `copy-and-swap` idiomą —
-        elegantišką `operator=` variantą su exception safety garantija.
+    
+    Atrodo panašiai — bet tai du skirtingi metodai!
 
 ---
 
-??? tip "⚔️ Bonus C: be `vector` — tikrasis deep copy (iššūkis)"
+??? tip "Bonus III: kompozicija be `vector` — "tikrasis" _deep copy_ (iššūkis)"
 
-    ### Kontekstas
+    Šiame variante sąmoningai atsisakome `std::vector`,
+    kad pamatytume „tikrą“ deep copy problemą ir sprendimą rankiniu būdu.
 
     Pagrindiniame pavyzdyje `CourseImpl` naudoja `std::vector<Student>` —
-    jis pats yra RAII konteineris ir deep copy atlieka **automatiškai**.
+    kuris pats yra RAII konteineris ir deep copy atlieka **automatiškai**.
     Todėl `new CourseImpl{*other.pimpl}` veikia be papildomo darbo.
 
     Bet kas jei `CourseImpl` viduje būtų **tikras dinaminis masyvas** —
@@ -1329,7 +1337,7 @@ main.o:             main.cpp Course.h
 
     ---
 
-    ### `CourseImpl` su dinaminiu masyvu
+    `CourseImpl` su dinaminiu masyvu
 
     ```cpp linenums="1"
     // Course.cpp — CourseImpl su rankiniu masyvu
@@ -1354,7 +1362,7 @@ main.o:             main.cpp Course.h
     };
     ```
 
-    ### `add()` su dinamišku augimu
+    `add()` su dinamišku augimu
 
     ```cpp linenums="1"
     void Course::add(const std::string& name, int age) {
@@ -1377,10 +1385,10 @@ main.o:             main.cpp Course.h
     }
     ```
 
-    ### Shallow copy problema — aiškesnė nei su `vector`
+    Shallow copy problema — aiškesnė nei su `vector`
 
     ```cpp linenums="1"
-    // BEZ copy constructor — kompiliatorius kopijuoja tik rodyklę!
+    // Be copy constructor — kompiliatorius kopijuoja tik rodyklę!
     Course c1("OOP C++");
     c1.add("Alice", 20);
 
@@ -1399,7 +1407,7 @@ main.o:             main.cpp Course.h
     Sunaikinus `c2` — `delete[] students` pirmą kartą.
     Sunaikinus `c1` — `delete[] students` antrą kartą → **double free crash**.
 
-    ### Tikrasis deep copy — rankinis
+    "Tikrasis" deep copy — rankinis.
 
     Dabar `new CourseImpl{*other.pimpl}` **nebeveikia** —
     reikia kopijuoti laukas po lauko:
@@ -1440,7 +1448,7 @@ main.o:             main.cpp Course.h
     }
     ```
 
-    ### Testas su logging
+    Testas su logging
 
     ```cpp linenums="1"
     int main() {
@@ -1460,7 +1468,7 @@ main.o:             main.cpp Course.h
     }
     ```
 
-    === "⌨️➡️🖥️"
+    === "🖥️"
 
         ```
         [IMPL_CTOR] CourseImpl 'OOP C++' cap=4
@@ -1494,7 +1502,7 @@ main.o:             main.cpp Course.h
 
     ---
 
-    ### Palyginimas: `vector` vs dinaminis masyvas
+    Palyginimas: `vector` vs dinaminis masyvas
 
     | | `vector<Student>` | `Student*` + `count` |
     |---|---|---|
@@ -1504,16 +1512,3 @@ main.o:             main.cpp Course.h
     | **Ryšys su U1** | Silpnas | **Tiesioginis** |
     | **Klaidos rizika** | Maža | Didelė (bet mokanti!) |
     | **Tinkamas** | Produkciniam kodui | **Mokymuisi** |
-
-    !!! tip "Išvada"
-        `vector` versija — **geresnis kodas**.
-        `Student*` versija — **geresnė pamoka**.
-        Abu variantai galioja — pasirinkimas priklauso nuo tikslo.
-
----
-
-*[pimpl]: pointer to implementation
-*[NC]: Not Compiling — Nesikompiliuoja
-*[RT]: Runtime Error — Vykdymo klaida
-
-
