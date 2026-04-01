@@ -97,6 +97,8 @@ nav:
       - 'Klasė, objektas, kompozicija': Paskaitos/04/04_Paskaita_v1.md
     - '05 Paskaita': 
       - 'RAII, Objektų Kopijavimas, Trijų Taisyklė': Paskaitos/05/05_Paskaita_v1.md
+    - '06 Paskaita': 
+      - 'Operatorių perkrovimas, Klaidų valdymas': Paskaitos/06/06_Paskaita_v1.md
   - 'Temos':
     - 'Geresnis C':
       - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
