@@ -96,6 +96,8 @@ Pagrindinis skirtumas: **kairysis operandas**.
 
 #### **1. Member function operatoriai**
 
+arba **"Operatoriai kaip funkcijos-nariai"**
+
 **Taisyklė:** Jei **kairysis operandas = mūsų klasė** → member function! ✅
 
 === "MyString.h"
@@ -156,17 +158,19 @@ Pagrindinis skirtumas: **kairysis operandas**.
 
 ```cpp
 s1 + s2;  
-// Kompiliatorius "mato":
+// Kompiliatorius "mato" kaip:
 s1.operator+(s2);
-// Kairysis (s1) = this
-// Dešinysis (s2) = parametras
+// Kairysis s1 "atstovauja" this
+// Dešinysis s2 parametrą
 ```
 
 ---
 
 #### **2. Friend function operatoriai**
 
-**Kada reikia friend?**
+arba **"Operatoriai kaip draugiškos funkcijos"**
+
+**Kada reikia `friend`?**
 
 - Kai **kairysis operandas ≠ mūsų klasė**
 - Pavyzdys: `std::cout << s` → kairėje `ostream`, ne `MyString`!
@@ -240,7 +244,7 @@ operator<<(std::cout, s1);
 
 #### **Studentų klausimas:**
 
-!!! question "Kodėl negaliu tiesiog `print()` ir tikėtis `cout << s` veiks?"
+!!! question "Kodėl negaliu tiesiog `print()` ir tikėtis, kad `cout << s` veiks?"
     ```cpp
     class MyString {
     public:
@@ -390,7 +394,7 @@ MyString MyString::operator+(const MyString& other) const {
 - `operator+` — sukuria **naują** objektą (temporary)
 
 !!! tip "Plačiau"
-    Detalus paaiškinimas: **Paskaita 05** → "Advanced: operator+ vs operator= — Subtilus skirtumas"
+    Detalus paaiškinimas: TODO"
 
 ---
 
