@@ -197,7 +197,7 @@ Baseboard length (minus door): 17.1 m
 
 ---
 
-**Failų struktūra:**
+#### **Failų struktūra:**
 ```
 U3/BONUS/
 ├── Window.h           ← Su KK deklaracija
