@@ -1,12 +1,12 @@
-### BONUS žingsnis (+0,2 balai): 
+# U3 BONUS žingsnis (Kopijos konstruktorius): 
 
-### **Įvadas į Kopijos konstruktorių (Copy constructor)**
+## **Įvadas į Kopijos konstruktorių (Copy constructor)**
 
 **Direktorija:** `U3/BONUS/`
 
 ---
 
-#### **Motyvacija:**
+### **Motyvacija:**
 
 U3 3 žingsnyje **sąmoningai užkomentavome** `Window` ir `Door` konstruktorių ir destruktorių [DEBUG] logging'ą ("elgsenos protokolą").
 
@@ -198,6 +198,7 @@ Baseboard length (minus door): 17.1 m
 ---
 
 #### **Failų struktūra:**
+
 ```
 U3/BONUS/
 ├── Window.h           ← Su KK deklaracija
@@ -209,6 +210,7 @@ U3/BONUS/
 ├── main.cpp           ← pradžioje kaip 04
 └── Makefile
 ```
+
 ---
 
 #### **Papildomai**:
