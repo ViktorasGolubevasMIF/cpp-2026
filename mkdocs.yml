@@ -115,8 +115,6 @@ nav:
       - 'Geresnis C': Drafts/P4_Geresnis_C.md
       - 'Įvadas į STL': Drafts/P5_STL_Ivadas.md
       - 'RAII ir Rule of 3': Drafts/P6_P8_RAII_Copy.md
-    - 'Assignments':
-      - 'U5 solution': Drafts/U5-solution.md 
 
 # ═══════════════════════════════════════════════════════════
 # 🎯 NAUJAS: Extra JavaScript (jei reikės Mermaid ar MathJax)
