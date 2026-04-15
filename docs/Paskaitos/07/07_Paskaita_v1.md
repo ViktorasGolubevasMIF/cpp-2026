@@ -6,7 +6,7 @@
 
 !!! abstract "Šios dalies tikslas"
     Iki šiol kūrėme klases, kurios **turi** kitas klases (has-a, kompozicija).
-    Dabar — naujas ryšys: klasė, kuri **yra** kita klasė (is-a, paveldėjimas).
+    Dabar — naujas ryšys: klasė, kuri **yra** (kaip) kita klasė (is-a, paveldėjimas).
 
     - Suprasime **is-a** ryšį ir jo skirtumą nuo **has-a**
     - Išmoksime paveldėjimo sintaksę ir `protected` prieigą
