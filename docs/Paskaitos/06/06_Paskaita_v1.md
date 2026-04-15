@@ -88,17 +88,17 @@ std::cout << s1;                  // ✅ Natūralu!
 
 ---
 
-### Member function vs Friend function
+### Funkcijos-nariai vs Funkcijos-draugai
 
-Pagrindinis skirtumas: **kairysis operandas**.
+Pagrindinis skirtumas: kas yra **kairysis operandas**.
 
 ---
 
-#### **1. Member function operatoriai**
+#### **1. Operatoriai kaip funkcijos-nariai**
 
-arba **"Operatoriai kaip funkcijos-nariai"**
+arba **"Member function operatoriai"**
 
-**Taisyklė:** Jei **kairysis operandas = mūsų klasė** → member function! ✅
+**Taisyklė:** Jei **kairysis operandas = mūsų klasė** → Member function! ✅
 
 === "MyString.h"
 
@@ -166,9 +166,9 @@ s1.operator+(s2);
 
 ---
 
-#### **2. Friend function operatoriai**
+#### **2. Operatoriai kaip funkcijos-draugai**
 
-arba **"Operatoriai kaip draugiškos funkcijos"**
+arba **"Friend function operatoriai"**
 
 **Kada reikia `friend`?**
 
@@ -240,9 +240,9 @@ operator<<(std::cout, s1);
 
 ---
 
-### operator<< — "Natūralus spausdinimas"
+#### `operator<<` — "Natūralus spausdinimas"
 
-#### **Studentų klausimas:**
+**Studentų klausimas:**
 
 !!! question "Kodėl negaliu tiesiog `print()` ir tikėtis, kad `cout << s` veiks?"
     ```cpp
@@ -262,57 +262,7 @@ operator<<(std::cout, s1);
 - `std::cout << s` → kompiliatorius ieško `operator<<(std::cout, s)`
 - `print()` — tai **metodas**, ne **operatorius**!
 - Reikia perkrauti `operator<<`
-
----
-
-#### **Teisingas būdas:**
-
-=== "MyString.h"
-
-    ```cpp linenums="1"
-    #pragma once
-    #include <iostream>
-    
-    class MyString {
-        char* data;
-        size_t length;
-    public:
-        // ... konstruktoriai, Rule of Three ...
-        
-        // Friend deklaracija
-        friend std::ostream& operator<<(std::ostream& os, const MyString& s);
-    };
-    ```
-
-=== "MyString.cpp"
-
-    ```cpp linenums="1"
-    #include "MyString.h"
-    
-    // Friend funkcija — ne member!
-    std::ostream& operator<<(std::ostream& os, const MyString& s) {
-        os << s.data;  // Prieiga prie private!
-        return os;     // Grąžina os → chaining
-    }
-    ```
-
-=== "main.cpp"
-
-    ```cpp linenums="1"
-    #include <iostream>
-    #include "MyString.h"
-    
-    int main() {
-        MyString s1("Hello");
-        MyString s2("World");
-        
-        std::cout << s1 << std::endl;         // "Hello"
-        std::cout << s1 << " " << s2 << "!";  // "Hello World!"
-        
-        return 0;
-    }
-    ```
-
+  
 ---
 
 #### **Kodėl grąžina `ostream&`?**
@@ -324,7 +274,7 @@ std::ostream& operator<<(std::ostream& os, const MyString& s) {
 }
 ```
 
-**Chaining:**
+**Grandinės formavimas (_Chaining_):**
 
 ```cpp
 std::cout << s1 << " " << s2;
@@ -351,9 +301,9 @@ std::cout << s1 << s2;  // ❌ Klaida! void << s2
 
 ---
 
-### Return type gairės
+### Grąžinamo tipo (_Return type_) gairės
 
-| Operatorius | Return type | Priežastis | Pavyzdys |
+| Operatorius | Grąžinamas tipas | Priežastis | Pavyzdys |
 |-------------|-------------|------------|----------|
 | `operator+` | `MyString` (value) | Naujas objektas (temporary) | `s1 + s2` |
 | `operator=` | `MyString&` (reference) | Modifikuoja esamą (`*this`) | `s1 = s2` |
@@ -365,40 +315,42 @@ std::cout << s1 << s2;  // ❌ Klaida! void << s2
 **Esmė:**
 
 - **Value** → naujas objektas arba rezultatas
-- **Reference** → modifikuojame esamą arba chaining
+- **Reference** → modifikuojame esamą ir/arba parūpiname "grandinę" (_chaining_)
 
 ---
 
-### operator+ vs operator= — Return type skirtumas
+### `operator+` vs `operator=` — kodėl skiriasi grąžinams tipas
 
 **Iš Paskaitos 05 (Rule of Three):**
 
 ```cpp
-// operator= grąžina reference:
+// `operator=` grąžinamas tipas: nuoroda (reference) `MyString&`
 MyString& MyString::operator=(const MyString& other) {
-    // ... modifikuoja *this ...
-    return *this;  // ← Grąžina reference į esamą objektą
+    // modifikuoja "šį objektą" ir grąžina nuorodą į jį patį
+    //...
+    return *this;
 }
 
-// operator+ grąžina value:
+// `operator+` grąžinamas tipas: reikšmė (value) `MyString`
 MyString MyString::operator+(const MyString& other) const {
+    // sukuria naują lokalų! objektą ir grąžina jo reikšmę (t.y. kopiją)
     MyString result;
-    // ... sukuria naują objektą ...
-    return result;  // ← Grąžina VALUE (ne reference!)
+    //...
+    return result;
 }
 ```
 
-**Kodėl skirtingi?**
+**Taigi:**
 
 - `operator=` — modifikuoja **esamą** objektą (`*this`)
-- `operator+` — sukuria **naują** objektą (temporary)
+- `operator+` — sukuria **naują** objektą (laikiną `result`)
 
 !!! tip "Plačiau"
-    Detalus paaiškinimas: TODO"
+    Detalus paaiškinimas: TODO // apie RVO (Return Value Optimization) - ne bazinio kurso aprėpty
 
 ---
 
-### operator[] — const vs non-const
+### `operator[]` — const vs non-const
 
 #### **Problema:**
 
@@ -543,7 +495,7 @@ if (ptr != nullptr && ptr->isValid()) { }
 
 // Su perkrautu &&:
 if (a && b) { }
-// Abu išreiškimai įvertinami VISADA!
+// Perkrovus - abu reiškiniai yra (pa)skaičiuojami (kaip komandos/instrukcijos yra vykdomos) VISADA!
 ```
 
 ---
@@ -775,7 +727,7 @@ std::exception
 │
 └─ std::runtime_error         // Vykdymo klaidos
    ├─ std::overflow_error     // Aritmetinis perpildymas
-   └─ std::underflow_error    // Aritmetinis nepildymas
+   └─ std::underflow_error    // Aritmetinis neužpildymas
 ```
 
 ---
