@@ -473,10 +473,8 @@ Paveldėjimas — tai ne tik loginė abstrakcija. `Circle` objektas atmintyje **
 graph TD
     subgraph Circle["Circle objektas (56 baitų)"]
         subgraph ShapeC["Shape dalis (48 baitų)"]
-            subgraph PointC["Point center (16 baitų)"]
-                cx["center.x (8)"]
-                cy["center.y (8)"]
-            end
+            cx["center.x (8)"]
+            cy["center.y (8)"]
             co["color (~32)"]
         end
         r["radius (8)"]
@@ -484,10 +482,8 @@ graph TD
 
     subgraph Rect["Rectangle objektas (64 baitų)"]
         subgraph ShapeR["Shape dalis (48 baitų)"]
-            subgraph PointR["Point center (16 baitų)"]
-                rx["center.x (8)"]
-                ry["center.y (8)"]
-            end
+            rx["center.x (8)"]
+            ry["center.y (8)"]
             rc["color (~32)"]
         end
         w["width (8)"]

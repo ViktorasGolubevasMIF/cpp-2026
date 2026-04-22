@@ -79,13 +79,14 @@ nav:
   - 'Pratybos':
     - 'Tvarka': Pratybos/Tvarka/UzduociuGidas_1_1.md
     - 'Užduotys':
-      - 'U1': Pratybos/Užduotys/U1.md
-      - 'U2': Pratybos/Užduotys/U2_v2.md
-      - 'U3':
+      - 'U1 (C++ Primityvai)': Pratybos/Užduotys/U1.md
+      - 'U2 (OOP Pagrindai)': Pratybos/Užduotys/U2_v2.md
+      - 'U3 (Kompozicija)':
         - '01-04': Pratybos/Užduotys/U3.md
         - 'bonus': Pratybos/Užduotys/U3_bonus.md
-      - 'U4': Pratybos/Užduotys/U4.md
-      - 'U5': Pratybos/Užduotys/U5.md        
+      - 'U4 (Trijų Taisyklė)': Pratybos/Užduotys/U4.md
+      - 'U5 (Paveldėjimas)': Pratybos/Užduotys/U5.md        
+      - 'U6 (Polimorfizmas)': Pratybos/Užduotys/U6.md        
   - 'Paskaitos':
     - '01 Paskaita': 
       - 'Parametrų perdavimas (su Tutor)': Paskaitos/01/Parameters_Passing.md
@@ -101,8 +102,11 @@ nav:
     - '06 Paskaita': 
       - 'Operatorių perkrovimas, Klaidų valdymas': Paskaitos/06/06_Paskaita_v1.md
     - '07 Paskaita': 
-      - 'Paveldėjimas': Paskaitos/07/07_Paskaita_v2.md
+      - 'Paveldėjimas': Paskaitos/07/07_Paskaita_v3.md
       - 'Paveldėjimas (papildomai)': Paskaitos/07/07_Paskaita_v1_ext.md
+    - '08 Paskaita': 
+      - 'Polimorfizmas': Paskaitos/08/08_Paskaita_v2.md
+      - 'Polimorfizmas (papildomai)': Paskaitos/08/08_Paskaita_v2_ext.md
   - 'Temos':
     - 'Geresnis C':
       - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
@@ -116,8 +120,6 @@ nav:
       - 'Įvadas į STL': Drafts/P5_STL_Ivadas.md
       - 'RAII ir Rule of 3': Drafts/P6_P8_RAII_Copy.md
       - 'IS-A kritika': Drafts/07_Paskaita_v1_kritika.md
-      - 'Polimorfizmas': Drafts/08_Paskaita_v1.md
-      - 'Polimorfizmas (papildomai)': Drafts/08_Paskaita_v1_ext.md
 
 # ═══════════════════════════════════════════════════════════
 # 🎯 NAUJAS: Extra JavaScript (jei reikės Mermaid ar MathJax)

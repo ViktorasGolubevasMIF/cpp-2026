@@ -8,15 +8,15 @@
     P07 pabaigoje matėme: `Shape*` rodyklė į `Circle` objektą — bet `area()`
     grąžina `0.0`. Kodėl? Ir kaip tai ištaisyti?
 
-    - Suprasime **static binding** — kodėl kompiliatorius parenka neteisingą metodą
-    - Atrasime `virtual` — vienas raktažodis, keičiantis viską
-    - Pamatysime **vtable** mechanizmą — kaip dynamic binding veikia po gaubtu
+    - Suprasime **static binding** — kodėl kompiliatorius parenka "neteisingą" metodą
+    - Atrasime `virtual` — raktažodį, keičiantį "žaidimo taisykles" parūpinant **dynamic binding**
+    - Pamatysime **vtable** mechanizmą — kaip dynamic binding veikia "po gaubtu"
 
 ---
 
-### Problema: "fake" metodai
+### Problema: "netikri" ("fake") metodai
 
-U5 žingsnyje 5 ir U6 žingsnyje 1 matėme šį kodą:
+U5 žingsnyje 5 (ir U6 žingsnyje 1) turime kodą:
 
 ```cpp linenums="1"
 std::vector<Shape*> shapes;
@@ -32,7 +32,7 @@ for (Shape* s : shapes) {
 
 ---
 
-### Static binding
+### Static binding (statinis susiejimas)
 
 Kompiliatorius parenka metodą **kompiliavimo metu** pagal **rodyklės tipą**:
 
@@ -44,7 +44,7 @@ s->area();
 // Todėl: Shape::area()  ← visada, nepriklausomai nuo tikrojo tipo
 ```
 
-Tai **static binding** (statinis susiejimas) — metodo pasirinkimas užfiksuotas kompiliavimo metu.
+Tai **static binding** (statinis susiejimas) — metodo parinkimas kompiliavimo metu.
 
 ```
 Kompiliavimo metu:   s yra Shape*  →  Shape::area()  ✓ (teisingas tipas)
@@ -67,7 +67,7 @@ Shape* s = &c;
 s->area();         // ❌ Shape::area() — 0.0, nors objektas yra Circle!
 ```
 
-`Circle::area()` šiuo atveju yra "fake" metodas — jis lyg ir perdengė `Shape::area()`, bet per `Shape*` vis tiek kviečiamas bazinis. Tai ne klaida — tai **laukiama** static binding elgsena. Bet ne tai, ko norime.
+`Circle::area()` šiuo atveju yra "fake" metodas — jis lyg ir perdengė `Shape::area()`, bet per `Shape*` vis tiek kviečiamas bazinis. Tai ne klaida — tai **nutylima/default** static binding elgsena.
 
 ---
 
@@ -84,7 +84,7 @@ public:
 };
 ```
 
-Dabar kompiliatorius **nebefiksuoja** metodo kompiliavimo metu. Sprendimas atidedamas į **vykdymo laiką**:
+Dabar kompiliatorius **nebeparenka** metodo kompiliavimo metu. Sprendimas atidedamas į **vykdymo laiką**:
 
 ```cpp linenums="1"
 Shape* s = new Circle(0, 0, 5.0);
@@ -117,10 +117,10 @@ Tai **dynamic binding** (dinaminis susiejimas) — metodas parenkamas vykdymo me
     s->area();  // Circle::area() → 78.54 ✅
     ```
 
-=== "main.cpp nepakinta!"
+=== "main.cpp - nekeitėm!"
 
     ```cpp linenums="1"
-    // Šis kodas NEPAKINTA — tik Shape.h pasikeitė:
+    // Šio kodo NEKEITĖM (keitėm Shape.h):
     for (Shape* s : shapes) {
         std::cout << s->area() << "\n";
     }
@@ -190,7 +190,7 @@ Circle objektas atmintyje:
     Patikrinkite: `sizeof(Shape)` su `virtual` > `sizeof(Shape)` be `virtual`.
 
 !!! note "static binding greičiau"
-    `virtual` turi nedidelę kainą — papildomas atminties iškvietimas per vptr/vtable.
+    `virtual` "kainuoja "turi nedidelę kainą"" — papildomas atminties iškvietimas per vptr/vtable (mechanizmą).
     Praktikoje tai nereikšminga, bet verta žinoti kodėl C++ nepadaro **visų** metodų `virtual` pagal nutylėjimą (kaip Java).
 
 ---
@@ -276,8 +276,8 @@ class Shape {
 };
 
 class Circle : public Shape {
-    double area() const override;      // ← override ✅ (identiškas parašas)
-    double area(int precision) const;  // ← overload ✅ (skirtingas parašas)
+    double area() const override;      // ← override ✅ (identiška signatūra)
+    double area(int precision) const;  // ← overload ✅ (skirtinga signatūra)
     // double area() override;         // ← [NC] pamiršta const — ne override!
 };
 ```
@@ -366,7 +366,7 @@ Shape* s = new Circle(0, 0, 5.0);  // ✅ Circle implementuoja area()
 
 **Abstrakti klasė vis tiek gali turėti:**
 - Konstruktorių (kviečiamas per paveldėtojų grandinę)
-- Duomenų narius (`center`, `color`)
+- Duomenis-narius (`center`, `color`)
 - Nevirtualiius metodus (`getColor()`, `getCenter()`)
 
 ```cpp linenums="1"
@@ -439,14 +439,30 @@ s.area();    // Shape::area() ❌
 
 **Kodėl?** Per reikšmę — **kopijuojama** tik `Shape` dalis (slicing). `vptr` taip pat nukopijuojamas iš `Shape` — tad rodo į `Shape vtable`, ne `Circle vtable`.
 
-```
+```text
 Rodyklė/nuoroda:          Reikšmė (slicing):
-┌──────────┐              ┌──────────┐
-│ vptr ────┼──→ Circle    │ vptr ────┼──→ Shape vtable ❌
-│ center   │    vtable ✅ │ center   │
-│ color    │              │ color    │
-│ radius   │              └──────────┘  (radius dingo!)
-└──────────┘
+┌----------┐              ⌐––––––––––¬
+| vptr ----|--> Circle    | vptr ––––|——> Shape vtable 
+| center   |    vtable    | center   |
+| color    |              | color    |
+| radius   |              └———————————  (radius dingo!)
+└-----------
+```
+
+```text
+Rodyklė / nuoroda:           Reikšmė (object slicing):
+
+┌──────────────┐             ┌──────────────┐
+│ vptr         │───────────▶ │ vptr         │───────────▶ Shape vtable ❌
+│ center       │             │ center       │
+│ color        │             │ color        │
+│ radius       │             └──────────────┘
+└──────────────┘
+
+        │
+        └────────────────────────────▶ Circle vtable ✅
+
+Pastaba: kopijuojant į Shape, „radius“ prarandamas.
 ```
 
 ---
