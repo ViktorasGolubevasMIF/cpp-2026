@@ -742,3 +742,120 @@ Ir būtent todėl kai kurios kalbos nusprendė — **visi metodai virtual pagal 
     C++ išlaiko programuotojo kontrolę, bet už tai reikalauja
     disciplinos su `virtual` ir `override`.
 
+---
+
+## 11. „Late binding" — terminų anatomija ir dinamikos mistika
+
+!!! abstract "Šios sekcijos tikslas"
+    Pagrindinėje paskaitoje vartojome terminus **dynamic binding** ir
+    **dynamic dispatch**. Šioje sekcijoje — kuo jie skiriasi, kodėl
+    terminas „dinamiškas" klaidina ateinančius iš Python/JS, ir kodėl
+    **„late binding"** yra tiksliausias pedagoginis terminas.
+
+---
+
+### Trys terminai, viena mechanika
+
+| Terminas | Akcentas | Priešprieša |
+|---|---|---|
+| **Static binding** | Susiejimas **kompiliavimo metu** | Dynamic binding |
+| **Dynamic binding** | Susiejimas **vykdymo metu** | Static binding |
+| **Dynamic dispatch** | **Kaip** parenkamas metodas (per vtable) | Static dispatch |
+| **Late binding** | Susiejimas **atidedamas** iki paskutinės akimirkos | Early binding |
+
+Kasdienėje programuotojų kalboje visi trys — `dynamic binding`, `dynamic dispatch`, `late binding` — dažnai vartojami kaip sinonimai. Techniškai:
+
+- **Dynamic binding** — *kada* (vykdymo metu)
+- **Dynamic dispatch** — *kaip* (vtable mechanizmas)
+- **Late binding** — pedagogiškai tiksliausias: susiejimas ne atsisakytas, o **atidėtas**
+
+---
+
+### Kodėl „dinamika" klaidina
+
+Studentai ateinantys iš Python ar JavaScript yra pratę prie kito „dinamiškumo":
+
+```python
+# Python — tikra dinamika:
+obj = Dog()
+obj.fly = lambda: "I can fly now!"   # ← pridedame metodą vykdymo metu
+obj.fly()                             # ← veikia!
+```
+
+```javascript
+// JS — prototipų dinamika:
+const obj = {};
+obj["method"] = function() { return 42; };  // ← pavadinimas iš string'o
+obj.method();
+```
+
+C++ **negali** to daryti. Ir tai — **privalumas**, ne trūkumas.
+
+---
+
+### Kas statiškai, kas dinamiškai C++
+
+Kompiliatorius paruošia **visą infrastruktūrą** iš anksto:
+
+```
+Kompiliavimo metu (statiškai):
+├── vtable sukuriama kiekvienai polimorfinei klasei
+├── kiekvienam virtual metodui — fiksuotas indeksas lentelėje
+├── vtable patalpinama read-only atminties sekcijoje (niekada nekinta)
+└── arr[i]->area() → kompiliatorius sugeneruoja:
+        1. paimk arr[i]
+        2. rask vptr (pirmi 8 baitai)
+        3. eik į vtable[0]  ← indeksas žinomas statiškai!
+        4. iškvieskitą adresą
+
+Vykdymo metu (dinamiškai — VIENAS žingsnis):
+└── kuris objektas yra arr[i]? → kuris vptr? → kuri vtable?
+```
+
+Mašininio kodo lygmeniu skirtumas:
+
+```nasm
+; Static dispatch — tiesioginis kvietimas:
+CALL 0x401020          ; ← adresas užkoduotas kompiliavimo metu
+
+; Dynamic dispatch — netiesioginis kvietimas:
+MOV RAX, [obj]         ; paimk vptr
+CALL [RAX + 0]         ; iškvieskpirmo metodo adresą iš vtable
+```
+
+`CALL [RAX + 0]` — tai ir yra "dinamika". Ne magiška laisvė — **vienas netiesioginis adresacijos žingsnis**.
+
+---
+
+### Palyginimas su interpretatorių dinamika
+
+| | Python/JS | C++ dynamic binding |
+|---|---|---|
+| **Metodų paieška vykdymo metu** | Pagal pavadinimą (string lookup, hash map) | Pagal indeksą vtable (fiksuotas kompiliavimo metu) |
+| **Struktūra vykdymo metu** | Objektą galima keisti | vtable — read-only, nekinta |
+| **Klaidų aptikimas** | Vykdymo metu ("Method not found") | Kompiliavimo metu |
+| **Greitis** | Lėtesnis | Beveik toks pat kaip tiesioginis kvietimas |
+| **Naujų metodų pridėjimas** | Galima vykdymo metu | Neįmanoma |
+
+C++ dinamika — **statiškai sukonstruota pavarų dėžė**. Mes iš anksto žinome visas pavaras ir kur jos yra. „Dinamiškas" tik vienas dalykas — vairuotojas (duomenys vykdymo metu) perjungia svirtį.
+
+---
+
+### Kodėl „late binding" — geriausias pedagoginis terminas
+
+`late binding` — vėlyvasis susiejimas — tiesiog sako: **paskutinį tašką ant i padėsime ne dabar, o kai paleisime programą**.
+
+Tai nenukelia į interpretatorių asociacijas. Tai nenurodo mechanizmo (dispatch). Tai tik laiko ašis:
+
+```
+Early binding (static):   [kompiliavimas] ──● susiejimas
+Late binding (dynamic):   [kompiliavimas] ──○ ... [vykdymas] ──● susiejimas
+```
+
+Kompiliatorius iš anksto paruošia viską reikalingą susiejimui — bet patį susiejimą atideda. Tai ir yra C++ virtual mechanizmo esmė.
+
+!!! tip "Jei mokysitės asemblerio"
+    `dynamic dispatch` mašininio kodo lygmeniu — tai `CALL [REG + offset]`
+    vietoj `CALL address`. Vienas netiesioginis kreipinys. Jokios magijos —
+    tik vienas papildomas atminties skaitymas.
+

@@ -282,6 +282,26 @@ Tai ir yra dynamic dispatch — vykdymo metu,
 per vptr, automatiškai parenkamas teisingas metodas.
 ```
 
+!!! warning "„Dinamika" C++ ≠ interpretatorių dinamika"
+    Terminas „dinaminis" gali klaidinti — ypač jei esate dirbę su Python ar JavaScript,
+    kur „dinamiškas" reiškia tikrą laisvę vykdymo metu: pridėk metodą objektui bet kada,
+    keisk kintamojo tipą, iškvieski bet ką.
+
+    C++ „dinaminis susiejimas" — visai kas kita:
+
+    | | Python/JS dinamika | C++ dynamic binding |
+    |---|---|---|
+    | **Metodų paieška** | Pagal pavadinimą (string lookup) vykdymo metu | Pagal indeksą vtable — kompiliatorius paruošė iš anksto |
+    | **Struktūra vykdymo metu** | Objektą galima keisti | vtable — read-only, nekinta |
+    | **Klaidos** | „Method not found" — vykdymo metu | Kompiliatorius patikrina iš anksto |
+    | **Greitis** | Lėtesnis (hash map paieška) | Beveik toks pat kaip tiesioginis kvietimas |
+
+    **Vienintelis „dinamiskas" žingsnis C++:** kurios vtable eilutės naudoti —
+    nusprendžiama pagal `vptr` vykdymo metu. Visa kita — statiškai sukonstruota.
+
+    Tiksliau būtų: **„late binding"** — susiejimas atidedamas iki paskutinės akimirkos,
+    bet pati mechanika paruošta iš anksto.
+
 !!! note "sizeof padidėja"
     `virtual` prideda `vptr` kiekviename objekte — papildomai 8 baitai (64-bit sistemoje).
     Patikrinkite: `sizeof(Shape)` su `virtual` > `sizeof(Shape)` be `virtual`.
