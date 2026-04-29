@@ -437,8 +437,7 @@ delete s;   // ← kokį destruktorių kviesti?
 
     Shape* s = new Circle(0, 0, 5.0);
     delete s;
-    // [Shape DTOR]       ← tik Shape destruktorius
-    // [Circle DTOR]      ← NEKVIEČIAMAS → memory leak, undefined behavior!
+    // [Shape DTOR]       ← tik Shape destruktorius, Circle destruktorius NEKVIEČIAMAS → memory leak, undefined behavior!
     ```
 
 === "Su virtual destruktoriumi"
