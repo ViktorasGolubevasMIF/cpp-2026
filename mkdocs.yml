@@ -87,6 +87,7 @@ nav:
       - 'U4 (Trijų Taisyklė)': Pratybos/Užduotys/U4.md
       - 'U5 (Paveldėjimas)': Pratybos/Užduotys/U5.md        
       - 'U6 (Polimorfizmas)': Pratybos/Užduotys/U6.md        
+      - 'U7 (Išimčių valdymas)': Pratybos/Užduotys/U7_v2.md        
   - 'Paskaitos':
     - '01 Paskaita': 
       - 'Parametrų perdavimas (su Tutor)': Paskaitos/01/Parameters_Passing.md
@@ -107,6 +108,8 @@ nav:
     - '08 Paskaita': 
       - 'Polimorfizmas': Paskaitos/08/08_Paskaita_v2.md
       - 'Polimorfizmas (papildomai)': Paskaitos/08/08_Paskaita_v2_ext.md
+    - '09 Paskaita': 
+      - 'Išimčių valdymas': Paskaitos/09/09_Paskaita_v3.md
   - 'Temos':
     - 'Geresnis C':
       - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
@@ -120,7 +123,7 @@ nav:
       - 'Įvadas į STL': Drafts/P5_STL_Ivadas.md
       - 'RAII ir Rule of 3': Drafts/P6_P8_RAII_Copy.md
       - 'IS-A kritika': Drafts/07_Paskaita_v1_kritika.md
-      - '09_Paskaita_v2': Drafts/09_Paskaita_v2.md
+      - 'U7_v2': Drafts/U7_v2.md
 
 # ═══════════════════════════════════════════════════════════
 # 🎯 NAUJAS: Extra JavaScript (jei reikės Mermaid ar MathJax)
