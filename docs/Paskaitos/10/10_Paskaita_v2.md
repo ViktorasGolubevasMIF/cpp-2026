@@ -277,6 +277,12 @@ for (const auto& s : shapes) {
 
 ### Polimorfizmas per `unique_ptr`
 
+!!! note "Hierarchija nepakito"
+    `Shape`, `Circle`, `Rectangle` — tie patys failai, tie patys `virtual` metodai,
+    tas pats `virtual` destruktorius. `unique_ptr` nieko nekeičia klasių struktūroje —
+    tik *kaip* objektai valdomi atmintyje. Tai ir yra jo elegancija: nulinė kaina
+    esamam kodui (_zero-cost abstraction_).
+
 `unique_ptr<Shape>` viduje laiko `Shape*`. Virtualių funkcijų mechanizmas (`vptr`) yra **objekto viduje** — ne rodyklėje, ne `unique_ptr`. Todėl polimorfizmas veikia lygiai taip pat:
 
 ```cpp linenums="1"
