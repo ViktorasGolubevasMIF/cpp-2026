@@ -1,4 +1,4 @@
-# Išmaniosios rodyklės ir nuosavybė
+# Išmaniosios rodyklės: Įvadas į Modern C++
 
 ---
 
@@ -65,7 +65,7 @@ Visas tris sukelia vienas dalykas: `Shape*` laiko **adresą** — skaičių, atm
 - **valdo** jo gyvavimo ciklą
 - **automatiškai** kviečia `delete` savo destruktoriuje
 
-Sakome, Steko objektas — nes `unique_ptr` "gyvena" steke (kaip ir visi lokalūs kintamieji!). Ir kaip visi steko objektai — automatiškai sunaikinamas kai išeina iš _scope_ (galiojimo sities/bloko).
+Steko objektas — nes `unique_ptr` "gyvena" steke (kaip ir visi lokalūs kintamieji). Ir kaip visi steko objektai — automatiškai sunaikinamas kai išeina iš _scope_ (galiojimo srities/bloko). Būtent tą destruktorių ir panaudojame.
 
 !!! note "`unique_ptr<T>` — šablono sintaksė"
     `<Circle>`, `<Shape>` — tai **tipo parametras**. Reiškia: "šio tipo objektą valdysiu". Šablonų mechanizmą nagrinėsime P11 — kol kas pakanka žinoti kad `<...>` nurodo su kokiu tipu dirbame.
@@ -86,7 +86,7 @@ smart->printInfo();
 
 Atkreipkite dėmesį — po "mįslingo" `auto` ir `make_unique` rezultate turime rodyklę, kuriai pritaikome kreipinio į narį operatorių `->`. Sintaksė ta pati kaip su paprastu `Shape*`.
 
-Bet svarbiausia — nebesimato nei ir `delete`, nei `new` ! Pagaliau atsikratėme?.. :)
+Bet svarbiausia — nebesimato nei `delete`, nei `new`! Pagaliau atsikratėme? :)
 
 !!! note "`auto` — istorija ir dabartis"
     C ir ankstyvajame C++ `auto` reiškė *automatinę saugojimo klasę* — t.y. steko kintamąjį. Bet tai buvo **numatytasis** elgesys, todėl raktažodį niekas nenaudojo. C++11 standartizuotojai šį "tuščią" raktažodį perėmė naujam tikslui: **tipo išvedimui** (_type deduction_). Kompiliatorius pats nustato tipą iš dešinės pusės išraiškos. Taigi istorinis `auto` tyliai "išnyko" — ir atgimė nauju pavidalu:
@@ -145,10 +145,10 @@ void demonstracija() {
 
 ---
 
-## 2 DALIS: Nuosavybė (_ownership_)
+## 2 DALIS: Nuosavybės principas (_ownership_)
 
 !!! abstract "Šios dalies tikslas"
-    `unique_ptr` pavadinimas — ne atsitiktinis. Nuosavybė kaip koncepcija.
+    `unique_ptr` pavadinimas — ne atsitiktinis. Nuosavybės principas: vienas savininkas, aiški atsakomybė.
     Kodėl negalima kopijuoti. `std::move` — nuosavybės perdavimas.
 
 ---
@@ -168,6 +168,15 @@ auto b = a;   // ← KLAIDA: negalima kopijuoti
 ```
 
 Kompiliatorius tai draudžia. Ne klaida dizaine — **saugumo garantija**.
+
+??? note "Kodėl kopijavimas draudžiamas — ar tai ne minusas?"
+    Prisiminkite, kaip susidūrėme su giliuoju kopijavimu (_deep copy_) — turėjome patys rašyti kopijavimo konstruktorių, kad išvengtume rodyklių dubliavimosi ir _double delete_ klaidų.
+
+    O dabar įsivaizduokite gilųjį kopijavimą su polimorfizmu. Kaip nukopijuoti `Shape*`, jei net nežinai, ar ten `Circle`, ar `Rectangle`? Tam reikėtų sudėtingo virtualaus `clone()` mechanizmo.
+
+    `unique_ptr` nukerta šią problemą iš šaknų. Užuot kopijavus visą "namą", tiesiog perduodame "raktus" kitam savininkui — `std::move`.
+
+    Uždrausdamas kopijavimą ir leisdamas tik perdavimą, `unique_ptr` apsaugo nuo giliosios kopijos kodo rašymo ir garantuoja, kad objektas visada turės vieną aiškų savininką. Tai ne apribojimas — tai dizaino sprendimas.
 
 ---
 

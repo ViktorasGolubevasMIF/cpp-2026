@@ -110,6 +110,8 @@ nav:
       - 'Polimorfizmas (papildomai)': Paskaitos/08/08_Paskaita_v2_ext.md
     - '09 Paskaita': 
       - 'Išimčių valdymas': Paskaitos/09/09_Paskaita_v3.md
+    - '10 Paskaita': 
+      - 'Išmaniosios rodyklės: įvadas': Paskaitos/10/10_Paskaita_v2.md
   - 'Temos':
     - 'Geresnis C':
       - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
@@ -123,7 +125,7 @@ nav:
       - 'Įvadas į STL': Drafts/P5_STL_Ivadas.md
       - 'RAII ir Rule of 3': Drafts/P6_P8_RAII_Copy.md
       - 'IS-A kritika': Drafts/07_Paskaita_v1_kritika.md
-      - 'U7_v2': Drafts/U7_v2.md
+      - '10_Paskaita_v1': Drafts/10_Paskaita_v1.md
 
 # ═══════════════════════════════════════════════════════════
 # 🎯 NAUJAS: Extra JavaScript (jei reikės Mermaid ar MathJax)
