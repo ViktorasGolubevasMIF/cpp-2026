@@ -113,6 +113,8 @@ nav:
       - 'Išimčių valdymas': Paskaitos/09/09_Paskaita_v3.md
     - '10 Paskaita': 
       - 'Išmaniosios rodyklės: įvadas': Paskaitos/10/10_Paskaita_v2.md
+    - '11 Paskaita': 
+      - 'Šablonai: įvadas': Paskaitos/11/11_Paskaita_v2.md
   - 'Temos':
     - 'Geresnis C':
       - 'Parametrų perdavimas': Temos/Better_C/ParamPass.md
