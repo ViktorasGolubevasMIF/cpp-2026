@@ -299,7 +299,7 @@ public:
 };
 ```
 
-Pastebėkime, kad `MyString` kurso pradžioje sukūrėme su logika panašia į  `vector<char>` — dinaminis `char` masyvas su rankine atminties valdymu (RAII). `vector<T>` implementuoja tą patį principą, tai — generalizuotas šablonu.
+Pastebėkime, kad `MyString` kurso pradžioje sukūrėme su logika panašia į  `vector<char>` — dinaminis `char` masyvas su rankiniu atminties valdymu (RAII). `vector<T>` — tas pats principas, generalizuotas šablonu.
 
 ---
 
