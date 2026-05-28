@@ -7,14 +7,14 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 
 \---
 
-## 1. Klasės anatomija ir moduliavimas
+## 1. Klasės anatomija ir moduliavimas (`.h` + `.cpp`)
 
-- `::` (srities nustatymo operatorius) **būtinas** apibrėžiant metodus už klasės ribų — be jo kompiliatorius laiko tai įprasta globalia funkcija
-- Deklaracija (`.h`) ir apibrėžimas (`.cpp`) yra skirtingi dalykai; deklaracijų gali būti kelios, apibrėžimas — tik vienas
+- `::` (srities nustatymo operatorius, _scope resolution_) **būtinas** apibrėžiant metodus už klasės ribų — be jo kompiliatorius laiko tai įprasta globalia funkcija
+- Deklaracija/aprašas (`.h`) ir apibrėžimas/definicija (`.cpp`) yra skirtingi dalykai; deklaracijų gali būti kelios, apibrėžimas — tik vienas
 - `static const int` narys inicializuojamas tiesiai klasėje; `static int` — **tik už klasės ribų** `.cpp` faile: `int Klasė::narys = 0;`
 - `const` metodas negali kviesti ne-`const` metodų — net jei jų poveikis atrodo nekenksmingai
-- Inicializavimo sąrašas (`: member(value)`) **inicializuoja** narius, o ne priskiria reikšmes — `const` nariai ir nuorodos **privalo** būti inicializuoti būtent čia
-- Narių inicializavimo tvarka atitinka jų **deklaracijos eilę klasėje**, ne sąrašo eilę
+- Inicializavimo sąrašas (`: member(value)`) **inicializuoja** narius kūrimo/konstravimo metu, tai - ne reikšmių priskyrimas sukurtam objektui: `const` nariai ir nuorodos (_references_) **privalo** būti inicializuoti būtent čia!
+- Narių inicializavimo tvarka atitinka jų **deklaracijos eilę klasėje**, o ne inicializavimo sąrašo
 - Jei klasė turi parametrinį konstruktorių — kompiliatorius **nebegeneruoja** numatytojo; tada `Klasė obj;` nebeveikia
 - `static` metodas neturi `this` rodyklės — negali pasiekti nestatinių klasės narių
 
@@ -23,12 +23,12 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 ## 2. Konstruktoriai ir destruktoriai
 
 - Destruktorius iškviečiamas **automatiškai**, kai objektas išeina iš galiojimo srities (scope) — tai RAII principo pagrindas
-- Objektai naikinami **atvirkštine** sukūrimo tvarka (LIFO)
-- `throw` konstruktoriuje — vienintelis būdas pranešti apie klaidos sąlygą; grąžinamosios reikšmės konstruktorius neturi
-- Kai `throw` iškyla konstruktoriuje — jau sukurtos bazinės klasės ir narių dalys **automatiškai** sunaikinamos (stack unwinding)
-- Validacija turi įvykti **prieš** šalutinius efektus (skaitiklio didinimą, žurnalizavimą) — kitaip objekto nėra, tačiau skaitiklis jau padidintas
+- Objektai naikinami **atvirkštine** sukūrimo tvarka (LIFO - last In First Out - steko/dėtuvės veikimo principas)
+- `throw` konstruktoriuje — vienintelis būdas pranešti apie klaidos sąlygą - juk konstruktorius neturi grąžinamosios reikšmės (kuri dažnai naudojama klasikiniame klaidų apdorojime, _error handling_)
+- Kai `throw` metamas/iškyla konstruktoriuje — jau sukurtos bazinės klasės (poobjekčių) ir narių dalys **automatiškai** sunaikinamos (_stack unwinding_)
+- Validacija turi įvykti **prieš** šalutinius efektus (skaitiklio didinimą, logingą/žurnalizavimą) — kitaip objekto dar nėra, o skaitiklis jau padidintas
 - Konstruktoriai kviečiami nuo **bazinės** iki **paveldėtosios** klasės; destruktoriai — **atvirkštine** tvarka
-- Jei bazinė klasė neturi numatytojo konstruktoriaus — paveldėtosios klasės konstruktorius **privalo** kviesti bazinį inicializavimo sąraše
+- Jei bazinė klasė neturi numatytojo (_default_) konstruktoriaus — paveldėtosios klasės konstruktorius **privalo** kviesti bazinį (paveldimos klasės konstruktorių) inicializavimo sąraše
 - Konstruktorius **negali** būti `virtual` — objektas dar tik konstruojamas, `vptr` dar nenustatytas
 
 \---
@@ -39,52 +39,51 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - `delete[]` ir `delete` **nėra sukeičiami** — netinkamo varianto naudojimas sukelia neapibrėžtą elgseną (undefined behavior)
 - `std::string` ir `std::vector` patys laikosi RAII principo — jų destruktoriai atlaisvina atmintį automatiškai
 - RAII esmė: resursas įgyjamas konstruktoriuje ir **neišvengiamai** atlaisvinamas destruktoriuje — taip pat ir išimčių atveju
-- Stack unwinding garantuoja destruktorių iškvietimą — tai priežastis, kodėl RAII apsaugo nuo atminties nutekėjimo net metant išimtis
+- _Stack unwinding_ garantuoja destruktorių iškvietimą — tai priežastis, kodėl RAII apsaugo nuo atminties nutekėjimo net metant išimtis
 - Naudojant įprastą `new`/`delete`: jei tarp jų iškyla išimtis, `delete` niekada neiškviestas — `std::unique_ptr` šią problemą pašalina
 
 \---
 
-## 4. Kopijavimas ir Rule of Three
+## 4. Kopijavimas ir Trejeto taisyklė (_Rule of Three_)
 
-- Kompiliatorius generuoja kopijos konstruktorių automatiškai — tačiau jis atlieka tik paviršinę kopiją (shallow copy): kopijuoja rodyklę, o ne jos turinį
-- Paviršinė kopija kartu su dinamiškai rezervuota atmintimi lemia dvigubą atlaisvinimą (double delete) — programa griūna
-- Rule of Three: jei klasei reikia destruktoriaus su `delete` — taip pat reikia kopijos konstruktoriaus ir kopijos priskyrimo operatoriaus
-- Priskyrimo operatoriuje visada pirmiausia patikrinkite savęs priskyrimą: `if (this == &other) return *this;`
-- `Type obj2 = obj1;` iškviečia kopijos **konstruktorių**; `obj2 = obj1;` (kai `obj2` jau egzistuoja) — priskyrimo **operatorių**
-- `vector<Shape>` — kiekvienas `push_back` kopijuoja objektą (ir gali sukelti slicing); `vector<Shape*>` — kopijuojama tik rodyklė
-- Jei bazinė klasė teisingai įgyvendina Rule of Three, paveldėtosios klasės kopijos konstruktorių kompiliatorius sugeneruos teisingai
+- Kompiliatorius generuoja kopijos konstruktorių automatiškai — tačiau jis atlieka tik paviršinę kopiją (_shallow copy_): kopijuoja rodyklę (adresą), o ne turinį to, į ką ji rodo
+- Paviršinė kopija kartu su dinamiškai rezervuota atmintimi lemia dvigubą atlaisvinimą (_double delete_) — programa griūna (_crash_)
+- Rule of Three: jei klasei reikia **destruktoriaus** su `delete` — jai (greičiausiai) taip pat reikia **kopijos konstruktoriaus** ir **kopijos priskyrimo operatoriaus**
+- Priskyrimo operatoriuje visada pirmiausia patikriname savęs pri(si)skyrimą: `if (this == &other) return *this;`
+- `Type obj2 = obj1;` iškviečia **kopijos konstruktorių**; `obj2 = obj1;` (kai `obj2` jau egzistuoja) — **kopijos priskyrimo operatorių**
+- `vector<Shape>` — kiekvienas `push_back` kopijuoja objektą (ir gali sukelti objekto "apkarpimą", _slicing_); `vector<Shape*>` — kopijuojama tik rodyklė (vėlgi — adresas — "paprasta" reikšmė)
+- Jei bazinė klasė teisingai įgyvendina _Rule of Three_, paveldėtosios klasės kopijos konstruktorių kompiliatorius sugeneruos teisingai
 
 \---
 
 ## 5. Kompozicija ir paveldėjimas
 
-- `has-a` (kompozicija): narys saugomas **per reikšmę** (`Engine engine`) — savininkas valdo jo gyvavimo ciklą
-- Agregacija: narys saugomas **per rodyklę** (`Engine* ptr`) — klasė tik žino apie objektą, bet jo negyvavimo ciklo nekontroliuoja
-- `is-a` (paveldėjimas): `Circle` yra `Shape`, bet ne atvirkščiai — tai apibrėžia, kuris gali pakeisti kurį
-- `protected` nariai pasiekiami paveldėtose klasėse, bet ne išoriniame kode
+- `has-a` (**kompozicija**): narys saugomas **per reikšmę** (`Engine engine`) — savininkas valdo jo gyvavimo ciklą
+- **Agregacija**: narys saugomas **per rodyklę** (`Engine* ptr`) — klasė tik žino apie objektą, bet jo gyvavimo ciklo nekontroliuoja
+- `is-a` (**paveldėjimas**): `Circle` yra `Shape` (bet ne atvirkščiai), todėl `Circle` objektas, rodyklė `Circle*` ar nuoroda `Circle&` gali būti perduodamas ar naudojamas ten, kur tikimasi `Shape`, `Shape*` ar `Shape&`. Toks konvertavimas iš paveldėtosios klasės į bazinę vadinamas _**Upcasting**_ (tačiau žr. _**Object slicing**_)
+- **`protected`** nariai pasiekiami paveldėtose klasėse, bet nepasiekiami išoriniame kode
 - Sub-objektą tikslinga inicializuoti inicializavimo sąraše: `: engine(hp, type)` — tai efektyviau nei priskyrimas konstruktoriaus kūne
-- `public` paveldėjimas išsaugo prieigos lygius; `private` paveldėjimas — visus narius paverčia privačiais
-- Upcasting (`Circle*` → `Shape*`) — saugus ir automatinis; downcast reikalauja explicit konversijos ir yra rizikingas
+- **`public`** paveldėjimas išsaugo prieigos lygius; **`private`** paveldėjimas — visus narius paverčia privačiais (retai naudojama)
+- _Upcasting_ (`Circle*` → `Shape*`) — saugus ir automatinis; _downcast_ reikalauja tiesioginio (_explicit_) konvertavimo (_casting_) ir yra rizikingas, tačiau dažnai naudojamas
 
 \---
 
 ## 6. Polimorfizmas ir `virtual`
 
-- Vienas `virtual` bazinėje klasėje — pakankamas; paveldėtojai automatiškai paveldi virtualumo savybę
-- `override` nėra funkcionalumo pakeitimas — tai **kompiliatoriaus tikrinimas**, ar signatūra tiksliai atitinka bazinės klasės metodą
-- Pamirštas `const` → metodas tampa perkrautu (overload), o ne perdengtu (override); su `override` raktažodžiu kompiliatorius tai aptinka
-- Jei klasė turi bent vieną `virtual` metodą — destruktorius **privalo** būti `virtual`; be jo `delete Base*` sukelia neapibrėžtą elgseną
-- Be `virtual` destruktoriaus iškviečiamas tik bazinės klasės destruktorius — paveldėtosios klasės destruktorius praleistas, resursai nuteka
+- Vieno `virtual` metodo bazinėje klasėje — pakankama, kad paveldėtojai automatiškai paveldėtų **virtualumo** (polimorfinės elgsenos, dinaminio susiejimo) savybę
+- `override` nėra funkcionalumo pakeitimas — tai "saugiklis" **kompiliatoriui patikrinti**, ar signatūra tiksliai atitinka bazinės klasės metodą (įskaitant `const` buvimą, t.y. metodo konstantinę versiją)
+- Pamirštas `const` → metodas tampa perkrautu (_**overloaded**_), o ne perdengtu (_**overridden**_); su `override` raktažodžiu kompiliatorius tai patikrina ir aptinka
+- Jei `delete` vykdomas per bazinės klasės rodyklę `Base*` — destruktorius turi būti `virtual`; kitaip elgsena neapibrėžta (_undefined behavior_): dažniausiai iškviečiamas tik bazinės klasės destruktorius, o paveldėtosios klasės destruktorius praleidžiamas.
 - `gcc` apie trūkstamą `virtual` destruktorių dažnai tik perspėja, ne klaida — programa "veikia", bet neteisingai
-- Statinis susiejimas (static binding): metodas parenkamas pagal **rodyklės tipą** kompiliavimo metu
-- Dinaminis susiejimas (dynamic binding): metodas parenkamas pagal **tikrąjį objekto tipą** vykdymo metu (per `vtable`)
-- Kiekvienas objektas, kurio klasė turi `virtual`, gauna `vptr` (8 baitai, 64-bit) — tai `sizeof` padidėjimas
+- Statinis susiejimas (_static binding_): metodas parenkamas pagal **rodyklės tipą** kompiliavimo metu
+- Dinaminis susiejimas (_dynamic binding_): metodas parenkamas pagal **tikrąjį objekto tipą** vykdymo metu (per `vtable`)
+- Kiekvienas objektas, kurio klasė turi `virtual`, gauna/patalpina savyje `vptr` (dažniausiai – 8 baitai, 64-bit) — tai galima stebėti su `sizeof` logingu.
 
 \---
 
-## 7. Object slicing
+## 7. _Object slicing_
 
-- Slicing įvyksta, kai paveldėtosios klasės objektas perduodamas arba priskiriamas **per reikšmę** kaip bazinės klasės objektas — papildomos dalys prarandamos
+- Objekto „apkarpymas“ (_object slicing_) įvyksta, kai, kai paveldėtosios klasės objektas perduodamas arba priskiriamas **per reikšmę** kaip bazinės klasės objektas — papildomos dalys prarandamos
 - Slicing **nesukelia kompiliavimo klaidos** — programa veikia, tačiau neteisingai
 - Trys tipiški scenarijai: priskyrimas kintamajam, perdavimas į funkciją per reikšmę, `vector<Shape>`
 - `void f(Shape s)` — sukelia slicing; `void f(const Shape& s)` — saugus perdavimas; `void f(Shape* s)` — pilnas polimorfizmas
@@ -94,12 +93,12 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 
 ## 8. Išimtys
 
-- `throw` konstruktoriuje — programa **tęsia darbą** po `catch` bloko; objektas nebuvo sukurtas, tačiau programa nesibaigia
-- Jei `throw` iškyla **prieš** priskyrimą — objektas lieka nepakeistas (stipri išimčių sauga, strong exception safety)
+- `throw` konstruktoriuje — jei išimtis pagaunama (`catch`) — programa gali tęsti darbą, nors objektas ir nebuvo sukurtas
+- Jei `throw` iškyla **prieš** priskyrimą — objektas lieka nepakeistas (stipri išimčių sauga, _strong exception safety_)
 - Validacijos logika pagrįstai kartojasi konstruktoriuje ir setter'iuose — abi vietos yra "vartai" į netinkamą objekto būseną
-- `throw` iš bazinės klasės konstruktoriaus automatiškai sklinda per paveldėtosios klasės konstruktorių — papildomai to tvarkyti nereikia
-- `catch (const std::exception& e)` pagauna visas standartines išimtis — tai plačiausias tinklas
-- Konkretesnės `catch` šakos (`invalid_argument`, `runtime_error`) turi eiti **prieš** bendrąją — kitaip nebus pasiektos
+- `throw` iš bazinės klasės konstruktoriaus automatiškai sklinda (_propagates_) per paveldėtosios klasės konstruktorių — papildomai to tvarkyti nereikia
+- `catch (const std::exception& e)` pagauna visas standartines išimtis, paveldinčias iš `std::exception`
+- Konkretesnės/specifinės `catch` šakos (`invalid_argument`, `runtime_error`) turi eiti **prieš** bendrąją — kitaip nebus pasiektos
 - `try/catch` blokas turėtų apgaubti tik konkrečią operaciją, ne visą `main()` — tai leidžia programai tęsti darbą po nesėkmingos operacijos
 
 \---
