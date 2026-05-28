@@ -1,11 +1,8 @@
-\---
 
 # OOP C++ egzaminas — pasirengimo atmintinė
 
 Šis sąrašas apibendrina svarbiausius kurso akcentus: dažniausias klaidas,
 subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvilgsnio.
-
-\---
 
 ## 1. Klasės anatomija ir moduliavimas (`.h` + `.cpp`)
 
@@ -18,8 +15,6 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - Jei klasė turi parametrinį konstruktorių — kompiliatorius **nebegeneruoja** numatytojo; tada `Klasė obj;` nebeveikia
 - `static` metodas neturi `this` rodyklės — negali pasiekti nestatinių klasės narių
 
-\---
-
 ## 2. Konstruktoriai ir destruktoriai
 
 - Destruktorius iškviečiamas **automatiškai**, kai objektas išeina iš galiojimo srities (scope) — tai RAII principo pagrindas
@@ -31,8 +26,6 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - Jei bazinė klasė neturi numatytojo (_default_) konstruktoriaus — paveldėtosios klasės konstruktorius **privalo** kviesti bazinį (paveldimos klasės konstruktorių) inicializavimo sąraše
 - Konstruktorius **negali** būti `virtual` — objektas dar tik konstruojamas, `vptr` dar nenustatytas
 
-\---
-
 ## 3. RAII ir dinaminis atminties valdymas
 
 - Jei klasė tiesiogiai naudoja `new` — destruktorius **privalo** kviesti `delete`; kitu atveju atmintis nuteka
@@ -41,8 +34,6 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - RAII (_Resource Acquisition Is Initialization_) esmė: resursas įgyjamas konstruktoriuje **turi būti** atlaisvinamas destruktoriuje — taip pat ir išimčių atveju
 - _Stack unwinding_ garantuoja destruktorių iškvietimą — tai priežastis, kodėl RAII apsaugo nuo atminties nutekėjimo net metant išimtis
 - Naudojant "įprastus" `new` ir `delete`: jei tarp jų iškyla išimtis, `delete` nebeiškviečiamas — išmanioji rodyklė (_smart pointer_)`std::unique_ptr` šią problemą pašalina
-
-\---
 
 ## 4. Kopijavimas ir Trejeto taisyklė (_Rule of Three_)
 
@@ -54,8 +45,6 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - `vector<Shape>` — kiekvienas `push_back` kopijuoja objektą (ir gali sukelti objekto "apkarpimą", _slicing_); `vector<Shape*>` — kopijuojama tik rodyklė (vėlgi — adresas — "paprasta" reikšmė)
 - Jei bazinė klasė teisingai įgyvendina _Rule of Three_, paveldėtosios klasės kopijos konstruktorių kompiliatorius sugeneruos teisingai
 
-\---
-
 ## 5. Kompozicija ir paveldėjimas
 
 - `has-a` (**kompozicija**): narys saugomas **per reikšmę** (`Engine engine`) — savininkas valdo jo gyvavimo ciklą
@@ -65,8 +54,6 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - Sub-objektą tikslinga inicializuoti inicializavimo sąraše: `: engine(hp, type)` — tai efektyviau nei priskyrimas konstruktoriaus kūne
 - **`public`** paveldėjimas išsaugo prieigos lygius; **`private`** paveldėjimas — visus narius paverčia privačiais (retai naudojama)
 - _Upcasting_ (`Circle*` → `Shape*`) — saugus ir automatinis; _downcast_ reikalauja tiesioginio (_explicit_) konvertavimo (_casting_) ir yra rizikingas, tačiau dažnai naudojamas
-
-\---
 
 ## 6. Polimorfizmas ir `virtual`
 
@@ -79,8 +66,6 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - Dinaminis susiejimas (_dynamic binding_): metodas parenkamas pagal **tikrąjį objekto tipą** vykdymo metu (per `vtable`)
 - Kiekvienas objektas, kurio klasė turi `virtual`, gauna/patalpina savyje `vptr` (dažniausiai – 8 baitai, 64-bit) — tai galima stebėti su `sizeof` logingu.
 
-\---
-
 ## 7. _Object slicing_
 
 - Objekto „apkarpymas“ (_object slicing_) įvyksta, kai, kai paveldėtosios klasės objektas perduodamas arba priskiriamas **per reikšmę** kaip bazinės klasės objektas — papildomos dalys prarandamos
@@ -88,8 +73,6 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - Trys tipiški scenarijai: priskyrimas kintamajam, perdavimas į funkciją per reikšmę, `vector<Shape>`
 - `void f(Shape s)` — sukelia slicing; `void f(const Shape& s)` — saugus perdavimas; `void f(Shape* s)` — pilnas polimorfizmas
 - `vector<Shape*>` vietoj `vector<Shape>` — pagrindinis praktinis sprendimas
-
-\---
 
 ## 8. Išimtys
 
@@ -101,17 +84,13 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - Konkretesnės/specifinės `catch` šakos (`invalid_argument`, `runtime_error`) turi eiti **prieš** bendrąją — kitaip nebus pasiektos
 - `try/catch` blokas turėtų apgaubti tik konkrečią operaciją, ne visą `main()` — tai leidžia programai tęsti darbą po nesėkmingos operacijos
 
-\---
-
 ## 9. `vector<T>` su polimorfizmu
 
-- `vector<Shape*>` su `push_back(new Circle(...))` — vektoriuje saugoma rodyklė, o `Circle` objektas — heap'o atmintyje
+- `vector<Shape*>` su `push_back(new Circle(...))` — vektoriuje saugoma rodyklė, o `Circle` objektas — dinaminėje/laisvojoje atmintyje (_heap_'e)
 - Iteracija `for (Shape* s : shapes) s->printInfo()` veikia polimorfiškai, jei `printInfo()` yra `virtual`
 - Kiekvienas elementas turi būti atlaisvintas atskirai: `for (Shape* s : shapes) delete s;` — `shapes.clear()` to neatlieka
-- `shapes.clear()` pašalina rodykles iš vektoriaus, tačiau heap'o atminties **neatlaisvina**
-- `delete` per `Shape*` be `virtual` destruktoriaus → paveldėtosios klasės destruktorius nekviestas → atminties nutekėjimas
-
-\---
+- `shapes.clear()` pašalina rodykles iš vektoriaus, tačiau atminties **neatlaisvina**
+- `delete` per `Shape*` be `virtual` destruktoriaus → paveldėtosios klasės destruktorius nekviečiamas → atminties nutekėjimas
 
 ## 10. Šablonai (_Templates_)
 
@@ -128,5 +107,3 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 - `clang` griežtesnis — daugiau klaidų vietoj perspėjimų; naudingas tikrinimui
 - Kompiliavimo klaida ≠ susiejimo/linkerio (_linker_) klaida — `static` nario neapibrėžimas kompiliuojasi, tačiau linkeris jo neranda (`undefined reference`)
 - Programa griūna arba duoda netikėtus rezultatus? Pirma ieškoti: _shallow copy_, _double delete_, _object slicing_, trūkstamo `virtual`
-
-\---
