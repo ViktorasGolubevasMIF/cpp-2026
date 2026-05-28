@@ -36,11 +36,11 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 ## 3. RAII ir dinaminis atminties valdymas
 
 - Jei klasė tiesiogiai naudoja `new` — destruktorius **privalo** kviesti `delete`; kitu atveju atmintis nuteka
-- `delete[]` ir `delete` **nėra sukeičiami** — netinkamo varianto naudojimas sukelia neapibrėžtą elgseną (undefined behavior)
+- `delete[]` ir `delete` **nėra sukeičiami** — netinkamo varianto naudojimas sukelia neapibrėžtą elgseną (_undefined behavior_)
 - `std::string` ir `std::vector` patys laikosi RAII principo — jų destruktoriai atlaisvina atmintį automatiškai
-- RAII esmė: resursas įgyjamas konstruktoriuje ir **neišvengiamai** atlaisvinamas destruktoriuje — taip pat ir išimčių atveju
+- RAII (_Resource Acquisition Is Initialization_) esmė: resursas įgyjamas konstruktoriuje **turi būti** atlaisvinamas destruktoriuje — taip pat ir išimčių atveju
 - _Stack unwinding_ garantuoja destruktorių iškvietimą — tai priežastis, kodėl RAII apsaugo nuo atminties nutekėjimo net metant išimtis
-- Naudojant įprastą `new`/`delete`: jei tarp jų iškyla išimtis, `delete` niekada neiškviestas — `std::unique_ptr` šią problemą pašalina
+- Naudojant "įprastus" `new` ir `delete`: jei tarp jų iškyla išimtis, `delete` nebeiškviečiamas — išmanioji rodyklė (_smart pointer_)`std::unique_ptr` šią problemą pašalina
 
 \---
 
@@ -113,11 +113,20 @@ subtilias taisykles ir dėsningumus, kurie ne visada akivaizdūs iš pirmo žvil
 
 \---
 
-## 10. Kompiliatoriaus elgsena
+## 10. Šablonai (_Templates_)
+
+- `template<typename T>` leidžia rašyti bendrinį (_generic_) kodą, kuris veikia su skirtingais tipais (`int`, `double`, `std::string`, ...)
+- **Funkcijų šablonai**: kompiliatorius pats išveda tipą (_type deduction_): `swap(a, b)` → `T = int`
+- **Klasių šablonai** kuriami su tipo parametru: `vector<int>`, `stack<string>`, `pair<double, int>` — tai skirtingos tos pačios klasės versijos
+- Šablonai **generuojami kompiliavimo metu** — kompiliatorius kiekvienam naudojamam tipui sugeneruoja atskirą funkcijos ar klasės versiją (realizaciją)
+- Šablonų funkcijų ir klasių apibrėžimai dažniausiai laikomi `.h` faile (arba `.hpp`) — kompiliatorius turi matyti pilną kodą generavimo metu
+- Jei `Stack<T>` valdo dinaminę atmintį — būtina teisingai realizuoti kopijavimą (_Rule of Three_) arba jį tiesiog uždrausti (`= delete`)
+
+## 11. Kompiliatorių elgsena
 
 - `gcc` dažnai leidžia klaidingą kodą su perspėjimu — programa "veikia", tačiau elgiasi neteisingai (pvz., be `virtual` destruktoriaus)
 - `clang` griežtesnis — daugiau klaidų vietoj perspėjimų; naudingas tikrinimui
-- Kompiliavimo klaida ≠ susiejimo (linker) klaida — `static` nario neapibrėžimas kompiliuojasi, tačiau `linker` jo neranda (`undefined reference`)
-- Programa griūna arba duoda netikėtus rezultatus? Pirma ieškoti: shallow copy, double delete, slicing, trūkstamas `virtual`
+- Kompiliavimo klaida ≠ susiejimo/linkerio (_linker_) klaida — `static` nario neapibrėžimas kompiliuojasi, tačiau linkeris jo neranda (`undefined reference`)
+- Programa griūna arba duoda netikėtus rezultatus? Pirma ieškoti: _shallow copy_, _double delete_, _object slicing_, trūkstamo `virtual`
 
 \---
