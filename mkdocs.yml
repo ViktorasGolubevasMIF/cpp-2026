@@ -73,7 +73,7 @@ markdown_extensions:
       dedent_subsections: true  # automatinis indentation fix
       restrict_base_path: false  # leidžia pasiekti visą repo
 
-# Jūsų meniu struktūra
+# Jūsų meniu struktūra.
 nav:
   - 'Pradžia': index.md
   - 'Egzaminas':
