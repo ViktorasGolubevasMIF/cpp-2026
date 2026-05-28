@@ -185,12 +185,6 @@ Tikslas — parodyti gilesnį supratimą, o ne kompensuoti bazinių žinių trū
 
 \---
 
-# (Ne)Leidžiama
-
-✓ viena A4 formato atmintinė (abi pusės)
-
-\---
-
 # Vertinimo principai
 
 * vertinama idėja ir argumentavimas;

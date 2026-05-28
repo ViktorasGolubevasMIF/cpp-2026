@@ -4,11 +4,11 @@
 
 Šis sąrašas surinktas iš pratybų „Svarbu!" sekcijų ir papildytas
 „nerašytomis tiesomis" — dažniausiomis klaidomis ir subtilybėmis,
-kurios per paskaitas skamba, bet egzamine nustebina.
+kurios per paskaitas skamba, bet egzamine gali "nustebinti".
 
 \---
 
-## 1. Klasės anatomija ir moduliavimas
+## 1. Klasės anatomija ir moduliavimas (`.cpp` + `.h`)
 
 **Iš pratybų:**
 
@@ -16,7 +16,7 @@ kurios per paskaitas skamba, bet egzamine nustebina.
 - Aprašas (`.h`) ir apibrėžimas (`.cpp`) — skirtingi dalykai; aprašų gali būti daug, apibrėžimas — tik vienas
 - `static const int` narys inicializuojamas **inline** klasėje; `static int` — **už klasės ribų** (`.cpp` faile): `int Klasė::narys = 0;`
 - `const` metodas negali kviesti ne-`const` metodų — net jei tik "skaito"
-- Inicializavimo sąrašas (`: member(val)`) **inicializuoja** narius, o ne priskiria — `const` nariai ir nuorodos **privalo** būti inicializuoti čia
+- Inicializavimo sąrašas (`: member(value)`) **inicializuoja** narius, o ne priskiria — `const` nariai ir nuorodos **privalo** būti inicializuoti čia
 - Inicializavimo tvarka — pagal **deklaracijos eilę klasėje**, ne sąrašo eilę
 
 **Nerašytos tiesos:**
@@ -46,19 +46,19 @@ kurios per paskaitas skamba, bet egzamine nustebina.
 
 \---
 
-## 3. RAII ir dinaminis atminties valdymas
+## 3. RAII ir dinaminės atminties valdymas
 
 **Iš pratybų:**
 
 - Jei klasė tiesiogiai kviečia `new` — ji turi turėti `delete` destruktoriuje; kitu atveju — atminties nutekėjimas
-- `delete[]` ≠ `delete` — painiojimas → **undefined behavior**
+! - `delete[]` ≠ `delete` — painiojimas → **undefined behavior**
 - `std::string` ir `std::vector` — patys RAII objektai; jų destruktoriai atlaisvina atmintį automatiškai
 
 **Nerašytos tiesos:**
 
 - RAII principas: resursas įgyjamas konstruktoriuje, atlaisvinamas destruktoriuje — net išimčių atveju
-- Stack unwinding garantuoja destruktorių iškvietimą — tai kodėl RAII apsaugo nuo nutekėjimo
-- `raw new/delete` su išimtimis — `throw` po `new`, bet prieš `delete` → nutekėjimas; `unique_ptr` tai išsprendžia automatiškai
+! - Steko *unwinding* garantuoja destruktorių iškvietimą — tai kodėl RAII apsaugo nuo nutekėjimo
+- įprasti `new`/`delete` su išimtimis — `throw` po `new`, bet prieš `delete` → nutekėjimas; `unique_ptr` tai išsprendžia automatiškai
 
 \---
 
@@ -67,7 +67,7 @@ kurios per paskaitas skamba, bet egzamine nustebina.
 **Iš pratybų:**
 
 - Kompiliatorius generuoja kopijos konstruktorių automatiškai — bet jis daro **shallow copy** (kopijuoja tik rodyklę, ne turinį)
-- Shallow copy + dinamika = **double delete** → crash programa pabaigoje
+! - Shallow copy + dinaminės atminties rezervavimas = **double delete** → crash programa pabaigoje
 - Rule of Three: jei reikia destruktoriaus su `delete` — reikia ir kopijos konstruktoriaus, ir priskyrimo operatoriaus
 - Kopijos priskyrimo operatoriuje: **pirma** patikrinkite savęs priskyrimą (`if (this == &other)`), tada išvalykite seną atmintį
 
@@ -75,7 +75,7 @@ kurios per paskaitas skamba, bet egzamine nustebina.
 
 - `Type obj2 = obj1;` → kopijos **konstruktorius**; `obj2 = obj1;` (kai `obj2` jau egzistuoja) → priskyrimo **operatorius**
 - `vector<Shape>` — kiekvienas `push_back` daro kopiją; `vector<Shape*>` — kopijuojama tik rodyklė (8 baitai)
-- Jei `Shape` Rule of Three teisingas, kompiliatorius sugeneruos teisingą `Circle` kopijos konstruktorių automatiškai
+! - Jei `Shape` Rule of Three teisingas, kompiliatorius sugeneruos teisingą `Circle` kopijos konstruktorių automatiškai
 
 \---
 
@@ -103,14 +103,14 @@ kurios per paskaitas skamba, bet egzamine nustebina.
 - **Vienas** `virtual` bazinėje klasėje — pakanka; paveldėtojai automatiškai paveldi `virtual` savybę
 - `override` — ne funkcionalumas, o **saugiklis**: kompiliatorius patikrina ar signatūra tiksliai atitinka
 - Pamiršta `const` → metodas tampa **perkrautu** (overload), ne perdengtu (override); su `override` — kompiliavimo klaida
-- `virtual` destruktorius: jei klasė turi bent vieną `virtual` — destruktorius **privalo** būti `virtual`; be jo `delete Base*` → undefined behavior
+- `virtual` destruktorius: jei klasė turi bent vieną `virtual` — destruktorius **privalo** būti `virtual`; be jo `delete Base*` → *undefined behavior*
 - Be `virtual` destruktoriaus — tik `Shape DTOR` iškviečiamas; `Circle DTOR` **praleistas** → resursų nutekėjimas
-- `gcc` praneša kaip `warning`, ne `error` — programa "veikia", bet **neteisingai**
+- `gcc` praneša kaip `warning`, ne `error` — programa veikia, bet **neteisingai**
 
 **Nerašytos tiesos:**
 
-- Static binding: metodas parenkamas pagal **rodyklės tipą** kompiliavimo metu
-- Dynamic binding: metodas parenkamas pagal **tikrąjį objekto tipą** vykdymo metu (per vtable)
+- Static binding (susiejimas): metodas parenkamas pagal **rodyklės tipą** kompiliavimo metu
+- Dynamic binding: metodas parenkamas pagal **tikrąjį objekto tipą** vykdymo metu (per `vtable`)
 - `sizeof` padidėja pridėjus `virtual` — kiekvienas objektas gauna `vptr` (8 baitai, 64-bit)
 - Konstruktorius negali būti `virtual`; kopijos konstruktorius — taip pat ne
 
@@ -136,17 +136,17 @@ kurios per paskaitas skamba, bet egzamine nustebina.
 
 **Iš pratybų:**
 
-- `throw` konstruktoriuje — programa **tęsiasi** po `catch`; objekto nėra, gyvenimas eina toliau
+! - `throw` konstruktoriuje — programa **tęsiasi** po `catch`; objekto nėra, gyvenimas eina toliau
 - Objektas lieka galiojantis po metodo `throw` jei `throw` įvyko **prieš** priskyrimą — tai **strong exception safety**
 - Validacijos logika kartojasi konstruktoriuje ir setter'iuose — tai normalu; abi vietos yra "vartai" į neteisingą būseną
 - Stack unwinding: `throw` automatiškai kviečia visų sukurtų stack objektų destruktorius
 
 **Nerašytos tiesos:**
 
-- `catch (const std::exception& e)` gaudo visas standartines išimtis — plačiausias tinklas
+! - `catch (const std::exception& e)` gaudo visas standartines išimtis — plačiausias tinklas
 - Konkretesnės `catch` šakos (**invalid_argument**, **runtime_error**) turi eiti **prieš** bendrąją
-- `throw` iš bazinės klasės konstruktoriaus propagavosi per paveldėtojo konstruktorių automatiškai
-- `try/catch` apima tik konkrečios operacijos — ne visą `main()`; tai leidžia programai tęstis po klaidos
+! - `throw` iš bazinės klasės konstruktoriaus propagavosi per paveldėtojo konstruktorių automatiškai
+! - `try/catch` apima tik konkrečios operacijos — ne visą `main()`; tai leidžia programai tęstis po klaidos
 
 \---
 
@@ -154,9 +154,9 @@ kurios per paskaitas skamba, bet egzamine nustebina.
 
 **Iš pratybų:**
 
-- `vector<Shape*>` — `push_back(new Circle(...))` įdeda rodyklę; Circle pilnas heap'e
+! - `vector<Shape*>` — `push_back(new Circle(...))` įdeda rodyklę; Circle pilnas heap'e
 - Iteruojant `for (Shape* s : shapes) s->printInfo()` — veikia polimorfiškai su `virtual`
-- **Delete** kiekvienas elementas: `for (Shape* s : shapes) delete s;` — ne tik `shapes.clear()`
+! - **Delete** kiekvienas elementas: `for (Shape* s : shapes) delete s;` — ne tik `shapes.clear()`
 
 **Nerašytos tiesos:**
 
