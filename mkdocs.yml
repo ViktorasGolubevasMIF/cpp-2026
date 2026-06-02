@@ -77,7 +77,7 @@ markdown_extensions:
 nav:
   - 'Pradžia': index.md
   - 'Egzaminas':
-    - 'Egzamino struktūra': "Egzaminas/OP_CPP_Egzamino_struktura_v3.md"
+    - 'Egzamino struktūra': "Egzaminas/OP_CPP_Egzamino_struktura_v4.md"
     - 'Pasirengimo atmintinė (naujinama)': "Egzaminas/Pasirengimo_atmintine_v2.md"
   - 'Pratybos':
     - 'Tvarka': Pratybos/Tvarka/UzduociuGidas_1_1.md
