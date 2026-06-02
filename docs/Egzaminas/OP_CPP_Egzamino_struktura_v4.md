@@ -23,7 +23,7 @@ Egzamino tikslas — parodyti, kad gebate perskaityti, suprasti ir parašyti baz
 
 |Dalis|Turinys|Taškai|Užduočių|
 |-|-|:-:|:-:|
-|I|Testas|~30|10-12|
+|I|Testas|~**40**|10-12|
 |II|Kodo rašymas|~30|2|
 |III|Kodo analizė|~30|3|
 |Bonus|Papildoma užduotis|~+20|1|
